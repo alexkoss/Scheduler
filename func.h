@@ -1,0 +1,89 @@
+#pragma once
+#include "stdafx.h"
+
+
+
+struct uni_input
+{
+	int num;
+	char name[100];
+	int gnum;
+	int free;
+	char type[100];
+	int hours;
+	int begin_time;
+	bool operator <(const uni_input& inp) const;
+};
+
+struct auditory_struct
+{
+	int id;					// порядковый номер
+	char name[100];			// название аудитории
+	int groups_max;			// вместимость аудитории
+	int groups_available;	// остаточная вместимость (сколько групп ещё может заниматься в данной аудитории)
+	bool operator <(const auditory_struct& aud) const; // метод, необходимый для применения сортировки для списка аудиторий
+};
+
+struct group_struct
+{
+	int id;					// порядковый номер
+	char name[100];			// название группы
+	bool operator <(const group_struct& gr) const; // метод, необходимый для применения сортировки для списка групп
+};
+
+struct day_struct
+{
+	int id;					// порядковый номер
+	char name[100];			// название дня недели
+	bool operator <(const day_struct& day) const; // метод, необходимый для применения сортировки для списка групп
+};
+
+struct lesson_struct
+{
+	int id;					// порядковый номер
+	char name[100];			// название группы
+	char type[100];			// тип занятия
+	int hours;				// количество академических часов
+	bool operator <(const lesson_struct& les) const; // метод, необходимый для применения сортировки для списка групп
+};
+
+struct time_struct
+{
+	int id;					// порядковый номер
+	int begin_time;			// время начала занятия
+	bool operator <(const time_struct& tim) const; // метод, необходимый для применения сортировки для списка групп
+};
+
+struct schedule_inputs_all
+{
+	list<auditory_struct> auditories;
+	list<group_struct> groups;
+	list<day_struct> days;
+	list<lesson_struct> lessons;
+	list<time_struct> times;
+};
+
+class schedule_inputs
+{
+//protected:
+
+public:
+	schedule_inputs_all inputs;
+
+public:
+	schedule_inputs(void)
+	{
+
+	}
+	~schedule_inputs()
+	{
+		inputs.auditories.clear();
+		inputs.groups.clear();
+		inputs.days.clear();
+		inputs.lessons.clear();
+		inputs.times.clear();
+	}
+};
+
+String^ out_text(schedule_inputs* inputs, String^ filename_in);
+String^ out_struct(schedule_inputs* inputs);
