@@ -2,7 +2,7 @@
 
 #include "func.h"
 #include "schedule.h"
-class schedule_inputs;
+class schedule_inputs; 
 /*auditory aarr[] =
 {
 	
