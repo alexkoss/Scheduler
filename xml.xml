@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schedule name="Это новый файл входных данных для расписания">
+  <auditories>
+    <auditory id="1" name="lection" groups_max="2" groups_available ="2"/>
+    <auditory id="2" name="seminar" groups_max="1" groups_available ="1"/>
+    <auditory id="3" name="seminar" groups_max="1" groups_available ="1"/>
+    <auditory id="4" name="lab"     groups_max="1" groups_available ="1"/>
+  </auditories>
+  <groups>
+    <group id="1" name="I"/>
+    <group id="2" name="II"/>
+    <group id="3" name="III"/>
+    <group id="4" name="IV"/>
+  </groups>
+  <days>
+    <day id="1" name="Monday"/>
+    <day id="2" name="Tuesday"/>
+  </days>
+  <lessons>
+    <lesson id="1" name="Math" type="lection" hours="2"/>
+    <lesson id="2" name="Physics" type="lection" hours="2"/>
+    <lesson id="3" name="Math" type="seminar" hours="2"/>
+    <lesson id="4" name="Physics" type="seminar" hours="2"/>
+    <lesson id="5" name="Physics" type="lab" hours="2"/>
+  </lessons>
+  <times>
+    <time id="1" begin_time="10"/>
+    <time id="2" begin_time="12"/>
+    <time id="3" begin_time="14"/>
+  </times>
+</schedule>
