@@ -85,14 +85,17 @@ protected:
 	list<sched_string> slist;
 
 	sched_string current_parameters;
+
+public: 
+	unsigned int max_num_of_strings;
+
 	//методы
 
 public:
 	SCHEDULE(void)
 	{
-//		start=NULL;
+		max_num_of_strings = 0;
 	}
-
 	//коструктор копирования
 //	SCHEDULE(SCHEDULE const& copy)
 //		: slist(copy.slist) {}
@@ -101,6 +104,10 @@ public:
 	{
 		slist.clear();
 		//Del_all();
+	}
+	void remax(schedule_inputs* inputs)
+	{
+		max_num_of_strings = inputs->inputs.groups.size() * inputs->inputs.lessons.size();
 	}
 	inline void AddNewStr_List	(const sched_string &current);
 	void Show_All_List			(char* out);
@@ -112,7 +119,7 @@ public:
 //	void Show_All				(void);
 	void Create					(schedule_inputs* inputs);
 	void AddNewStr				(schedule_inputs* inputs);
-	int stats					(void);
+	int stats					(schedule_inputs* inputs);
 	void modify					(schedule_inputs* inputs,int num);
 	void skr					(schedule_inputs* inputs,SCHEDULE & sch1, SCHEDULE & sch2);
 	bool search					(const sched_string &current);

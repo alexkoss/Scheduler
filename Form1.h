@@ -68,7 +68,7 @@ namespace xmltest_dotnet {
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(334, 452);
+			this->button1->Location = System::Drawing::Point(166, 452);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(100, 23);
 			this->button1->TabIndex = 0;
@@ -80,13 +80,13 @@ namespace xmltest_dotnet {
 			// 
 			this->richTextBox1->Location = System::Drawing::Point(13, 13);
 			this->richTextBox1->Name = L"richTextBox1";
-			this->richTextBox1->Size = System::Drawing::Size(421, 431);
+			this->richTextBox1->Size = System::Drawing::Size(253, 431);
 			this->richTextBox1->TabIndex = 1;
 			this->richTextBox1->Text = L"";
 			// 
 			// button2
 			// 
-			this->button2->Location = System::Drawing::Point(441, 452);
+			this->button2->Location = System::Drawing::Point(272, 452);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(103, 23);
 			this->button2->TabIndex = 3;
@@ -96,9 +96,9 @@ namespace xmltest_dotnet {
 			// 
 			// richTextBox2
 			// 
-			this->richTextBox2->Location = System::Drawing::Point(441, 13);
+			this->richTextBox2->Location = System::Drawing::Point(272, 13);
 			this->richTextBox2->Name = L"richTextBox2";
-			this->richTextBox2->Size = System::Drawing::Size(439, 431);
+			this->richTextBox2->Size = System::Drawing::Size(608, 431);
 			this->richTextBox2->TabIndex = 4;
 			this->richTextBox2->Text = L"";
 			// 
@@ -197,6 +197,7 @@ private: System::Void button2_Click(System::Object^  sender, System::EventArgs^ 
 
 
 			 SCHEDULE s;
+			 s.remax(inp);
 			 s.Cycle(inp);
 			 char str[65000]="";
 			 s.Show_All_List(str);

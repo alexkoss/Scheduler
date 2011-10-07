@@ -19,6 +19,7 @@ struct auditory_struct
 {
 	int id;					// порядковый номер
 	char name[100];			// название аудитории
+	char type[100];			// тип аудитории
 	int groups_max;			// вместимость аудитории
 	int groups_available;	// остаточная вместимость (сколько групп ещё может заниматься в данной аудитории)
 	bool operator <(const auditory_struct& aud) const; // метод, необходимый для применения сортировки для списка аудиторий

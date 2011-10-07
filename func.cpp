@@ -74,6 +74,10 @@ String^ out_text(schedule_inputs* inputs, String^ filename_in)
 						{
 							strcpy(one_auditory.name,readerValue);
 						}
+						else if (reader->Name=="type")
+						{
+							strcpy(one_auditory.type,readerValue);
+						}
 						else if (reader->Name=="groups_max")
 						{
 							one_auditory.groups_max=atoi(readerValue);
@@ -249,7 +253,7 @@ String^ out_struct(schedule_inputs* inputs)
 
 	for (list<auditory_struct>::iterator it=inputs->inputs.auditories.begin(); it!=inputs->inputs.auditories.end(); it++)
 	{
-		text+=(String::Concat("Id = ",(*it).id,", Name = ",String((*it).name).ToString(),", Groups maximum = ",(*it).groups_max,", Groups available = ",(*it).groups_available,"\n"));
+		text+=(String::Concat("Id = ",(*it).id,", Name = ",String((*it).name).ToString(),", Type = ",String((*it).type).ToString(),", Groups maximum = ",(*it).groups_max,", Groups available = ",(*it).groups_available,"\n"));
 	}
 	ret_text+=text;
 	ret_text+="\n";
