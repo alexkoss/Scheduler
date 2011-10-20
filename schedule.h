@@ -109,6 +109,10 @@ public:
 	{
 		max_num_of_strings = inputs->inputs.groups.size() * inputs->inputs.lessons.size();
 	}
+	void clear(void)
+	{
+		slist.clear();
+	}
 	inline void AddNewStr_List	(const sched_string &current);
 	void Show_All_List			(char* out);
 //	void Sort_List				(void);

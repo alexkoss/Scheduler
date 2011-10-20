@@ -35,11 +35,9 @@ bool time_struct::operator <(const time_struct& tim) const
 String^ out_text(schedule_inputs* inputs, String^ filename_in)
 {
 	String^ text="";
-	//String^ filename_in="./xml.xml";
 	XmlTextReader^ reader = gcnew XmlTextReader(filename_in);
 	while (reader->Read())
 	{
-//		uni_input one_string_to_group;
 		auditory_struct one_auditory;
 		group_struct one_group;
 		day_struct one_day;

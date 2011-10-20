@@ -86,5 +86,14 @@ public:
 	}
 };
 
+struct selected_indexes 
+{
+	int aud[5];
+	int gr[2];
+	int day[2];
+	int les[4];
+	int tim[2];
+};
+
 String^ out_text(schedule_inputs* inputs, String^ filename_in);
 String^ out_struct(schedule_inputs* inputs);

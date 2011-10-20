@@ -24,6 +24,7 @@ using namespace System::Xml;
 using namespace System::IO;
 using namespace System::Text;
 using namespace System::Runtime::InteropServices;
+using namespace System::Data;
 
 // TODO: reference additional headers your program requires here
 
