@@ -82,13 +82,13 @@ class SCHEDULE
 {
 protected:
 //	sched_string *start;
-	list<sched_string> slist;
+	
 
 	sched_string current_parameters;
 
 public: 
 	unsigned int max_num_of_strings;
-
+	list<sched_string> slist;
 	//методы
 
 public:
