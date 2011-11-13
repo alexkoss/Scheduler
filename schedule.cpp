@@ -532,34 +532,38 @@ void SCHEDULE::Cycle(schedule_inputs* inputs)
 	nmax=1;
 
 //mm11:
-	for (int i=1;i<number_of_schedules;i++)		// - мас2 - лучшие из выборки 
+	do
+
 	{
-		if (stats[i]<max) 
+		for (int i=1;i<number_of_schedules;i++)		// - мас2 - лучшие из выборки 
 		{
-			max=stats[i];
-			nmax=1;
-			mas2[nmax-1]=mas[i];
-		} else if (stats[i]==max)
-		{
-			nmax+=1;
-			mas2[nmax-1]=mas[i];
+			if (stats[i]<max) 
+			{
+				max=stats[i];
+				nmax=1;
+				mas2[nmax-1]=mas[i];
+			} else if (stats[i]==max)
+			{
+				nmax+=1;
+				mas2[nmax-1]=mas[i];
+			}
 		}
-	}
-	for (int i=0;i<nmax-1;i++)
-		mas3[i].skr(inputs,mas2[i],mas2[i+1]); // - скрещенный массив списков
-	for (int i=nmax-1;i<number_of_schedules;i++)
-		mas3[i]=mas[i];				// - дополняем списками - родителями
-	for (int i=0;i<10;i++)
-	{
-		mas3[i].modify(inputs,5);
-		mas[i]=mas3[i];
-		stats[i]=mas[i].stats(inputs);
-	}
-	max=stats[0];
-	nmax=1;
+		for (int i=0;i<nmax-1;i++)
+			mas3[i].skr(inputs,mas2[i],mas2[i+1]); // - скрещенный массив списков
+		for (int i=nmax-1;i<number_of_schedules;i++)
+			mas3[i]=mas[i];				// - дополняем списками - родителями
+		for (int i=0;i<10;i++)
+		{
+			mas3[i].modify(inputs,5);
+			mas[i]=mas3[i];
+			stats[i]=mas[i].stats(inputs);
+		}
+		max=stats[0];
+		nmax=1;
 
 	
-	iter+=1;
+		iter+=1;
+	} while (iter<1);
 //	if (iter<10) goto mm11;
 
 	for (int i=0;i<number_of_schedules;i++)

@@ -71,9 +71,9 @@ namespace xmltest_dotnet {
 
 			 
 	private: System::Windows::Forms::Label^  label1;
-	private: System::Windows::Forms::Button^  button3;
-	private: System::Windows::Forms::Button^  button4;
-	private: System::Windows::Forms::Button^  button5;
+
+
+
 	private: System::Windows::Forms::Panel^  panel2;
 	private: System::Windows::Forms::TableLayoutPanel^  tableLayoutPanel2;
 	private: System::Windows::Forms::TabControl^  tabControl2;
@@ -105,12 +105,9 @@ namespace xmltest_dotnet {
 			this->tabPage5 = (gcnew System::Windows::Forms::TabPage());
 			this->tabPage6 = (gcnew System::Windows::Forms::TabPage());
 			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->button5 = (gcnew System::Windows::Forms::Button());
-			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->comboBox1 = (gcnew System::Windows::Forms::ComboBox());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->tableLayoutPanel1 = (gcnew System::Windows::Forms::TableLayoutPanel());
-			this->button4 = (gcnew System::Windows::Forms::Button());
 			this->button7 = (gcnew System::Windows::Forms::Button());
 			this->tabPage2 = (gcnew System::Windows::Forms::TabPage());
 			this->button8 = (gcnew System::Windows::Forms::Button());
@@ -136,7 +133,8 @@ namespace xmltest_dotnet {
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(891, 28);
+			this->button1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->button1->Location = System::Drawing::Point(894, 28);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(111, 37);
 			this->button1->TabIndex = 0;
@@ -146,15 +144,19 @@ namespace xmltest_dotnet {
 			// 
 			// richTextBox1
 			// 
+			this->richTextBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
+				| System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->richTextBox1->Location = System::Drawing::Point(3, 3);
 			this->richTextBox1->Name = L"richTextBox1";
-			this->richTextBox1->Size = System::Drawing::Size(862, 491);
+			this->richTextBox1->Size = System::Drawing::Size(871, 528);
 			this->richTextBox1->TabIndex = 1;
 			this->richTextBox1->Text = L"";
 			// 
 			// button2
 			// 
-			this->button2->Location = System::Drawing::Point(891, 28);
+			this->button2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->button2->Location = System::Drawing::Point(902, 28);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(111, 63);
 			this->button2->TabIndex = 3;
@@ -164,20 +166,26 @@ namespace xmltest_dotnet {
 			// 
 			// richTextBox2
 			// 
+			this->richTextBox2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
+				| System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->richTextBox2->Location = System::Drawing::Point(3, 3);
 			this->richTextBox2->Name = L"richTextBox2";
-			this->richTextBox2->Size = System::Drawing::Size(862, 488);
+			this->richTextBox2->Size = System::Drawing::Size(873, 524);
 			this->richTextBox2->TabIndex = 4;
 			this->richTextBox2->Text = L"";
 			// 
 			// tabControl1
 			// 
+			this->tabControl1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
+				| System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->tabControl1->Controls->Add(this->tabPage1);
 			this->tabControl1->Controls->Add(this->tabPage2);
 			this->tabControl1->Location = System::Drawing::Point(0, -1);
 			this->tabControl1->Name = L"tabControl1";
 			this->tabControl1->SelectedIndex = 0;
-			this->tabControl1->Size = System::Drawing::Size(1025, 558);
+			this->tabControl1->Size = System::Drawing::Size(1028, 592);
 			this->tabControl1->TabIndex = 5;
 			// 
 			// tabPage1
@@ -188,19 +196,22 @@ namespace xmltest_dotnet {
 			this->tabPage1->Location = System::Drawing::Point(4, 22);
 			this->tabPage1->Name = L"tabPage1";
 			this->tabPage1->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage1->Size = System::Drawing::Size(1017, 532);
+			this->tabPage1->Size = System::Drawing::Size(1020, 566);
 			this->tabPage1->TabIndex = 0;
 			this->tabPage1->Text = L"Учебный план";
 			this->tabPage1->UseVisualStyleBackColor = true;
 			// 
 			// tabControl3
 			// 
+			this->tabControl3->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
+				| System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->tabControl3->Controls->Add(this->tabPage5);
 			this->tabControl3->Controls->Add(this->tabPage6);
 			this->tabControl3->Location = System::Drawing::Point(6, 6);
 			this->tabControl3->Name = L"tabControl3";
 			this->tabControl3->SelectedIndex = 0;
-			this->tabControl3->Size = System::Drawing::Size(879, 523);
+			this->tabControl3->Size = System::Drawing::Size(882, 557);
 			this->tabControl3->TabIndex = 17;
 			// 
 			// tabPage5
@@ -209,7 +220,7 @@ namespace xmltest_dotnet {
 			this->tabPage5->Location = System::Drawing::Point(4, 22);
 			this->tabPage5->Name = L"tabPage5";
 			this->tabPage5->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage5->Size = System::Drawing::Size(871, 497);
+			this->tabPage5->Size = System::Drawing::Size(874, 531);
 			this->tabPage5->TabIndex = 0;
 			this->tabPage5->Text = L"Текст";
 			this->tabPage5->UseVisualStyleBackColor = true;
@@ -217,15 +228,12 @@ namespace xmltest_dotnet {
 			// tabPage6
 			// 
 			this->tabPage6->Controls->Add(this->label1);
-			this->tabPage6->Controls->Add(this->button5);
-			this->tabPage6->Controls->Add(this->button3);
 			this->tabPage6->Controls->Add(this->comboBox1);
 			this->tabPage6->Controls->Add(this->panel1);
-			this->tabPage6->Controls->Add(this->button4);
 			this->tabPage6->Location = System::Drawing::Point(4, 22);
 			this->tabPage6->Name = L"tabPage6";
 			this->tabPage6->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage6->Size = System::Drawing::Size(871, 497);
+			this->tabPage6->Size = System::Drawing::Size(874, 531);
 			this->tabPage6->TabIndex = 1;
 			this->tabPage6->Text = L"Таблица";
 			this->tabPage6->UseVisualStyleBackColor = true;
@@ -239,24 +247,6 @@ namespace xmltest_dotnet {
 			this->label1->TabIndex = 13;
 			this->label1->Text = L"Выберите категорию";
 			// 
-			// button5
-			// 
-			this->button5->Location = System::Drawing::Point(282, 468);
-			this->button5->Name = L"button5";
-			this->button5->Size = System::Drawing::Size(75, 23);
-			this->button5->TabIndex = 16;
-			this->button5->Text = L"button5";
-			this->button5->UseVisualStyleBackColor = true;
-			// 
-			// button3
-			// 
-			this->button3->Location = System::Drawing::Point(375, 468);
-			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(75, 23);
-			this->button3->TabIndex = 14;
-			this->button3->Text = L"button3";
-			this->button3->UseVisualStyleBackColor = true;
-			// 
 			// comboBox1
 			// 
 			this->comboBox1->FormattingEnabled = true;
@@ -268,11 +258,14 @@ namespace xmltest_dotnet {
 			// 
 			// panel1
 			// 
+			this->panel1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
+				| System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->panel1->AutoScroll = true;
 			this->panel1->Controls->Add(this->tableLayoutPanel1);
 			this->panel1->Location = System::Drawing::Point(6, 38);
 			this->panel1->Name = L"panel1";
-			this->panel1->Size = System::Drawing::Size(859, 424);
+			this->panel1->Size = System::Drawing::Size(864, 489);
 			this->panel1->TabIndex = 6;
 			// 
 			// tableLayoutPanel1
@@ -284,27 +277,20 @@ namespace xmltest_dotnet {
 			this->tableLayoutPanel1->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Absolute, 
 				100)));
 			this->tableLayoutPanel1->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Absolute, 
-				147)));
+				155)));
+			this->tableLayoutPanel1->ImeMode = System::Windows::Forms::ImeMode::NoControl;
 			this->tableLayoutPanel1->Location = System::Drawing::Point(3, 3);
 			this->tableLayoutPanel1->Name = L"tableLayoutPanel1";
 			this->tableLayoutPanel1->RowCount = 2;
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 25)));
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
-			this->tableLayoutPanel1->Size = System::Drawing::Size(250, 48);
+			this->tableLayoutPanel1->Size = System::Drawing::Size(258, 48);
 			this->tableLayoutPanel1->TabIndex = 2;
-			// 
-			// button4
-			// 
-			this->button4->Location = System::Drawing::Point(456, 468);
-			this->button4->Name = L"button4";
-			this->button4->Size = System::Drawing::Size(75, 23);
-			this->button4->TabIndex = 15;
-			this->button4->Text = L"button4";
-			this->button4->UseVisualStyleBackColor = true;
 			// 
 			// button7
 			// 
-			this->button7->Location = System::Drawing::Point(891, 71);
+			this->button7->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->button7->Location = System::Drawing::Point(894, 71);
 			this->button7->Name = L"button7";
 			this->button7->Size = System::Drawing::Size(111, 34);
 			this->button7->TabIndex = 9;
@@ -321,14 +307,15 @@ namespace xmltest_dotnet {
 			this->tabPage2->Location = System::Drawing::Point(4, 22);
 			this->tabPage2->Name = L"tabPage2";
 			this->tabPage2->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage2->Size = System::Drawing::Size(1017, 532);
+			this->tabPage2->Size = System::Drawing::Size(1020, 566);
 			this->tabPage2->TabIndex = 1;
 			this->tabPage2->Text = L"Расписание";
 			this->tabPage2->UseVisualStyleBackColor = true;
 			// 
 			// button8
 			// 
-			this->button8->Location = System::Drawing::Point(892, 159);
+			this->button8->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->button8->Location = System::Drawing::Point(903, 159);
 			this->button8->Name = L"button8";
 			this->button8->Size = System::Drawing::Size(110, 34);
 			this->button8->TabIndex = 10;
@@ -338,12 +325,15 @@ namespace xmltest_dotnet {
 			// 
 			// tabControl2
 			// 
+			this->tabControl2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
+				| System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->tabControl2->Controls->Add(this->tabPage3);
 			this->tabControl2->Controls->Add(this->tabPage4);
 			this->tabControl2->Location = System::Drawing::Point(6, 6);
 			this->tabControl2->Name = L"tabControl2";
 			this->tabControl2->SelectedIndex = 0;
-			this->tabControl2->Size = System::Drawing::Size(879, 520);
+			this->tabControl2->Size = System::Drawing::Size(890, 556);
 			this->tabControl2->TabIndex = 9;
 			// 
 			// tabPage3
@@ -352,7 +342,7 @@ namespace xmltest_dotnet {
 			this->tabPage3->Location = System::Drawing::Point(4, 22);
 			this->tabPage3->Name = L"tabPage3";
 			this->tabPage3->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage3->Size = System::Drawing::Size(871, 494);
+			this->tabPage3->Size = System::Drawing::Size(882, 530);
 			this->tabPage3->TabIndex = 0;
 			this->tabPage3->Text = L"Текст";
 			this->tabPage3->UseVisualStyleBackColor = true;
@@ -363,18 +353,21 @@ namespace xmltest_dotnet {
 			this->tabPage4->Location = System::Drawing::Point(4, 22);
 			this->tabPage4->Name = L"tabPage4";
 			this->tabPage4->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage4->Size = System::Drawing::Size(871, 494);
+			this->tabPage4->Size = System::Drawing::Size(882, 530);
 			this->tabPage4->TabIndex = 1;
 			this->tabPage4->Text = L"Таблица";
 			this->tabPage4->UseVisualStyleBackColor = true;
 			// 
 			// panel2
 			// 
+			this->panel2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
+				| System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->panel2->AutoScroll = true;
 			this->panel2->Controls->Add(this->tableLayoutPanel2);
 			this->panel2->Location = System::Drawing::Point(6, 6);
 			this->panel2->Name = L"panel2";
-			this->panel2->Size = System::Drawing::Size(867, 485);
+			this->panel2->Size = System::Drawing::Size(873, 522);
 			this->panel2->TabIndex = 6;
 			// 
 			// tableLayoutPanel2
@@ -386,18 +379,19 @@ namespace xmltest_dotnet {
 			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Absolute, 
 				100)));
 			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Absolute, 
-				143)));
+				151)));
 			this->tableLayoutPanel2->Location = System::Drawing::Point(3, 3);
 			this->tableLayoutPanel2->Name = L"tableLayoutPanel2";
 			this->tableLayoutPanel2->RowCount = 2;
 			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 25)));
 			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
-			this->tableLayoutPanel2->Size = System::Drawing::Size(246, 48);
+			this->tableLayoutPanel2->Size = System::Drawing::Size(254, 48);
 			this->tableLayoutPanel2->TabIndex = 5;
 			// 
 			// button9
 			// 
-			this->button9->Location = System::Drawing::Point(891, 199);
+			this->button9->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->button9->Location = System::Drawing::Point(902, 199);
 			this->button9->Name = L"button9";
 			this->button9->Size = System::Drawing::Size(111, 37);
 			this->button9->TabIndex = 8;
@@ -407,7 +401,8 @@ namespace xmltest_dotnet {
 			// 
 			// button6
 			// 
-			this->button6->Location = System::Drawing::Point(891, 117);
+			this->button6->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->button6->Location = System::Drawing::Point(902, 117);
 			this->button6->Name = L"button6";
 			this->button6->Size = System::Drawing::Size(111, 36);
 			this->button6->TabIndex = 7;
@@ -419,12 +414,14 @@ namespace xmltest_dotnet {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1027, 569);
+			this->ClientSize = System::Drawing::Size(1030, 593);
 			this->Controls->Add(this->tabControl1);
 			this->Name = L"Form1";
 			this->Text = L"Составитель расписания";
 			this->FormClosed += gcnew System::Windows::Forms::FormClosedEventHandler(this, &Form1::Form1_FormClosed);
 			this->Load += gcnew System::EventHandler(this, &Form1::Form1_Load);
+			this->ResizeBegin += gcnew System::EventHandler(this, &Form1::Form1_ResizeBegin);
+			this->ResizeEnd += gcnew System::EventHandler(this, &Form1::Form1_ResizeEnd);
 			this->tabControl1->ResumeLayout(false);
 			this->tabPage1->ResumeLayout(false);
 			this->tabControl3->ResumeLayout(false);
@@ -496,6 +493,9 @@ namespace xmltest_dotnet {
 
 				 comboBox1->SelectedIndex=0;
 				 selected_index=-1;
+
+				 Form1::DoubleBuffered = true;
+				 //panel1->DoubleBuffered = true;
 			 }
 
 	private: System::Void Form1_FormClosed(System::Object^  sender, System::Windows::Forms::FormClosedEventArgs^  e) {
@@ -1207,6 +1207,20 @@ private: System::Void button8_Click(System::Object^  sender, System::EventArgs^ 
 				 //}
 			 
 			 tableLayoutPanel2->ResumeLayout();
+		 }
+
+private: System::Void Form1_ResizeBegin(System::Object^  sender, System::EventArgs^  e) {
+			 /*tableLayoutPanel1->SuspendLayout();
+			 tableLayoutPanel2->SuspendLayout();*/
+			 //tableLayoutPanel1->Focused=false;
+			 //tableLayoutPanel1->TableLayoutPanel();
+		 }
+
+
+private: System::Void Form1_ResizeEnd(System::Object^  sender, System::EventArgs^  e) {
+			 /*tableLayoutPanel1->ResumeLayout();
+			 tableLayoutPanel2->ResumeLayout();*/
+			 //tableLayoutPanel1->Focused=true;
 		 }
 };
 }
