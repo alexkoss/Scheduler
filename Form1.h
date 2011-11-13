@@ -136,6 +136,7 @@ namespace xmltest_dotnet {
 			// 
 			// button1
 			// 
+			this->button1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->button1->Location = System::Drawing::Point(891, 28);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(111, 37);
@@ -146,6 +147,9 @@ namespace xmltest_dotnet {
 			// 
 			// richTextBox1
 			// 
+			this->richTextBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
+				| System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->richTextBox1->Location = System::Drawing::Point(3, 3);
 			this->richTextBox1->Name = L"richTextBox1";
 			this->richTextBox1->Size = System::Drawing::Size(862, 491);
@@ -154,6 +158,7 @@ namespace xmltest_dotnet {
 			// 
 			// button2
 			// 
+			this->button2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->button2->Location = System::Drawing::Point(891, 28);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(111, 63);
@@ -164,6 +169,9 @@ namespace xmltest_dotnet {
 			// 
 			// richTextBox2
 			// 
+			this->richTextBox2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
+				| System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->richTextBox2->Location = System::Drawing::Point(3, 3);
 			this->richTextBox2->Name = L"richTextBox2";
 			this->richTextBox2->Size = System::Drawing::Size(862, 488);
@@ -172,6 +180,9 @@ namespace xmltest_dotnet {
 			// 
 			// tabControl1
 			// 
+			this->tabControl1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
+				| System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->tabControl1->Controls->Add(this->tabPage1);
 			this->tabControl1->Controls->Add(this->tabPage2);
 			this->tabControl1->Location = System::Drawing::Point(0, -1);
@@ -195,6 +206,9 @@ namespace xmltest_dotnet {
 			// 
 			// tabControl3
 			// 
+			this->tabControl3->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
+				| System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->tabControl3->Controls->Add(this->tabPage5);
 			this->tabControl3->Controls->Add(this->tabPage6);
 			this->tabControl3->Location = System::Drawing::Point(6, 6);
@@ -268,6 +282,9 @@ namespace xmltest_dotnet {
 			// 
 			// panel1
 			// 
+			this->panel1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
+				| System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->panel1->AutoScroll = true;
 			this->panel1->Controls->Add(this->tableLayoutPanel1);
 			this->panel1->Location = System::Drawing::Point(6, 38);
@@ -284,13 +301,13 @@ namespace xmltest_dotnet {
 			this->tableLayoutPanel1->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Absolute, 
 				100)));
 			this->tableLayoutPanel1->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Absolute, 
-				147)));
+				151)));
 			this->tableLayoutPanel1->Location = System::Drawing::Point(3, 3);
 			this->tableLayoutPanel1->Name = L"tableLayoutPanel1";
 			this->tableLayoutPanel1->RowCount = 2;
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 25)));
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
-			this->tableLayoutPanel1->Size = System::Drawing::Size(250, 48);
+			this->tableLayoutPanel1->Size = System::Drawing::Size(254, 48);
 			this->tableLayoutPanel1->TabIndex = 2;
 			// 
 			// button4
@@ -304,6 +321,7 @@ namespace xmltest_dotnet {
 			// 
 			// button7
 			// 
+			this->button7->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->button7->Location = System::Drawing::Point(891, 71);
 			this->button7->Name = L"button7";
 			this->button7->Size = System::Drawing::Size(111, 34);
@@ -328,6 +346,7 @@ namespace xmltest_dotnet {
 			// 
 			// button8
 			// 
+			this->button8->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->button8->Location = System::Drawing::Point(892, 159);
 			this->button8->Name = L"button8";
 			this->button8->Size = System::Drawing::Size(110, 34);
@@ -338,6 +357,9 @@ namespace xmltest_dotnet {
 			// 
 			// tabControl2
 			// 
+			this->tabControl2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
+				| System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->tabControl2->Controls->Add(this->tabPage3);
 			this->tabControl2->Controls->Add(this->tabPage4);
 			this->tabControl2->Location = System::Drawing::Point(6, 6);
@@ -370,6 +392,9 @@ namespace xmltest_dotnet {
 			// 
 			// panel2
 			// 
+			this->panel2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
+				| System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->panel2->AutoScroll = true;
 			this->panel2->Controls->Add(this->tableLayoutPanel2);
 			this->panel2->Location = System::Drawing::Point(6, 6);
@@ -386,17 +411,18 @@ namespace xmltest_dotnet {
 			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Absolute, 
 				100)));
 			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Absolute, 
-				143)));
+				147)));
 			this->tableLayoutPanel2->Location = System::Drawing::Point(3, 3);
 			this->tableLayoutPanel2->Name = L"tableLayoutPanel2";
 			this->tableLayoutPanel2->RowCount = 2;
 			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 25)));
 			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
-			this->tableLayoutPanel2->Size = System::Drawing::Size(246, 48);
+			this->tableLayoutPanel2->Size = System::Drawing::Size(250, 48);
 			this->tableLayoutPanel2->TabIndex = 5;
 			// 
 			// button9
 			// 
+			this->button9->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->button9->Location = System::Drawing::Point(891, 199);
 			this->button9->Name = L"button9";
 			this->button9->Size = System::Drawing::Size(111, 37);
@@ -407,6 +433,7 @@ namespace xmltest_dotnet {
 			// 
 			// button6
 			// 
+			this->button6->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->button6->Location = System::Drawing::Point(891, 117);
 			this->button6->Name = L"button6";
 			this->button6->Size = System::Drawing::Size(111, 36);
@@ -584,7 +611,6 @@ namespace xmltest_dotnet {
 private: System::Void button6_Click(System::Object^  sender, System::EventArgs^  e) {
 			 tableLayoutPanel1->GetControlFromPosition(3,3)->Text="YOHOHO!!";
 		 }
-
 
 private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
 			 tableLayoutPanel1->SuspendLayout();
@@ -1025,9 +1051,7 @@ private: System::Void button9_Click(System::Object^  sender, System::EventArgs^ 
 			 }
 			 tableLayoutPanel1->RowCount=2;
 		 }
-
-
-
+		 
 private: System::Void button6_Click_1(System::Object^  sender, System::EventArgs^  e) {
 			 tableLayoutPanel2->SuspendLayout();
 			 
@@ -1090,6 +1114,7 @@ private: System::Void button6_Click_1(System::Object^  sender, System::EventArgs
 
 			 tableLayoutPanel2->ResumeLayout();
 		 }
+
 private: System::Void button9_Click_1(System::Object^  sender, System::EventArgs^  e) {
 			 tableLayoutPanel2->SuspendLayout();
 			 if (tableLayoutPanel2->ColumnCount<9)
@@ -1124,6 +1149,7 @@ private: System::Void button9_Click_1(System::Object^  sender, System::EventArgs
 			 }
 			 tableLayoutPanel2->ResumeLayout();
 		 }
+
 private: System::Void button8_Click(System::Object^  sender, System::EventArgs^  e) {
 			 tableLayoutPanel2->SuspendLayout();
 			 int cnt=1;
