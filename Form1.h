@@ -1220,7 +1220,8 @@ private: System::Void Form1_ResizeBegin(System::Object^  sender, System::EventAr
 private: System::Void Form1_ResizeEnd(System::Object^  sender, System::EventArgs^  e) {
 			 /*tableLayoutPanel1->ResumeLayout();
 			 tableLayoutPanel2->ResumeLayout();*/
-			 //tableLayoutPanel1->Focused=true;
+			 //tableLayoutPanel1->Focused=true;   
+
 		 }
 };
 }
