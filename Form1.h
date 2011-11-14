@@ -277,14 +277,14 @@ namespace xmltest_dotnet {
 			this->tableLayoutPanel1->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Absolute, 
 				100)));
 			this->tableLayoutPanel1->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Absolute, 
-				155)));
+				157)));
 			this->tableLayoutPanel1->ImeMode = System::Windows::Forms::ImeMode::NoControl;
 			this->tableLayoutPanel1->Location = System::Drawing::Point(3, 3);
 			this->tableLayoutPanel1->Name = L"tableLayoutPanel1";
 			this->tableLayoutPanel1->RowCount = 2;
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 25)));
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
-			this->tableLayoutPanel1->Size = System::Drawing::Size(258, 48);
+			this->tableLayoutPanel1->Size = System::Drawing::Size(260, 48);
 			this->tableLayoutPanel1->TabIndex = 2;
 			// 
 			// button7
@@ -379,13 +379,13 @@ namespace xmltest_dotnet {
 			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Absolute, 
 				100)));
 			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Absolute, 
-				151)));
+				153)));
 			this->tableLayoutPanel2->Location = System::Drawing::Point(3, 3);
 			this->tableLayoutPanel2->Name = L"tableLayoutPanel2";
 			this->tableLayoutPanel2->RowCount = 2;
 			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 25)));
 			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
-			this->tableLayoutPanel2->Size = System::Drawing::Size(254, 48);
+			this->tableLayoutPanel2->Size = System::Drawing::Size(256, 48);
 			this->tableLayoutPanel2->TabIndex = 5;
 			// 
 			// button9
@@ -521,6 +521,7 @@ namespace xmltest_dotnet {
 			 char str[65000]="";
 			 s->Show_All_List(str);
 		 	 richTextBox2->Text=String(str).ToString();
+			 MessageBox::Show(String::Concat(s->num_free_groups()));
 
 			 //SCHEDULE s;
 			 /*current_schedule.remax(inp);
@@ -596,7 +597,7 @@ private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, Sy
 				 {
 				 case 0:
 					 new_row_count=inp->inputs.auditories.size();
-					 new_col_count=5;
+					 new_col_count=6;
 				 	 break;
 				 case 1:
 					 new_row_count=inp->inputs.groups.size();
@@ -644,7 +645,7 @@ private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, Sy
 				 switch (comboBox1->SelectedIndex)
 				 {
 				 case 0:
-					 while (tableLayoutPanel1->ColumnCount<5)
+					 while (tableLayoutPanel1->ColumnCount<6)
 					 {
 						 tableLayoutPanel1->ColumnCount+=1;
 						 tableLayoutPanel1->ColumnStyles->Add(gcnew ColumnStyle(SizeType::Absolute, 100));
@@ -655,7 +656,7 @@ private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, Sy
 						 tableLayoutPanel1->RowStyles->Add(gcnew RowStyle(SizeType::Absolute, 20));
 					 }
 
-					 for (int columnCount=0;columnCount<5;columnCount++)
+					 for (int columnCount=0;columnCount<6;columnCount++)
 					 {
 						 /*ComboBox^ CB1 = gcnew ComboBox;
 						 CB1->Items->Add("Номер");
@@ -686,6 +687,9 @@ private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, Sy
 							 break;
 						 case 4:
 							 l0->Text="Время начала";
+							 break;
+						 case 5:
+							 l0->Text="Приоритет";
 							 break;
 						 default:
 							 break;
@@ -721,6 +725,9 @@ private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, Sy
 							 } else if (tableLayoutPanel1->GetControlFromPosition(i,0)->Text=="Время начала")
 							 {
 								 l1->Text=String::Concat((*it).groups_available);
+							 } else if (tableLayoutPanel1->GetControlFromPosition(i,0)->Text=="Приоритет")
+							 {
+								 l1->Text=String::Concat((*it).priority);
 							 } 
 
 
@@ -1214,6 +1221,8 @@ private: System::Void Form1_ResizeBegin(System::Object^  sender, System::EventAr
 			 tableLayoutPanel2->SuspendLayout();*/
 			 //tableLayoutPanel1->Focused=false;
 			 //tableLayoutPanel1->TableLayoutPanel();
+			 tableLayoutPanel1->Hide();
+			 tableLayoutPanel2->Hide();
 		 }
 
 
@@ -1221,7 +1230,8 @@ private: System::Void Form1_ResizeEnd(System::Object^  sender, System::EventArgs
 			 /*tableLayoutPanel1->ResumeLayout();
 			 tableLayoutPanel2->ResumeLayout();*/
 			 //tableLayoutPanel1->Focused=true;   
-
+			 tableLayoutPanel1->Show();
+			 tableLayoutPanel2->Show();
 		 }
 };
 }

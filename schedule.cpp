@@ -106,8 +106,8 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 	int day=0;
 	int tim=0;
 	
-	//итераация по добавлению
-	while (bo==1 && CanAdd(inputs) && cnt<100)	
+	//итерация по добавлению
+	while (bo==1 && CanAdd(inputs) /*&& cnt<100*/)	
 		// 100, потому что CanAdd проверяет на количество строк в расписании 
 		// по отношению к количеству строк с полностью распределённым расписанием.
 		// В версии с реальными входными данными нужно проверить без cnt<100
@@ -123,80 +123,103 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 		}
 		int some_size_of_auditories=inputs->inputs.auditories.size();
 		for (int i=0;i<some_size_of_auditories;i++)
-		{	// прогон строки по аудиториям
+		{	
+			// проверка аудитории на занятость
+			bool free_groups=false; // по какой ветке пойдём
+			bool get_out=false;		// выйти из ветки
+			int const max_free_groups=135;
+
+			if (num_free_groups()>max_free_groups)
+			{
+				free_groups=true;
+			}
+
+			// прогон строки по аудиториям
 			for (list<auditory_struct>::iterator it2=inputs->inputs.auditories.begin(); it2!=inputs->inputs.auditories.end(); it2++)
 			{
 				if ((*it2).id==i+1)
 				{
 					current_parameters.aud1=(*it2);
+					if (free_groups)
+					{
+						if (current_parameters.aud1.priority==0)
+						{
+							get_out=true;
+						}
+					}
+					
 				}
 			}
-			if ((!strcmp(current_parameters.aud1.type,"lection") && 
+			if (!get_out)
+			{
+				if ((!strcmp(current_parameters.aud1.type,"lection") && 
 					(current_parameters.aud1.groups_available>0) && 
 					!strcmp(current_parameters.les1.type,"lection")) || 
-				(!strcmp(current_parameters.aud1.type,"seminar") && 
+					(!strcmp(current_parameters.aud1.type,"seminar") && 
 					(current_parameters.aud1.groups_available>0) && 
 					!strcmp(current_parameters.les1.type,"seminar")) || 
-				(!strcmp(current_parameters.aud1.type,"lab")	 && 
+					(!strcmp(current_parameters.aud1.type,"lab")	 && 
 					(current_parameters.aud1.groups_available>0) && 
 					!strcmp(current_parameters.les1.type,"lab")) )
-			{
-				gr=rand() %(inputs->inputs.groups.size());
-				day=rand() %(inputs->inputs.days.size());
-				tim=rand() %(inputs->inputs.times.size());
-
-				for (list<group_struct>::iterator it=inputs->inputs.groups.begin(); it!=inputs->inputs.groups.end(); it++)
-				{	// выбор случайной группы из списка
-					if ((*it).id==gr+1)
-						current_parameters.gr1=(*it);
-				}
-				for (list<day_struct>::iterator it=inputs->inputs.days.begin(); it!=inputs->inputs.days.end(); it++)
-				{	// выбор случайного дня недели из списка
-					if ((*it).id==day+1)
-						current_parameters.day1=(*it);
-				}
-				for (list<time_struct>::iterator it=inputs->inputs.times.begin(); it!=inputs->inputs.times.end(); it++)
-				{	// выбор случайного времени начала из списка 
-					if ((*it).id==tim+1)
-						current_parameters.tim1=(*it);
-				}
-
-
-				//	создание текущей строки
-				current.aud1=current_parameters.aud1;
-				current.day1=current_parameters.day1;
-				current.gr1 =current_parameters.gr1;
-				current.les1=current_parameters.les1;
-				current.tim1=current_parameters.tim1;
-				
-				for (list<sched_string>::iterator it1=slist.begin(); it1!=slist.end(); it1++)
 				{
-					// проверка на конфликты
-					if ( ((*it1).gr1.id == current.gr1.id  &&  (*it1).les1.id==current.les1.id) ||
-					   ( ((*it1).gr1.id == current.gr1.id  || ((*it1).aud1.id==current.aud1.id && 
-						  (*it1).les1.id!= current.les1.id)) && 
-						  (*it1).day1.id== current.day1.id &&  (*it1).tim1.id==current.tim1.id) ) 
-					{flag=0;} 
-					else if ((*it1).gr1.id!=current.gr1.id   && (*it1).day1.id==current.day1.id && 
-							 (*it1).tim1.id==current.tim1.id && (*it1).aud1.id==current.aud1.id)
-					{
-						if ((*it1).aud1.groups_available==0)
-						{flag=0;} else current.aud1.groups_available--;
+					gr=rand() %(inputs->inputs.groups.size());
+					day=rand() %(inputs->inputs.days.size());
+					tim=rand() %(inputs->inputs.times.size());
+
+					for (list<group_struct>::iterator it=inputs->inputs.groups.begin(); it!=inputs->inputs.groups.end(); it++)
+					{	// выбор случайной группы из списка
+						if ((*it).id==gr+1)
+							current_parameters.gr1=(*it);
 					}
-				}
-				
-				if (flag==1)
-				{
-					current.aud1.groups_available--;	
-					
-					// добавление в расписание
-					this->AddNewStr_List(current);
+					for (list<day_struct>::iterator it=inputs->inputs.days.begin(); it!=inputs->inputs.days.end(); it++)
+					{	// выбор случайного дня недели из списка
+						if ((*it).id==day+1)
+							current_parameters.day1=(*it);
+					}
+					for (list<time_struct>::iterator it=inputs->inputs.times.begin(); it!=inputs->inputs.times.end(); it++)
+					{	// выбор случайного времени начала из списка 
+						if ((*it).id==tim+1)
+							current_parameters.tim1=(*it);
+					}
 
-					bo=0;
-					i=4;
+
+					//	создание текущей строки
+					current.aud1=current_parameters.aud1;
+					current.day1=current_parameters.day1;
+					current.gr1 =current_parameters.gr1;
+					current.les1=current_parameters.les1;
+					current.tim1=current_parameters.tim1;
+
+					for (list<sched_string>::iterator it1=slist.begin(); it1!=slist.end(); it1++)
+					{
+						// проверка на конфликты
+						if ( ((*it1).gr1.id == current.gr1.id  &&  (*it1).les1.id==current.les1.id) ||
+							( ((*it1).gr1.id == current.gr1.id  || ((*it1).aud1.id==current.aud1.id && 
+							(*it1).les1.id!= current.les1.id)) && 
+							(*it1).day1.id== current.day1.id &&  (*it1).tim1.id==current.tim1.id) ) 
+						{flag=0;} 
+						else if ((*it1).gr1.id!=current.gr1.id   && (*it1).day1.id==current.day1.id && 
+							(*it1).tim1.id==current.tim1.id && (*it1).aud1.id==current.aud1.id)
+						{
+							if ((*it1).aud1.groups_available==0)
+							{flag=0;} else current.aud1.groups_available--;
+						}
+					}
+
+					if (flag==1)
+					{
+						current.aud1.groups_available--;	
+
+						// добавление в расписание
+						this->AddNewStr_List(current);
+
+						bo=0;
+						i=4;
+					}
+					flag=1;
 				}
-				flag=1;
 			}
+			
 		}  
 		cnt+=1;
 	}
@@ -579,4 +602,16 @@ void SCHEDULE::Cycle(schedule_inputs* inputs)
 	}
 
 	return;
+}
+
+int SCHEDULE::num_free_groups ()
+{
+	int sum_num_free=0;
+	for (list<sched_string>::iterator it=slist.begin(); it!=slist.end(); it++)
+	{
+		//if ((*it).tim1.id==current.tim1.id && (*it).day1.id==current.day1.id)
+		//{return 1;}
+		sum_num_free+=(*it).aud1.groups_available;
+	}
+	return sum_num_free;
 }
