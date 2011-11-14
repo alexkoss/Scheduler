@@ -1,4 +1,4 @@
-#include "stdafx.h"
+п»ї#include "stdafx.h"
 
 #include "func.h"
 #include "schedule.h"
@@ -24,7 +24,7 @@ inline void SCHEDULE::AddNewStr_List (const sched_string &current)
 
 void SCHEDULE::Show_All_List(char* out)
 {
-	//выводит расписание в out
+	//РІС‹РІРѕРґРёС‚ СЂР°СЃРїРёСЃР°РЅРёРµ РІ out
 
 	slist.sort();
 	cout << '\n';
@@ -97,7 +97,7 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 {
 	//
 
-	sched_string current;	// добавляемая строка
+	sched_string current;	// РґРѕР±Р°РІР»СЏРµРјР°СЏ СЃС‚СЂРѕРєР°
 	bool bo=1;
 	bool flag=1;
 	int les=0;
@@ -106,16 +106,16 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 	int day=0;
 	int tim=0;
 	
-	//итерация по добавлению
+	//РёС‚РµСЂР°С†РёСЏ РїРѕ РґРѕР±Р°РІР»РµРЅРёСЋ
 	while (bo==1 && CanAdd(inputs) /*&& cnt<100*/)	
-		// 100, потому что CanAdd проверяет на количество строк в расписании 
-		// по отношению к количеству строк с полностью распределённым расписанием.
-		// В версии с реальными входными данными нужно проверить без cnt<100
+		// 100, РїРѕС‚РѕРјСѓ С‡С‚Рѕ CanAdd РїСЂРѕРІРµСЂСЏРµС‚ РЅР° РєРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚СЂРѕРє РІ СЂР°СЃРїРёСЃР°РЅРёРё 
+		// РїРѕ РѕС‚РЅРѕС€РµРЅРёСЋ Рє РєРѕР»РёС‡РµСЃС‚РІСѓ СЃС‚СЂРѕРє СЃ РїРѕР»РЅРѕСЃС‚СЊСЋ СЂР°СЃРїСЂРµРґРµР»С‘РЅРЅС‹Рј СЂР°СЃРїРёСЃР°РЅРёРµРј.
+		// Р’ РІРµСЂСЃРёРё СЃ СЂРµР°Р»СЊРЅС‹РјРё РІС…РѕРґРЅС‹РјРё РґР°РЅРЅС‹РјРё РЅСѓР¶РЅРѕ РїСЂРѕРІРµСЂРёС‚СЊ Р±РµР· cnt<100
 	{
 		les=rand() %(inputs->inputs.lessons.size());
 		
 		for (list<lesson_struct>::iterator it=inputs->inputs.lessons.begin(); it!=inputs->inputs.lessons.end(); it++)
-		{	// выбор аудитории из списка аудиторий
+		{	// РІС‹Р±РѕСЂ Р°СѓРґРёС‚РѕСЂРёРё РёР· СЃРїРёСЃРєР° Р°СѓРґРёС‚РѕСЂРёР№
 			if ((*it).id==les+1)
 			{
 				current_parameters.les1=(*it);
@@ -124,9 +124,9 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 		int some_size_of_auditories=inputs->inputs.auditories.size();
 		for (int i=0;i<some_size_of_auditories;i++)
 		{	
-			// проверка аудитории на занятость
-			bool free_groups=false; // по какой ветке пойдём
-			bool get_out=false;		// выйти из ветки
+			// РїСЂРѕРІРµСЂРєР° Р°СѓРґРёС‚РѕСЂРёРё РЅР° Р·Р°РЅСЏС‚РѕСЃС‚СЊ
+			bool free_groups=false; // РїРѕ РєР°РєРѕР№ РІРµС‚РєРµ РїРѕР№РґС‘Рј
+			bool get_out=false;		// РІС‹Р№С‚Рё РёР· РІРµС‚РєРё
 			int const max_free_groups=135;
 
 			if (num_free_groups()>max_free_groups)
@@ -134,7 +134,7 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 				free_groups=true;
 			}
 
-			// прогон строки по аудиториям
+			// РїСЂРѕРіРѕРЅ СЃС‚СЂРѕРєРё РїРѕ Р°СѓРґРёС‚РѕСЂРёСЏРј
 			for (list<auditory_struct>::iterator it2=inputs->inputs.auditories.begin(); it2!=inputs->inputs.auditories.end(); it2++)
 			{
 				if ((*it2).id==i+1)
@@ -167,23 +167,23 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 					tim=rand() %(inputs->inputs.times.size());
 
 					for (list<group_struct>::iterator it=inputs->inputs.groups.begin(); it!=inputs->inputs.groups.end(); it++)
-					{	// выбор случайной группы из списка
+					{	// РІС‹Р±РѕСЂ СЃР»СѓС‡Р°Р№РЅРѕР№ РіСЂСѓРїРїС‹ РёР· СЃРїРёСЃРєР°
 						if ((*it).id==gr+1)
 							current_parameters.gr1=(*it);
 					}
 					for (list<day_struct>::iterator it=inputs->inputs.days.begin(); it!=inputs->inputs.days.end(); it++)
-					{	// выбор случайного дня недели из списка
+					{	// РІС‹Р±РѕСЂ СЃР»СѓС‡Р°Р№РЅРѕРіРѕ РґРЅСЏ РЅРµРґРµР»Рё РёР· СЃРїРёСЃРєР°
 						if ((*it).id==day+1)
 							current_parameters.day1=(*it);
 					}
 					for (list<time_struct>::iterator it=inputs->inputs.times.begin(); it!=inputs->inputs.times.end(); it++)
-					{	// выбор случайного времени начала из списка 
+					{	// РІС‹Р±РѕСЂ СЃР»СѓС‡Р°Р№РЅРѕРіРѕ РІСЂРµРјРµРЅРё РЅР°С‡Р°Р»Р° РёР· СЃРїРёСЃРєР° 
 						if ((*it).id==tim+1)
 							current_parameters.tim1=(*it);
 					}
 
 
-					//	создание текущей строки
+					//	СЃРѕР·РґР°РЅРёРµ С‚РµРєСѓС‰РµР№ СЃС‚СЂРѕРєРё
 					current.aud1=current_parameters.aud1;
 					current.day1=current_parameters.day1;
 					current.gr1 =current_parameters.gr1;
@@ -192,7 +192,7 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 
 					for (list<sched_string>::iterator it1=slist.begin(); it1!=slist.end(); it1++)
 					{
-						// проверка на конфликты
+						// РїСЂРѕРІРµСЂРєР° РЅР° РєРѕРЅС„Р»РёРєС‚С‹
 						if ( ((*it1).gr1.id == current.gr1.id  &&  (*it1).les1.id==current.les1.id) ||
 							( ((*it1).gr1.id == current.gr1.id  || ((*it1).aud1.id==current.aud1.id && 
 							(*it1).les1.id!= current.les1.id)) && 
@@ -210,7 +210,7 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 					{
 						current.aud1.groups_available--;	
 
-						// добавление в расписание
+						// РґРѕР±Р°РІР»РµРЅРёРµ РІ СЂР°СЃРїРёСЃР°РЅРёРµ
 						this->AddNewStr_List(current);
 
 						bo=0;
@@ -228,7 +228,7 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 
 void SCHEDULE::Create(schedule_inputs* inputs)
 {
-	// создание расписания - добавление максимально возможного количества строк
+	// СЃРѕР·РґР°РЅРёРµ СЂР°СЃРїРёСЃР°РЅРёСЏ - РґРѕР±Р°РІР»РµРЅРёРµ РјР°РєСЃРёРјР°Р»СЊРЅРѕ РІРѕР·РјРѕР¶РЅРѕРіРѕ РєРѕР»РёС‡РµСЃС‚РІР° СЃС‚СЂРѕРє
 	for (unsigned int i=0;i<max_num_of_strings;i++)
 	{
 		this->AddNewStr(inputs);
@@ -239,7 +239,7 @@ void SCHEDULE::Create(schedule_inputs* inputs)
 
 int SCHEDULE::stats(schedule_inputs* inputs)
 {
-	// вычисление статистики по группам - возможно ненужная функция
+	// РІС‹С‡РёСЃР»РµРЅРёРµ СЃС‚Р°С‚РёСЃС‚РёРєРё РїРѕ РіСЂСѓРїРїР°Рј - РІРѕР·РјРѕР¶РЅРѕ РЅРµРЅСѓР¶РЅР°СЏ С„СѓРЅРєС†РёСЏ
 
 
 	int res=0;
@@ -257,9 +257,9 @@ int SCHEDULE::stats(schedule_inputs* inputs)
 		for (int i=0; i<lessons_size; i++)
 		{
 			//mas[j][i]=larr[i].leng/2;
-			// тут нужно прогнать список по lessons
+			// С‚СѓС‚ РЅСѓР¶РЅРѕ РїСЂРѕРіРЅР°С‚СЊ СЃРїРёСЃРѕРє РїРѕ lessons
 			for (list<lesson_struct>::iterator it=inputs->inputs.lessons.begin(); it!=inputs->inputs.lessons.end(); it++)
-			{	// выбор аудитории из списка аудиторий
+			{	// РІС‹Р±РѕСЂ Р°СѓРґРёС‚РѕСЂРёРё РёР· СЃРїРёСЃРєР° Р°СѓРґРёС‚РѕСЂРёР№
 				if ((*it).id==i+1)
 				{
 					current_lesson=(*it);
@@ -274,7 +274,7 @@ int SCHEDULE::stats(schedule_inputs* inputs)
 		for (list<sched_string>::iterator it=slist.begin(); it!=slist.end(); it++)
 		{
 			for (list<group_struct>::iterator it3=inputs->inputs.groups.begin(); it3!=inputs->inputs.groups.end(); it3++)
-			{	// выбор случайной группы из списка
+			{	// РІС‹Р±РѕСЂ СЃР»СѓС‡Р°Р№РЅРѕР№ РіСЂСѓРїРїС‹ РёР· СЃРїРёСЃРєР°
 				if ((*it3).id==j+1)
 					current_group=(*it3);
 			}
@@ -283,7 +283,7 @@ int SCHEDULE::stats(schedule_inputs* inputs)
 				for (int i=0;i<lessons_size;i++)
 				{
 					for (list<lesson_struct>::iterator it2=inputs->inputs.lessons.begin(); it2!=inputs->inputs.lessons.end(); it2++)
-					{	// выбор аудитории из списка аудиторий
+					{	// РІС‹Р±РѕСЂ Р°СѓРґРёС‚РѕСЂРёРё РёР· СЃРїРёСЃРєР° Р°СѓРґРёС‚РѕСЂРёР№
 						if ((*it2).id==i+1)
 						{
 							current_lesson=(*it2);
@@ -306,7 +306,7 @@ int SCHEDULE::stats(schedule_inputs* inputs)
 
 /*	cout << "\n Statistics: \n";
 	
-	//вывод
+	//РІС‹РІРѕРґ
 	cout << "Groups		Lessons \n";
 	cout << "	1	2	3	4	5\n";
 	for (int j=0; j<4; j++)
@@ -334,7 +334,7 @@ void SCHEDULE::modify(schedule_inputs* inputs,int num)
 
 bool SCHEDULE::search(const sched_string &current)
 {
-	// поиск по текущему расписанию, есть ли занятие в то же время в тот же день, как и current
+	// РїРѕРёСЃРє РїРѕ С‚РµРєСѓС‰РµРјСѓ СЂР°СЃРїРёСЃР°РЅРёСЋ, РµСЃС‚СЊ Р»Рё Р·Р°РЅСЏС‚РёРµ РІ С‚Рѕ Р¶Рµ РІСЂРµРјСЏ РІ С‚РѕС‚ Р¶Рµ РґРµРЅСЊ, РєР°Рє Рё current
 	for (list<sched_string>::iterator it=slist.begin(); it!=slist.end(); it++)
 	{
 		if ((*it).tim1.id==current.tim1.id && (*it).day1.id==current.day1.id)
@@ -345,7 +345,7 @@ bool SCHEDULE::search(const sched_string &current)
 
 bool SCHEDULE::search2(const sched_string &current)
 {
-	// поиск по текущему расписанию, есть ли занятие у той же группы то же занятие, как и current
+	// РїРѕРёСЃРє РїРѕ С‚РµРєСѓС‰РµРјСѓ СЂР°СЃРїРёСЃР°РЅРёСЋ, РµСЃС‚СЊ Р»Рё Р·Р°РЅСЏС‚РёРµ Сѓ С‚РѕР№ Р¶Рµ РіСЂСѓРїРїС‹ С‚Рѕ Р¶Рµ Р·Р°РЅСЏС‚РёРµ, РєР°Рє Рё current
 	for (list<sched_string>::iterator it=slist.begin(); it!=slist.end(); it++)
 	{
 		if ((*it).gr1.id==current.gr1.id && (*it).les1.id==current.les1.id)
@@ -356,7 +356,7 @@ bool SCHEDULE::search2(const sched_string &current)
 
 void SCHEDULE::skr(schedule_inputs* inputs,SCHEDULE & sch1, SCHEDULE & sch2)
 {
-	// реализация алгоритма скрещивания
+	// СЂРµР°Р»РёР·Р°С†РёСЏ Р°Р»РіРѕСЂРёС‚РјР° СЃРєСЂРµС‰РёРІР°РЅРёСЏ
 
 	sch1.slist.sort();
 	sch2.slist.sort();
@@ -512,7 +512,7 @@ m4:			day=rand() %2;
 	cntmax2=0;
 	//cout << "\nNumber of double groupped pair in 1st schedule is " << num1 << "\nNumber of double groupped pair in 2nd schedule is " << num2 << '\n';
 	
-	//ЗДЕСЬ НУЖНО СДЕЛАТЬ ПРОВЕРКУ НА ВОЗМОЖНОСТЬ ДОБАВЛЕНИЯ - ok
+	//Р—Р”Р•РЎР¬ РќРЈР–РќРћ РЎР”Р•Р›РђРўР¬ РџР РћР’Р•Р РљРЈ РќРђ Р’РћР—РњРћР–РќРћРЎРўР¬ Р”РћР‘РђР’Р›Р•РќРРЇ - ok
 	// for (int i=0;i<max_num_of_strings;i++)
 	int cnt=0;
 	while (cnt<100 && CanAdd(inputs))
@@ -525,7 +525,7 @@ m4:			day=rand() %2;
 
 bool SCHEDULE::CanAdd(schedule_inputs* inputs)
 {
-	//тут нужно проверить на список на возможность добавления - ok
+	//С‚СѓС‚ РЅСѓР¶РЅРѕ РїСЂРѕРІРµСЂРёС‚СЊ РЅР° СЃРїРёСЃРѕРє РЅР° РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РґРѕР±Р°РІР»РµРЅРёСЏ - ok
 
 	if (slist.size()<max_num_of_strings)
 		return 1;
@@ -545,7 +545,7 @@ void SCHEDULE::Cycle(schedule_inputs* inputs)
 
 	int stats[number_of_schedules],max,nmax,iter;
 	iter=0;
-	for (int i=0;i<number_of_schedules;i++)		// - создание массива статистик
+	for (int i=0;i<number_of_schedules;i++)		// - СЃРѕР·РґР°РЅРёРµ РјР°СЃСЃРёРІР° СЃС‚Р°С‚РёСЃС‚РёРє
 	{
 		mas[i].Create(inputs);
 		stats[i]=mas[i].stats(inputs);
@@ -558,7 +558,7 @@ void SCHEDULE::Cycle(schedule_inputs* inputs)
 	do
 
 	{
-		for (int i=1;i<number_of_schedules;i++)		// - мас2 - лучшие из выборки 
+		for (int i=1;i<number_of_schedules;i++)		// - РјР°СЃ2 - Р»СѓС‡С€РёРµ РёР· РІС‹Р±РѕСЂРєРё 
 		{
 			if (stats[i]<max) 
 			{
@@ -572,9 +572,9 @@ void SCHEDULE::Cycle(schedule_inputs* inputs)
 			}
 		}
 		for (int i=0;i<nmax-1;i++)
-			mas3[i].skr(inputs,mas2[i],mas2[i+1]); // - скрещенный массив списков
+			mas3[i].skr(inputs,mas2[i],mas2[i+1]); // - СЃРєСЂРµС‰РµРЅРЅС‹Р№ РјР°СЃСЃРёРІ СЃРїРёСЃРєРѕРІ
 		for (int i=nmax-1;i<number_of_schedules;i++)
-			mas3[i]=mas[i];				// - дополняем списками - родителями
+			mas3[i]=mas[i];				// - РґРѕРїРѕР»РЅСЏРµРј СЃРїРёСЃРєР°РјРё - СЂРѕРґРёС‚РµР»СЏРјРё
 		for (int i=0;i<10;i++)
 		{
 			mas3[i].modify(inputs,5);
