@@ -142,7 +142,8 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 					current_parameters.aud1=(*it2);
 					if (free_groups)
 					{
-						if (current_parameters.aud1.priority==0)
+						//if (current_parameters.aud1.priority==0)
+						if (num_free_groups()+current_parameters.aud1.groups_available>max_free_groups)
 						{
 							get_out=true;
 						}
