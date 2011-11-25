@@ -46,6 +46,7 @@ struct lesson_struct
 	char name[100];			// название группы
 	char type[100];			// тип занятия
 	int hours;				// количество академических часов
+	list<char*> for_groups;	// целевые группы данного занятия
 	bool operator <(const lesson_struct& les) const; // метод, необходимый для применения сортировки для списка групп
 };
 
@@ -56,7 +57,7 @@ struct time_struct
 	bool operator <(const time_struct& tim) const; // метод, необходимый для применения сортировки для списка групп
 };
 
-struct schedule_inputs_all
+struct schedule_inputs_all	// описание учебного плана
 {
 	list<auditory_struct> auditories;
 	list<group_struct> groups;
@@ -96,5 +97,5 @@ struct selected_indexes
 	int tim[2];
 };
 
-String^ out_text(schedule_inputs* inputs, String^ filename_in);
-String^ out_struct(schedule_inputs* inputs);
+String^ out_text(schedule_inputs* inputs, String^ filename_in);	// чтение входного xml-файла + заполнение стрктуры учебного плана
+String^ out_struct(schedule_inputs* inputs);					// вывод учебного плана в текстовом виде

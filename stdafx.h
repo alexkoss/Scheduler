@@ -25,6 +25,7 @@ using namespace System::IO;
 using namespace System::Text;
 using namespace System::Runtime::InteropServices;
 using namespace System::Data;
+using namespace System::Windows::Forms;
 
 // TODO: reference additional headers your program requires here
 

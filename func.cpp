@@ -188,11 +188,71 @@ String^ out_text(schedule_inputs* inputs, String^ filename_in)
 						{
 							strcpy(one_lesson.type,readerValue);
 						}
-						else if (reader->Name=="hours")
+						else if (reader->Name=="hours") 
 						{
 							one_lesson.hours=atoi(readerValue);
 						}
-						else 
+						else if (reader->Name=="forgr")
+						{
+							//MessageBox::Show(reader->Value);
+							//string [10] split = (reader->Value).Split(',');
+							char newstr[10] = "";
+							char *newstr2 = new char[10];
+							int cnt = 0;
+							strcpy(newstr,"");
+//							newstr = "";
+							for (int j=0;j<strlen(readerValue);j++)
+							{
+								if (j<strlen(readerValue)-1)
+								{
+									if (readerValue[j]!=',')
+									{
+										//newstr+='1';//readerValue[j];
+										//strcpy(newstr,"1");
+//										MessageBox::Show((readerValue[j]).ToString());
+										newstr[cnt]=readerValue[j];
+										cnt++;
+									}
+									else
+									{
+										newstr2=newstr;
+										one_lesson.for_groups.push_back(newstr2);
+										MessageBox::Show(String(newstr2).ToString());
+										//newstr="";
+										strcpy(newstr,"");
+										cnt=0;
+										
+									}
+								}
+								else 
+								{
+									//newstr+=readerValue[j];
+									//strcpy(newstr,"2");
+									//newstr+=2;
+									newstr[cnt]=readerValue[j];
+									newstr2=newstr;
+									one_lesson.for_groups.push_back(newstr2);
+									MessageBox::Show(String(newstr2).ToString());
+									//newstr="";
+									strcpy(newstr,"");
+								}
+							}
+							newstr2="123\n";
+							delete [] newstr2;
+
+							for (list<char*>::iterator it=one_lesson.for_groups.begin(); it!=one_lesson.for_groups.end(); it++)
+							{
+								MessageBox::Show(String::Concat(String(*it).ToString()));
+							}
+							//MessageBox::Show(one_lesson.for_groups.size().ToString());
+							/*for (int j=0;j<split.Length;j++)
+							{
+								//char* splitchar = (char*)(void*)Marshal::StringToHGlobalAnsi(split[j]);
+								one_lesson.for_groups.push_back(splitchar);
+								Marshal::FreeHGlobal((IntPtr)(splitchar));
+							}*/
+							//one_lesson.for_groups.push_back() .hours=atoi(readerValue);
+						} else
 						{}
 
 						Marshal::FreeHGlobal((IntPtr)(readerValue));

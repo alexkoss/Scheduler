@@ -127,7 +127,7 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 			// проверка аудитории на занятость
 			bool free_groups=false; // по какой ветке пойдём
 			bool get_out=false;		// выйти из ветки
-			int const max_free_groups=5;
+			int const max_free_groups=5555;
 
 			if (num_free_groups()>max_free_groups)
 			{
