@@ -3,7 +3,7 @@
 #include "func.h"
 #include "schedule.h"
 
-namespace xmltest_dotnet {
+namespace xmltest_dotnet {  
 
 	using namespace System;
 	using namespace System::ComponentModel;
