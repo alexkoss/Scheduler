@@ -1,4 +1,4 @@
-#pragma once
+#pragma once 
 #include "stdafx.h"
 #include "func.h"
 #include "schedule.h"

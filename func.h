@@ -12,7 +12,7 @@ struct uni_input
 	char type[100];
 	int hours;
 	int begin_time;
-	bool operator <(const uni_input& inp) const;
+	bool operator <(const uni_input& inp) const;  
 };
 
 struct auditory_struct
