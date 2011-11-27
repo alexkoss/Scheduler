@@ -153,15 +153,15 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 			}
 			if (!get_out)
 			{
-				if ((!strcmp(current_parameters.aud1.type,"lection") && 
+				if ((!strcmp(current_parameters.aud1.type,"лекция") && 
 					(current_parameters.aud1.groups_available>0) && 
-					!strcmp(current_parameters.les1.type,"lection")) || 
-					(!strcmp(current_parameters.aud1.type,"seminar") && 
+					!strcmp(current_parameters.les1.type,"лекция")) || 
+					(!strcmp(current_parameters.aud1.type,"семинар") && 
 					(current_parameters.aud1.groups_available>0) && 
-					!strcmp(current_parameters.les1.type,"seminar")) || 
-					(!strcmp(current_parameters.aud1.type,"lab")	 && 
+					!strcmp(current_parameters.les1.type,"семинар")) || 
+					(!strcmp(current_parameters.aud1.type,"лаб")	 && 
 					(current_parameters.aud1.groups_available>0) && 
-					!strcmp(current_parameters.les1.type,"lab")) )
+					!strcmp(current_parameters.les1.type,"лаб")) )
 				{
 					gr=rand() %(inputs->inputs.groups.size());
 					day=rand() %(inputs->inputs.days.size());
@@ -555,7 +555,6 @@ void SCHEDULE::Cycle(schedule_inputs* inputs)
 	max=stats[0];
 	nmax=1;
 
-//mm11:
 	do
 
 	{
@@ -588,7 +587,6 @@ void SCHEDULE::Cycle(schedule_inputs* inputs)
 	
 		iter+=1;
 	} while (iter<1);
-//	if (iter<10) goto mm11;
 
 	for (int i=0;i<number_of_schedules;i++)
 	{
@@ -610,8 +608,6 @@ int SCHEDULE::num_free_groups ()
 	int sum_num_free=0;
 	for (list<sched_string>::iterator it=slist.begin(); it!=slist.end(); it++)
 	{
-		//if ((*it).tim1.id==current.tim1.id && (*it).day1.id==current.day1.id)
-		//{return 1;}
 		sum_num_free+=(*it).aud1.groups_available;
 	}
 	return sum_num_free;

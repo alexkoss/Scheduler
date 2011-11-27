@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schedule name="Это новый файл входных данных для расписания">
   <auditories>
-    <auditory id="1" name="9-504"   type="lection" groups_max="4" groups_available ="4"/>
-    <auditory id="2" name="235 ГЗ"  type="lection" groups_max="4" groups_available ="4"/>
-    <auditory id="3" name="309 ОКБ" type="seminar" groups_max="1" groups_available ="1"/>
-    <auditory id="4" name="9-304"   type="lection" groups_max="4" groups_available ="4"/>
-    <auditory id="5" name="9-503"   type="seminar" groups_max="1" groups_available ="1"/>
-    <auditory id="6" name="52 ХК"   type="lection" groups_max="4" groups_available ="4"/>
-    <auditory id="7" name="155 ГЗ"  type="lab"     groups_max="2" groups_available ="2"/>
-    <auditory id="8" name="324 ГЗ"  type="lection" groups_max="4" groups_available ="4"/>
-    <auditory id="9" name="Спортзал" type="seminar" groups_max="2" groups_available ="2"/>
-    <auditory id="10" name="9-215"  type="lab"       groups_max="1" groups_available ="1"/>
-    <auditory id="11" name="Белый зал" type="seminar" groups_max="4" groups_available ="4"/>
-    <auditory id="12" name="9-309"  type="seminar"   groups_max="1" groups_available ="1"/>
-    <auditory id="13" name="9-501"  type="seminar"  groups_max="1" groups_available ="1"/>
-    <auditory id="14" name="9-319"  type="seminar" groups_max="1" groups_available ="1"/>
-    <auditory id="15" name="9-509"  type="seminar" groups_max="1" groups_available ="1"/>
-    <auditory id="16" name="310 ГК"  type="seminar" groups_max="1" groups_available ="1"/>
-    <auditory id="17" name="10 ХК"  type="lab" groups_max="1" groups_available ="1"/>
+    <auditory id="1" name="9-504"   type="лекция" groups_max="4" groups_available ="4"/>
+    <auditory id="2" name="235 ГЗ"  type="лекция" groups_max="4" groups_available ="4"/>
+    <auditory id="3" name="309 ОКБ" type="семинар" groups_max="1" groups_available ="1"/>
+    <auditory id="4" name="9-304"   type="лекция" groups_max="4" groups_available ="4"/>
+    <auditory id="5" name="9-503"   type="семинар" groups_max="1" groups_available ="1"/>
+    <auditory id="6" name="52 ХК"   type="лекция" groups_max="4" groups_available ="4"/>
+    <auditory id="7" name="155 ГЗ"  type="лаб"     groups_max="2" groups_available ="2"/>
+    <auditory id="8" name="324 ГЗ"  type="лекция" groups_max="4" groups_available ="4"/>
+    <auditory id="9" name="Спортзал" type="семинар" groups_max="2" groups_available ="2"/>
+    <auditory id="10" name="9-215"  type="лаб"       groups_max="1" groups_available ="1"/>
+    <auditory id="11" name="Белый зал" type="семинар" groups_max="4" groups_available ="4"/>
+    <auditory id="12" name="9-309"  type="семинар"   groups_max="1" groups_available ="1"/>
+    <auditory id="13" name="9-501"  type="семинар"  groups_max="1" groups_available ="1"/>
+    <auditory id="14" name="9-319"  type="семинар" groups_max="1" groups_available ="1"/>
+    <auditory id="15" name="9-509"  type="семинар" groups_max="1" groups_available ="1"/>
+    <auditory id="16" name="310 ГК"  type="семинар" groups_max="1" groups_available ="1"/>
+    <auditory id="17" name="10 ХК"  type="лаб" groups_max="1" groups_available ="1"/>
   </auditories>
   <groups>
     <group id="1" name="1081/1"/>
@@ -34,30 +34,30 @@
     <day id="6" name="Суббота"/>
   </days>
   <lessons>
-    <lesson id="1" name="Дискретная математика" type="lection" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="4"/>
-    <lesson id="2" name="Математика" type="lection" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="3" name="Математика" type="seminar" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="4" name="Физика" type="seminar" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="5" name="Программирование" type="lection" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="6" name="Химия" type="lection" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="7" name="Физика" type="lab" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="8" name="Физическая культура" type="seminar" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="9" name="Физика" type="lection" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="10" name="Английский язык" type="seminar" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="11" name="Компьютерная графика" type="lab" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="12" name="Культурология" type="seminar" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="13" name="Английский язык" type="seminar" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="14" name="Математика" type="lection" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="15" name="Программирование" type="seminar" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="16" name="Математика" type="seminar" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="17" name="Дискретная математика" type="seminar" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="18" name="Английский язык" type="seminar" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="19" name="Физика" type="lection" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="20" name="История" type="lection" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="21" name="История" type="seminar" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="22" name="Английский язык" type="seminar" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="23" name="Химия" type="seminar" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="24" name="Физическая культура" type="seminar" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="1" name="Дискретная математика" type="лекция" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="4"/>
+    <lesson id="2" name="Математика" type="лекция" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="3" name="Математика" type="семинар" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="4" name="Физика" type="семинар" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="5" name="Программирование" type="лекция" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="6" name="Химия" type="лекция" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="7" name="Физика" type="лаб" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="8" name="Физическая культура" type="семинар" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="9" name="Физика" type="лекция" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="10" name="Английский язык" type="семинар" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="11" name="Компьютерная графика" type="лаб" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="12" name="Культурология" type="семинар" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="13" name="Английский язык" type="семинар" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="14" name="Математика" type="лекция" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="15" name="Программирование" type="семинар" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="16" name="Математика" type="семинар" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="17" name="Дискретная математика" type="семинар" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="18" name="Английский язык" type="семинар" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="19" name="Физика" type="лекция" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="20" name="История" type="лекция" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="21" name="История" type="семинар" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="22" name="Английский язык" type="семинар" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="23" name="Химия" type="семинар" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="24" name="Физическая культура" type="семинар" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
   </lessons>
   <times>
     <time id="1" begin_time="10"/>
