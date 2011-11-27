@@ -196,53 +196,38 @@ String^ out_text(schedule_inputs* inputs, String^ filename_in)
 						{
 							//MessageBox::Show(reader->Value);
 							//string [10] split = (reader->Value).Split(',');
-							char newstr[10] = "";
-							char *newstr2 = new char[10];
+							char one_group_name[10] = "";
 							int cnt = 0;
-							strcpy(newstr,"");
-//							newstr = "";
+							strcpy(one_group_name,"");
 							for (int j=0;j<strlen(readerValue);j++)
 							{
 								if (j<strlen(readerValue)-1)
 								{
 									if (readerValue[j]!=',')
 									{
-										//newstr+='1';//readerValue[j];
-										//strcpy(newstr,"1");
-//										MessageBox::Show((readerValue[j]).ToString());
-										newstr[cnt]=readerValue[j];
+										one_group_name[cnt]=readerValue[j];
 										cnt++;
 									}
 									else
 									{
-										newstr2=newstr;
-										one_lesson.for_groups.push_back(newstr2);
-										MessageBox::Show(String(newstr2).ToString());
-										//newstr="";
-										strcpy(newstr,"");
+										string s = one_group_name;
+										one_lesson.for_groups.push_back(s);
+										//MessageBox::Show(String(s.c_str()).ToString());
 										cnt=0;
-										
 									}
 								}
 								else 
 								{
-									//newstr+=readerValue[j];
-									//strcpy(newstr,"2");
-									//newstr+=2;
-									newstr[cnt]=readerValue[j];
-									newstr2=newstr;
-									one_lesson.for_groups.push_back(newstr2);
-									MessageBox::Show(String(newstr2).ToString());
-									//newstr="";
-									strcpy(newstr,"");
+									one_group_name[cnt]=readerValue[j];
+									string s = one_group_name;
+									one_lesson.for_groups.push_back(s);
+									//MessageBox::Show(String(s.c_str()).ToString());
 								}
 							}
-							newstr2="123\n";
-							delete [] newstr2;
 
-							for (list<char*>::iterator it=one_lesson.for_groups.begin(); it!=one_lesson.for_groups.end(); it++)
+							for (list<string>::iterator it=one_lesson.for_groups.begin(); it!=one_lesson.for_groups.end(); it++)
 							{
-								MessageBox::Show(String::Concat(String(*it).ToString()));
+								//MessageBox::Show(String::Concat(String(it->c_str()).ToString()));
 							}
 							//MessageBox::Show(one_lesson.for_groups.size().ToString());
 							/*for (int j=0;j<split.Length;j++)
@@ -252,6 +237,9 @@ String^ out_text(schedule_inputs* inputs, String^ filename_in)
 								Marshal::FreeHGlobal((IntPtr)(splitchar));
 							}*/
 							//one_lesson.for_groups.push_back() .hours=atoi(readerValue);
+						} else if (reader->Name=="groups_max") 
+						{
+							one_lesson.groups_max=atoi(readerValue);
 						} else
 						{}
 

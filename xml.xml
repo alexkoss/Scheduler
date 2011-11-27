@@ -34,30 +34,30 @@
     <day id="6" name="Суббота"/>
   </days>
   <lessons>
-    <lesson id="1" name="Дискретная математика" type="lection" hours="2" forgr="1081/1,1081/2,1081/3"/>
-    <lesson id="2" name="Математика" type="lection" hours="2"/>
-    <lesson id="3" name="Математика" type="seminar" hours="2"/>
-    <lesson id="4" name="Физика" type="seminar" hours="2"/>
-    <lesson id="5" name="Программирование" type="lection" hours="2"/>
-    <lesson id="6" name="Химия" type="lection" hours="2"/>
-    <lesson id="7" name="Физика" type="lab" hours="2"/>
-    <lesson id="8" name="Физическая культура" type="seminar" hours="2"/>
-    <lesson id="9" name="Физика" type="lection" hours="2"/>
-    <lesson id="10" name="Английский язык" type="seminar" hours="2"/>
-    <lesson id="11" name="Компьютерная графика" type="lab" hours="2"/>
-    <lesson id="12" name="Культурология" type="seminar" hours="2"/>
-    <lesson id="13" name="Английский язык" type="seminar" hours="2"/>
-    <lesson id="14" name="Математика" type="lection" hours="2"/>
-    <lesson id="15" name="Программирование" type="seminar" hours="2"/>
-    <lesson id="16" name="Математика" type="seminar" hours="2"/>
-    <lesson id="17" name="Дискретная математика" type="seminar" hours="2"/>
-    <lesson id="18" name="Английский язык" type="seminar" hours="2"/>
-    <lesson id="19" name="Физика" type="lection" hours="2"/>
-    <lesson id="20" name="История" type="lection" hours="2"/>
-    <lesson id="21" name="История" type="seminar" hours="2"/>
-    <lesson id="22" name="Английский язык" type="seminar" hours="2"/>
-    <lesson id="23" name="Химия" type="seminar" hours="2"/>
-    <lesson id="24" name="Физическая культура" type="seminar" hours="2"/>
+    <lesson id="1" name="Дискретная математика" type="lection" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="4"/>
+    <lesson id="2" name="Математика" type="lection" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="3" name="Математика" type="seminar" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="4" name="Физика" type="seminar" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="5" name="Программирование" type="lection" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="6" name="Химия" type="lection" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="7" name="Физика" type="lab" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="8" name="Физическая культура" type="seminar" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="9" name="Физика" type="lection" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="10" name="Английский язык" type="seminar" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="11" name="Компьютерная графика" type="lab" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="12" name="Культурология" type="seminar" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="13" name="Английский язык" type="seminar" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="14" name="Математика" type="lection" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="15" name="Программирование" type="seminar" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="16" name="Математика" type="seminar" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="17" name="Дискретная математика" type="seminar" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="18" name="Английский язык" type="seminar" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="19" name="Физика" type="lection" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="20" name="История" type="lection" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="21" name="История" type="seminar" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="22" name="Английский язык" type="seminar" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="23" name="Химия" type="seminar" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="24" name="Физическая культура" type="seminar" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
   </lessons>
   <times>
     <time id="1" begin_time="10"/>

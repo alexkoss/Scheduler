@@ -46,7 +46,9 @@ struct lesson_struct
 	char name[100];			// название группы
 	char type[100];			// тип занятия
 	int hours;				// количество академических часов
-	list<char*> for_groups;	// целевые группы данного занятия
+	list<string> for_groups;	// целевые группы данного занятия
+	int groups_max;			// максимальное количество групп для одного занятия
+	int groups_available;		// количество свободных групп 
 	bool operator <(const lesson_struct& les) const; // метод, необходимый для применения сортировки для списка групп
 };
 

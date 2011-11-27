@@ -277,14 +277,14 @@ namespace xmltest_dotnet {
 			this->tableLayoutPanel1->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Absolute, 
 				100)));
 			this->tableLayoutPanel1->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Absolute, 
-				157)));
+				160)));
 			this->tableLayoutPanel1->ImeMode = System::Windows::Forms::ImeMode::NoControl;
 			this->tableLayoutPanel1->Location = System::Drawing::Point(3, 3);
 			this->tableLayoutPanel1->Name = L"tableLayoutPanel1";
-			this->tableLayoutPanel1->RowCount = 2;
+			this->tableLayoutPanel1->RowCount = 1;
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 25)));
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
-			this->tableLayoutPanel1->Size = System::Drawing::Size(260, 48);
+			this->tableLayoutPanel1->Size = System::Drawing::Size(263, 27);
 			this->tableLayoutPanel1->TabIndex = 2;
 			// 
 			// button7
@@ -379,13 +379,13 @@ namespace xmltest_dotnet {
 			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Absolute, 
 				100)));
 			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Absolute, 
-				153)));
+				156)));
 			this->tableLayoutPanel2->Location = System::Drawing::Point(3, 3);
 			this->tableLayoutPanel2->Name = L"tableLayoutPanel2";
 			this->tableLayoutPanel2->RowCount = 2;
 			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 25)));
 			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
-			this->tableLayoutPanel2->Size = System::Drawing::Size(256, 48);
+			this->tableLayoutPanel2->Size = System::Drawing::Size(259, 48);
 			this->tableLayoutPanel2->TabIndex = 5;
 			// 
 			// button9
@@ -609,7 +609,7 @@ private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, Sy
 					 break;
 				 case 3:
 					 new_row_count=inp->inputs.lessons.size();
-					 new_col_count=4;
+					 new_col_count=6;
 					 break;
 				 case 4:
 					 new_row_count=inp->inputs.times.size();
@@ -645,31 +645,19 @@ private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, Sy
 				 switch (comboBox1->SelectedIndex)
 				 {
 				 case 0:
-					 while (tableLayoutPanel1->ColumnCount<6)
+					 while (tableLayoutPanel1->ColumnCount<new_col_count)
 					 {
 						 tableLayoutPanel1->ColumnCount+=1;
-						 tableLayoutPanel1->ColumnStyles->Add(gcnew ColumnStyle(SizeType::Absolute, 100));
+						 tableLayoutPanel1->ColumnStyles->Add(gcnew ColumnStyle(SizeType::AutoSize));
 					 }
 					 while (tableLayoutPanel1->RowCount<inp->inputs.auditories.size())
 					 {
 						 tableLayoutPanel1->RowCount+=1;
-						 tableLayoutPanel1->RowStyles->Add(gcnew RowStyle(SizeType::Absolute, 20));
+						 tableLayoutPanel1->RowStyles->Add(gcnew RowStyle(SizeType::AutoSize));
 					 }
 
-					 for (int columnCount=0;columnCount<6;columnCount++)
+					 for (int columnCount=0;columnCount<new_col_count;columnCount++)
 					 {
-						 /*ComboBox^ CB1 = gcnew ComboBox;
-						 CB1->Items->Add("Номер");
-						 CB1->Items->Add("Название");
-						 CB1->Items->Add("Тип");
-						 CB1->Items->Add("Вместимость");
-						 CB1->Items->Add("Время начала");
-						 CB1->SelectedIndex=(*selected_ind).aud[columnCount];//columnCount;
-						 if (columnCount==tableLayoutPanel1->ColumnCount)
-						 {
-							 tableLayoutPanel1->ColumnCount+=1;
-							 tableLayoutPanel1->ColumnStyles->Add(gcnew ColumnStyle(SizeType::Absolute, 100));
-						 }*/
 						 Label^ l0 = gcnew Label;
 						 switch (columnCount)
 						 {
@@ -699,6 +687,7 @@ private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, Sy
 						 //columnCount++;
 					 }
 
+					 //tableLayoutPanel1->RowStyle[1]SizeType.AutoSize;// = new SizeType::AutoSize;
 					 
 					 for (list<auditory_struct>::iterator it=inp->inputs.auditories.begin(); it!=inp->inputs.auditories.end(); it++)
 					 {
@@ -707,9 +696,11 @@ private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, Sy
 							 tableLayoutPanel1->RowCount+=1;
 							 tableLayoutPanel1->RowStyles->Add(gcnew RowStyle(SizeType::Absolute, 20));
 						 }*/
+						 
 						 for (int i=0;i<tableLayoutPanel1->ColumnCount;i++)
 						 {
 							 Label^ l1 = gcnew Label;
+							 l1->AutoSize=true;
 							 if (tableLayoutPanel1->GetControlFromPosition(i,0)->Text=="Номер")
 							 {
 								 l1->Text=String::Concat((*it).id);
@@ -739,17 +730,17 @@ private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, Sy
 					 }
 					 break;
 				 case 1:
-					 while (tableLayoutPanel1->ColumnCount<2)
+					 while (tableLayoutPanel1->ColumnCount<new_col_count)
 					 {
 						 tableLayoutPanel1->ColumnCount+=1;
-						 tableLayoutPanel1->ColumnStyles->Add(gcnew ColumnStyle(SizeType::Absolute, 100));
+						 tableLayoutPanel1->ColumnStyles->Add(gcnew ColumnStyle(SizeType::AutoSize));
 					 }
 					 while (tableLayoutPanel1->RowCount<inp->inputs.groups.size())
 					 {
 						 tableLayoutPanel1->RowCount+=1;
-						 tableLayoutPanel1->RowStyles->Add(gcnew RowStyle(SizeType::Absolute, 20));
+						 tableLayoutPanel1->RowStyles->Add(gcnew RowStyle(SizeType::AutoSize));
 					 }
-					 for (int columnCount=0;columnCount<2;columnCount++)
+					 for (int columnCount=0;columnCount<new_col_count;columnCount++)
 					 {
 						 /*ComboBox^ CB1 = gcnew ComboBox;
 						 CB1->Items->Add("Номер");
@@ -785,6 +776,7 @@ private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, Sy
 						 for (int i=0;i<tableLayoutPanel1->ColumnCount;i++)
 						 {
 							 Label^ l1 = gcnew Label;
+							 l1->AutoSize=true;
 							 if (tableLayoutPanel1->GetControlFromPosition(i,0)->Text=="Номер")
 							 {
 								 l1->Text=String::Concat((*it).id);
@@ -801,17 +793,17 @@ private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, Sy
 					 }
 					 break;
 				 case 2:
-					 while (tableLayoutPanel1->ColumnCount<2)
+					 while (tableLayoutPanel1->ColumnCount<new_col_count)
 					 {
 						 tableLayoutPanel1->ColumnCount+=1;
-						 tableLayoutPanel1->ColumnStyles->Add(gcnew ColumnStyle(SizeType::Absolute, 100));
+						 tableLayoutPanel1->ColumnStyles->Add(gcnew ColumnStyle(SizeType::AutoSize));
 					 }
 					 while (tableLayoutPanel1->RowCount<inp->inputs.days.size())
 					 {
 						 tableLayoutPanel1->RowCount+=1;
-						 tableLayoutPanel1->RowStyles->Add(gcnew RowStyle(SizeType::Absolute, 20));
+						 tableLayoutPanel1->RowStyles->Add(gcnew RowStyle(SizeType::Absolute, 25));
 					 }
-					 for (int columnCount=0;columnCount<2;columnCount++)
+					 for (int columnCount=0;columnCount<new_col_count;columnCount++)
 					 {
 						 /*ComboBox^ CB1 = gcnew ComboBox;
 						 CB1->Items->Add("Номер");
@@ -825,6 +817,7 @@ private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, Sy
 						 tableLayoutPanel1->Controls->Add(CB1,columnCount,0);*/
 						 //columnCount++;
 						 Label^ l0 = gcnew Label;
+						 l0->AutoSize=true;
 						 switch (columnCount)
 						 {
 						 case 0:
@@ -848,6 +841,7 @@ private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, Sy
 						 for (int i=0;i<tableLayoutPanel1->ColumnCount;i++)
 						 {
 							 Label^ l1 = gcnew Label;
+							 l1->AutoSize=true;
 							 if (tableLayoutPanel1->GetControlFromPosition(i,0)->Text=="Номер")
 							 {
 								 l1->Text=String::Concat((*it).id);
@@ -864,17 +858,23 @@ private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, Sy
 					 }
 					 break;
 				 case 3:
-					 while (tableLayoutPanel1->ColumnCount<4)
+					 
+					 while (tableLayoutPanel1->ColumnCount<new_col_count)
 					 {
 						 tableLayoutPanel1->ColumnCount+=1;
-						 tableLayoutPanel1->ColumnStyles->Add(gcnew ColumnStyle(SizeType::Absolute, 100));
+						 float column_width=100;
+						 //if (tableLayoutPanel1->ColumnCount==5)
+							 //column_width=200;
+						 //tableLayoutPanel1->ColumnStyles->Add(gcnew ColumnStyle(SizeType::Absolute, column_width));
+						 tableLayoutPanel1->ColumnStyles->Add(gcnew ColumnStyle(SizeType::AutoSize));
 					 }
+					 tableLayoutPanel1->ColumnStyles[4]->Width = 200;
 					 while (tableLayoutPanel1->RowCount<inp->inputs.lessons.size())
 					 {
 						 tableLayoutPanel1->RowCount+=1;
 						 tableLayoutPanel1->RowStyles->Add(gcnew RowStyle(SizeType::Absolute, 20));
 					 }
-					 for (int columnCount=0;columnCount<4;columnCount++)
+					 for (int columnCount=0;columnCount<new_col_count;columnCount++)
 					 {
 						 /*ComboBox^ CB1 = gcnew ComboBox;
 						 CB1->Items->Add("Номер");
@@ -890,6 +890,7 @@ private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, Sy
 						 tableLayoutPanel1->Controls->Add(CB1,columnCount,0);*/
 						 //columnCount++;
 						 Label^ l0 = gcnew Label;
+						 l0->AutoSize=true;
 						 switch (columnCount)
 						 {
 						 case 0:
@@ -903,6 +904,12 @@ private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, Sy
 							 break;
 						 case 3:
 							 l0->Text="Длительность";
+							 break;
+						 case 4:
+							 l0->Text="Группы";
+							 break;
+						 case 5:
+							 l0->Text="Макс. групп";
 							 break;
 						 default:
 							 break;
@@ -919,6 +926,7 @@ private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, Sy
 						 for (int i=0;i<tableLayoutPanel1->ColumnCount;i++)
 						 {
 							 Label^ l1 = gcnew Label;
+							 l1->AutoSize=true;
 							 if (tableLayoutPanel1->GetControlFromPosition(i,0)->Text=="Номер")
 							 {
 								 l1->Text=String::Concat((*it).id);
@@ -931,6 +939,22 @@ private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, Sy
 							 } else if (tableLayoutPanel1->GetControlFromPosition(i,0)->Text=="Длительность")
 							 {
 								 l1->Text=String::Concat((*it).hours);
+							 } else if (tableLayoutPanel1->GetControlFromPosition(i,0)->Text=="Группы")
+							 {
+								 //l1->Text=String::Concat((*it).);
+								 String^ groups_all = "";
+								 for (list<string>::iterator it12=(*it).for_groups.begin(); it12!=(*it).for_groups.end(); it12++)
+								 {
+									 if (groups_all!="")
+										 groups_all+=",";
+									 groups_all+=String((*it12).c_str()).ToString();
+									 //MessageBox::Show(String::Concat(String(it->c_str()).ToString()));
+								 }
+								 l1->Text=groups_all;
+
+							 } else if (tableLayoutPanel1->GetControlFromPosition(i,0)->Text=="Макс. групп")
+							 {
+								 l1->Text=String::Concat((*it).groups_max);
 							 } 
 
 
@@ -942,7 +966,7 @@ private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, Sy
 					 }
 					 break;
 				 case 4:
-					 while (tableLayoutPanel1->ColumnCount<2)
+					 while (tableLayoutPanel1->ColumnCount<new_col_count)
 					 {
 						 tableLayoutPanel1->ColumnCount+=1;
 						 tableLayoutPanel1->ColumnStyles->Add(gcnew ColumnStyle(SizeType::Absolute, 100));
@@ -952,7 +976,7 @@ private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, Sy
 						 tableLayoutPanel1->RowCount+=1;
 						 tableLayoutPanel1->RowStyles->Add(gcnew RowStyle(SizeType::Absolute, 20));
 					 }
-					 for (int columnCount=0;columnCount<2;columnCount++)
+					 for (int columnCount=0;columnCount<new_col_count;columnCount++)
 					 {
 						 /*ComboBox^ CB1 = gcnew ComboBox;
 						 CB1->Items->Add("Номер");
@@ -966,6 +990,7 @@ private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, Sy
 						 tableLayoutPanel1->Controls->Add(CB1,columnCount,0);*/
 						 //columnCount++;
 						 Label^ l0 = gcnew Label;
+						 l0->AutoSize=true;
 						 switch (columnCount)
 						 {
 						 case 0:
@@ -989,6 +1014,7 @@ private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, Sy
 						 for (int i=0;i<tableLayoutPanel1->ColumnCount;i++)
 						 {
 							 Label^ l1 = gcnew Label;
+							 l1->AutoSize=true;
 							 if (tableLayoutPanel1->GetControlFromPosition(i,0)->Text=="Номер")
 							 {
 								 l1->Text=String::Concat((*it).id);
