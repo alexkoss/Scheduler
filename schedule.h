@@ -1,5 +1,5 @@
 #pragma once
-#include "stdafx.h"
+#include "stdafx.h" // test commit
 
 #include "func.h"			
 
