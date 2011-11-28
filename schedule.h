@@ -13,6 +13,18 @@ struct sched_string
 	bool operator <(const sched_string& str) const;
 };
 
+struct lesson_string
+{
+	int id;					// порядковый номер
+	char lesson_name[100];	// название занятия
+	char lesson_type[100];	// тип занятия
+	int hours;				// количество академических часов
+	string group;			// название группы
+	bool used;				// использован ли предмет в расписании
+	int max_groups;			// максимальное количество групп для занятия
+	int from_lessons_id;	// номер в списке всех занятий
+};
+
 class SCHEDULE
 {
 protected:
@@ -21,6 +33,7 @@ protected:
 public: 
 	unsigned int max_num_of_strings;
 	list<sched_string> slist;
+	list<lesson_string> llist;
 	//методы
 
 public:
@@ -52,6 +65,10 @@ public:
 	bool search2				(const sched_string &current);
 	bool CanAdd					(schedule_inputs* inputs);
 	void Cycle					(schedule_inputs* inputs);
+	void Cycle2					(schedule_inputs* inputs);
 	int  num_free_groups		();
+	void Make_Lesson_List		(schedule_inputs* inputs);
+	String^ Show_Lesson_List	();
+	int Get_Lesson_Number		(schedule_inputs* inputs);
 };
 

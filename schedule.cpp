@@ -107,16 +107,30 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 	int tim=0;
 	
 	//итерация по добавлению
-	while (bo==1 && CanAdd(inputs) /*&& cnt<100*/)	
+	//while (bo==1 && CanAdd(inputs) /*&& cnt<100*/)	
 		// 100, потому что CanAdd проверяет на количество строк в расписании 
 		// по отношению к количеству строк с полностью распределённым расписанием.
 		// В версии с реальными входными данными нужно проверить без cnt<100
+
+	les = Get_Lesson_Number(inputs);
+	if (les!=0)
 	{
-		les=rand() %(inputs->inputs.lessons.size());
+		//les=rand() %(inputs->inputs.lessons.size());
 		
+		
+		lesson_string current_lesson_string;
+		for (list<lesson_string>::iterator it=llist.begin(); it!=llist.end(); it++)
+		{
+			if ((*it).id==les)
+			{
+				current_lesson_string=*it;
+			}
+		}
+
 		for (list<lesson_struct>::iterator it=inputs->inputs.lessons.begin(); it!=inputs->inputs.lessons.end(); it++)
 		{	// выбор аудитории из списка аудиторий
-			if ((*it).id==les+1)
+			//if ((*it).id==les+1)
+			if ((*it).id==current_lesson_string.from_lessons_id)
 			{
 				current_parameters.les1=(*it);
 			}
@@ -211,6 +225,20 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 					{
 						current.aud1.groups_available--;	
 
+						
+						for (list<lesson_string>::iterator itq=llist.begin(); itq!=llist.end(); itq++)
+						{
+							//if ((*itq).id==les && strcmp(current.gr1.name,(*itq).group.c_str()))
+							if (strcmp(current.les1.name,(*itq).lesson_name) && 
+								strcmp(current.les1.type,(*itq).lesson_type) && 
+								strcmp(current.gr1.name,(*itq).group.c_str()) &&
+								(current.les1.id==(*itq).from_lessons_id))
+								//current.les1.
+							{
+								(*itq).used=true;
+							}
+						}
+
 						// добавление в расписание
 						this->AddNewStr_List(current);
 
@@ -224,13 +252,13 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 		}  
 		cnt+=1;
 	}
-	return;
 }
 
 void SCHEDULE::Create(schedule_inputs* inputs)
 {
+	Make_Lesson_List(inputs);
 	// создание расписания - добавление максимально возможного количества строк
-	for (unsigned int i=0;i<max_num_of_strings;i++)
+	for (unsigned int i=0;i<llist.size();i++)
 	{
 		this->AddNewStr(inputs);
 	}
@@ -533,6 +561,17 @@ bool SCHEDULE::CanAdd(schedule_inputs* inputs)
 	return 0;
 }
 
+void SCHEDULE::Cycle2(schedule_inputs* inputs)
+{
+	SCHEDULE sch;
+	sch.remax(inputs);
+	sch.Create(inputs);
+	slist=sch.slist;
+	llist=sch.llist;
+	//sch.Make_Lesson_List(inputs);
+	//sch.Show_Lesson_List();
+}
+
 void SCHEDULE::Cycle(schedule_inputs* inputs)
 {
 	const int number_of_schedules=10;
@@ -611,4 +650,105 @@ int SCHEDULE::num_free_groups ()
 		sum_num_free+=(*it).aud1.groups_available;
 	}
 	return sum_num_free;
+}
+
+void SCHEDULE::Make_Lesson_List	(schedule_inputs* inputs)
+{
+	int id = 1;
+	for (list<lesson_struct>::iterator it=inputs->inputs.lessons.begin(); it!=inputs->inputs.lessons.end(); it++)
+	{
+		for (list<string>::iterator it2=(*it).for_groups.begin(); it2!=(*it).for_groups.end(); it2++)
+		{
+			lesson_string new_lesson_string;
+			new_lesson_string.group=(*it2);
+			new_lesson_string.hours=(*it).hours;
+			new_lesson_string.id=id;
+			id++;
+			strcpy(new_lesson_string.lesson_name,(*it).name);
+			strcpy(new_lesson_string.lesson_type,(*it).type);
+			new_lesson_string.used=false;
+			new_lesson_string.max_groups=(*it).groups_max;
+			new_lesson_string.from_lessons_id=(*it).id;
+			llist.push_back(new_lesson_string);
+		}
+	}
+	//MessageBox::Show(String::Concat(llist.size()));
+}
+
+String^ SCHEDULE::Show_Lesson_List	()
+{
+	String^ output_str="";
+	for (list<lesson_string>::iterator it=llist.begin(); it!=llist.end(); it++)
+	{
+		output_str+=String::Concat((*it).id,"\t",String((*it).group.c_str()).ToString(),"\t",(*it).hours,"\t",
+			String((*it).lesson_name).ToString(),"\t",String((*it).lesson_type).ToString(),"\t",(*it).max_groups,"\t",
+			(*it).used,"\t",(*it).from_lessons_id,"\n");
+	}
+	return output_str;
+}
+
+int SCHEDULE::Get_Lesson_Number (schedule_inputs* inputs)
+{
+	int string_id=0;
+	int max_for_groups=0;
+	string cur_group="";
+	char cur_lesson_name[100];
+	char cur_lesson_type[100];
+	int counter=0;
+	int* mas = new int[llist.size()];
+
+	for (list<lesson_string>::iterator it=llist.begin(); it!=llist.end(); it++)
+	{
+		if ((*it).id==1)
+		{
+			cur_group=(*it).group;
+			strcpy(cur_lesson_name,"");//(*it).lesson_name);
+			strcpy(cur_lesson_type,"");//(*it).lesson_type);
+		}
+		if ((*it).max_groups>=max_for_groups)
+		{
+			if ((*it).max_groups==max_for_groups)
+			{
+				if (((strcmp((*it).lesson_name,cur_lesson_name)) || (strcmp((*it).lesson_type,cur_lesson_type))) && !((*it).used))
+				{
+					max_for_groups=(*it).max_groups;
+					string_id=(*it).id;
+					strcpy(cur_lesson_name,(*it).lesson_name);
+					strcpy(cur_lesson_type,(*it).lesson_type);
+					mas[counter++]=string_id;
+				}
+			}
+			else
+			{
+				counter=0;			
+				max_for_groups=(*it).max_groups;
+				string_id=(*it).id;
+				strcpy(cur_lesson_name,(*it).lesson_name);
+				strcpy(cur_lesson_type,(*it).lesson_type);
+				mas[counter++]=string_id;
+			}
+		}
+	}
+	//MessageBox::Show(String::Concat("Max for groups = ",max_for_groups));
+	//MessageBox::Show(String::Concat("String id in lessons table = ",string_id));
+	String^ str_mas="";
+	for (int i=0; i< counter; i++)
+	{
+		if (i!=0)
+		{
+			str_mas+=",";
+		}
+		str_mas+=mas[i];
+	}
+	int randnum=0;
+	if (counter == 0)
+	{
+		randnum=0;
+	}
+	else
+		randnum=mas[rand()%counter];
+	//MessageBox::Show(String::Concat("Massiv = "+str_mas));
+	//MessageBox::Show(String::Concat("Random number from mas = "+randnum));
+	delete [] mas;
+	return randnum;
 }

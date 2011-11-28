@@ -86,6 +86,7 @@ namespace xmltest_dotnet {
 	private: System::Windows::Forms::TabPage^  tabPage6;
 	private: System::Windows::Forms::Button^  button8;
 	private: System::Windows::Forms::Button^  button3;
+	private: System::Windows::Forms::RichTextBox^  richTextBox3;
 			 static selected_indexes* selected_ind;  // = gcnew selected_indexes;
 			 //SCHEDULE current_schedule;
 			 //list<schedule_inputs> inplist;
@@ -102,6 +103,7 @@ namespace xmltest_dotnet {
 			this->richTextBox2 = (gcnew System::Windows::Forms::RichTextBox());
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPage1 = (gcnew System::Windows::Forms::TabPage());
+			this->richTextBox3 = (gcnew System::Windows::Forms::RichTextBox());
 			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->tabControl3 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPage5 = (gcnew System::Windows::Forms::TabPage());
@@ -192,6 +194,7 @@ namespace xmltest_dotnet {
 			// 
 			// tabPage1
 			// 
+			this->tabPage1->Controls->Add(this->richTextBox3);
 			this->tabPage1->Controls->Add(this->button3);
 			this->tabPage1->Controls->Add(this->tabControl3);
 			this->tabPage1->Controls->Add(this->button7);
@@ -203,6 +206,14 @@ namespace xmltest_dotnet {
 			this->tabPage1->TabIndex = 0;
 			this->tabPage1->Text = L"Учебный план";
 			this->tabPage1->UseVisualStyleBackColor = true;
+			// 
+			// richTextBox3
+			// 
+			this->richTextBox3->Location = System::Drawing::Point(478, 153);
+			this->richTextBox3->Name = L"richTextBox3";
+			this->richTextBox3->Size = System::Drawing::Size(536, 406);
+			this->richTextBox3->TabIndex = 19;
+			this->richTextBox3->Text = L"";
 			// 
 			// button3
 			// 
@@ -462,6 +473,11 @@ namespace xmltest_dotnet {
 					 richTextBox1->Text=out_text(inp,openFileDialog1->FileName);
 				 }
 
+				 s->Make_Lesson_List(inp);
+				 String^ lesson_list = s->Show_Lesson_List();
+				 richTextBox3->Text=lesson_list;
+				 //s->Get_Lesson_Number(inp);
+
 				 comboBox1_SelectedIndexChanged(sender,e);
 			 }
 	
@@ -517,7 +533,7 @@ namespace xmltest_dotnet {
 			 delete s;
 			 s = new SCHEDULE;
 			 s->remax(inp);
-			 s->Cycle(inp);
+			 s->Cycle2(inp);
 			 char str[65000]="";
 			 s->Show_All_List(str);
 		 	 richTextBox2->Text=String(str).ToString();
@@ -1124,12 +1140,10 @@ private: System::Void Form1_ResizeEnd(System::Object^  sender, System::EventArgs
 		 }
 
 private: System::Void button3_Click_1(System::Object^  sender, System::EventArgs^  e) {
-			 int mas[10];
-			 mas[0]=1;
-			 mas[1]=2;
-			 mas[2]=3;
-			 int les=mas[rand() %(3)];
-			 MessageBox::Show(String::Concat(les));
+			 //s->Make_Lesson_List(inp);
+			 String^ lesson_list = s->Show_Lesson_List();
+			 richTextBox3->Text=lesson_list;
+			 
 		 }
 };
 }

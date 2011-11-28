@@ -43,7 +43,7 @@ struct day_struct
 struct lesson_struct
 {
 	int id;					// порядковый номер
-	char name[100];			// название группы
+	char name[100];			// название занятия
 	char type[100];			// тип занятия
 	int hours;				// количество академических часов
 	list<string> for_groups;	// целевые группы данного занятия
