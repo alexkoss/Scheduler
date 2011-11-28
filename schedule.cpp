@@ -94,6 +94,34 @@ void SCHEDULE::Show_All_List(char* out)
 };
 
 void SCHEDULE::AddNewStr(schedule_inputs* inputs)
+/*
+   for (lesson in lessonList) // Уроки
+   {
+      int roomNum = getRoomNum(lesson);
+      int compatibleNum = 0;  // Число допустимых
+      for (elem in roomList)  // Комната-интервал
+      {
+         if (isCompatible(lesson, elem))
+            compatibleNum++;
+      }
+      for (int r=0; r<roomNum; r++)
+      {
+         int index = rand() % compatibleNum;
+         for (elem in roomList)
+         {
+            if (isCompatible(lesson, elem))
+            {
+               index--;
+               if (index==0)
+               {
+                  timeTable.put(lesson, r, elem);
+                  break;
+               }
+            }
+         }
+      }
+   }
+*/
 {
 	//
 
@@ -652,6 +680,7 @@ int SCHEDULE::num_free_groups ()
 	return sum_num_free;
 }
 
+// Создает массив из всех занатий
 void SCHEDULE::Make_Lesson_List	(schedule_inputs* inputs)
 {
 	int id = 1;
@@ -687,6 +716,9 @@ String^ SCHEDULE::Show_Lesson_List	()
 	return output_str;
 }
 
+// Показывает все занятия с максимальным количеством групп
+// inputs - учебный план
+// результат - индекс одного из этих занятий 
 int SCHEDULE::Get_Lesson_Number (schedule_inputs* inputs)
 {
 	int string_id=0;
