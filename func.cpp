@@ -24,7 +24,7 @@ bool day_struct::operator <(const day_struct& day) const
 
 bool lesson_struct::operator <(const lesson_struct& les) const
 {
-	return id < les.id;
+	return groups_max < les.groups_max;
 }
 
 bool time_struct::operator <(const time_struct& tim) const

@@ -209,6 +209,7 @@ namespace xmltest_dotnet {
 			// 
 			// richTextBox3
 			// 
+			this->richTextBox3->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
 			this->richTextBox3->Location = System::Drawing::Point(478, 153);
 			this->richTextBox3->Name = L"richTextBox3";
 			this->richTextBox3->Size = System::Drawing::Size(536, 406);
@@ -217,6 +218,7 @@ namespace xmltest_dotnet {
 			// 
 			// button3
 			// 
+			this->button3->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->button3->Location = System::Drawing::Point(914, 125);
 			this->button3->Name = L"button3";
 			this->button3->Size = System::Drawing::Size(75, 23);
