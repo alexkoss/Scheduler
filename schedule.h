@@ -70,5 +70,10 @@ public:
 	void Make_Lesson_List		(schedule_inputs* inputs);
 	String^ Show_Lesson_List	();
 	int Get_Lesson_Number		(schedule_inputs* inputs);
+	lesson_struct Get_Lesson_From			(schedule_inputs* inputs);
+	time_struct Get_Time_From				(schedule_inputs* inputs);
+	day_struct Get_Day_From					(schedule_inputs* inputs);
+	auditory_struct Get_Aud_From			(schedule_inputs* inputs, lesson_struct ls);
+	bool Fill_Les_into						(schedule_inputs* inputs, lesson_struct ls, auditory_struct as);
 };
 

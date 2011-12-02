@@ -140,12 +140,41 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 		// по отношению к количеству строк с полностью распределённым расписанием.
 		// В версии с реальными входными данными нужно проверить без cnt<100
 
-	les = Get_Lesson_Number(inputs);
-	if (les!=0)
+	//les = Get_Lesson_Number(inputs);
+	//lesson_struct current_lesson = Get_Lesson_From(inputs);
+	
+	//не правильно, потому что будем вытаскивать из списка групп 
+	current.les1 = Get_Lesson_From(inputs);
+
+	if (current.les1.for_groups.size()!=0)
 	{
+		//выбираем случайное время, день
+		
+		String^ outstr = "";
+		//outstr+=String(current.les1.name).ToString()+"; "+String(current.les1.type).ToString()+"; "+String(current.day1.name).ToString();
+		//MessageBox::Show(outstr);
+
+		//тут нужно определить, сколько нужно аудиторий для заполнения данного занятия
+		int num_of_auds = current.les1.for_groups.size() / current.les1.groups_max;
+
+		for (int i=0; i<num_of_auds; i++)
+		{
+			current.aud1 = Get_Aud_From(inputs, current.les1);
+
+			if (Fill_Les_into(inputs, current.les1, current.aud1)) 
+			{
+				MessageBox::Show("sum groups added to schedule ", String::Concat(i));
+			}
+		}
+		
+
+		//сопоставить время
+
+
+
 		//les=rand() %(inputs->inputs.lessons.size());
 		
-		
+		/*
 		lesson_string current_lesson_string;
 		for (list<lesson_string>::iterator it=llist.begin(); it!=llist.end(); it++)
 		{
@@ -162,8 +191,8 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 			{
 				current_parameters.les1=(*it);
 			}
-		}
-		int some_size_of_auditories=inputs->inputs.auditories.size();
+		}*/
+		/*int some_size_of_auditories=inputs->inputs.auditories.size();
 		for (int i=0;i<some_size_of_auditories;i++)
 		{	
 			// проверка аудитории на занятость
@@ -278,7 +307,7 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 			}
 			
 		}  
-		cnt+=1;
+		cnt+=1;*/
 	}
 }
 
@@ -783,4 +812,166 @@ int SCHEDULE::Get_Lesson_Number (schedule_inputs* inputs)
 	//MessageBox::Show(String::Concat("Random number from mas = "+randnum));
 	delete [] mas;
 	return randnum;
+}
+
+lesson_struct SCHEDULE::Get_Lesson_From (schedule_inputs* inputs)
+{
+	inputs->inputs.lessons.sort();
+	String ^ outstr="";
+	int cntr=0;
+	int retindex=0;
+	lesson_struct ls;
+	for (list<lesson_struct>::iterator it=inputs->inputs.lessons.begin(); it!=inputs->inputs.lessons.end(); it++)
+	{
+		cntr++;
+		if ((*it).in_sch==false)
+		{	
+			retindex=1;
+			outstr+="GrList: ";
+			for (list<string>::iterator it2=(*it).for_groups.begin(); it2!=(*it).for_groups.end(); it2++)
+			{
+				outstr+=String((*it2).c_str()).ToString()+",";
+			}
+			//outstr+=(*it).groups_max+"; Name = "+String((*it).name).ToString()+"; Type = "+String((*it).type).ToString()+"\n";
+			(*it).in_sch=true;
+			return *it;
+		}
+	}
+	//MessageBox::Show(outstr);
+	return ls;
+}
+
+time_struct SCHEDULE::Get_Time_From (schedule_inputs* inputs)
+{
+	int randnum = rand() %(inputs->inputs.times.size());
+	int cnt = 0;
+	time_struct ts;
+	for (list<time_struct>::iterator it=inputs->inputs.times.begin(); it!=inputs->inputs.times.end(); it++)
+	{
+		if (cnt==randnum) {return *it;}
+		cnt++;
+	}
+	return ts;
+}
+
+day_struct SCHEDULE::Get_Day_From (schedule_inputs* inputs)
+{
+	int randnum = rand() %(inputs->inputs.days.size());
+	int cnt = 0;
+	day_struct ds;
+	for (list<day_struct>::iterator it=inputs->inputs.days.begin(); it!=inputs->inputs.days.end(); it++)
+	{
+		if (cnt==randnum) {return *it;}
+		cnt++;
+	}
+	return ds;
+}
+
+auditory_struct SCHEDULE::Get_Aud_From (schedule_inputs* inputs, lesson_struct ls)
+{
+	//тут нужно составить список возможных аудиторий и выбрать случайную
+	//смотреть get_lesson_number
+
+	int audnumber=0;
+	int randnum=0;
+	int* mas = new int[inputs->inputs.auditories.size()];
+	auditory_struct as;
+	as.id=-1;
+	//ищем подходящие аудитории
+	for (list<auditory_struct>::iterator it=inputs->inputs.auditories.begin(); it!=inputs->inputs.auditories.end(); it++)
+	{
+		if ((*it).groups_max>=ls.groups_max && !strcmp((*it).type,ls.type))
+		{
+			//добавление данной аудитории в список возможных
+			mas[audnumber++]=(*it).id;
+			
+			//String^ outstr = "id of compatible aud = " + (String::Concat((*it).id));
+			//MessageBox::Show(outstr);
+		}
+	}
+
+	if (audnumber!=0)
+	{
+		randnum=mas[rand()%audnumber];
+	}
+	
+	//достаём выбранную аудиторию из списка аудиторий для возвращения
+	for (list<auditory_struct>::iterator it=inputs->inputs.auditories.begin(); it!=inputs->inputs.auditories.end(); it++)
+	{
+		if ((*it).id==randnum) { as=*it; }
+	}
+
+	delete [] mas;
+
+	//String^ outstr = "And the winner id = " + (String::Concat(as.id));
+	//MessageBox::Show(outstr);
+
+	return as;
+}
+
+bool SCHEDULE::Fill_Les_into (schedule_inputs* inputs, lesson_struct ls, auditory_struct as)
+{
+	sched_string current;	// добавляемая строка
+	current.tim1 = Get_Time_From(inputs);
+	current.day1 = Get_Day_From(inputs);
+	
+	bool Can_Add_to_sch==true;
+	//выбор группы
+	int cntr=0;
+	for (list<string>::iterator it=ls.for_groups.begin(); it!=ls.for_groups.end(); it++)
+	{
+		cntr++;
+		if (ls.groups_available>0)
+		{
+			//если мы можем добавить в аудиторию
+		}
+	}
+
+
+	//проверка на возможность добавления
+
+	for (list<sched_string>::iterator it1=slist.begin(); it1!=slist.end(); it1++)
+	{
+		// проверка на конфликты
+		if ( ((*it1).gr1.id == current.gr1.id  &&  (*it1).les1.id==current.les1.id) ||
+			( ((*it1).gr1.id == current.gr1.id  || ((*it1).aud1.id==current.aud1.id && 
+			(*it1).les1.id!= current.les1.id)) && 
+			(*it1).day1.id== current.day1.id &&  (*it1).tim1.id==current.tim1.id) ) 
+		{flag=0;} 
+		else if ((*it1).gr1.id!=current.gr1.id   && (*it1).day1.id==current.day1.id && 
+			(*it1).tim1.id==current.tim1.id && (*it1).aud1.id==current.aud1.id)
+		{
+			if ((*it1).aud1.groups_available==0)
+			{flag=0;} else current.aud1.groups_available--;
+		}
+	}
+
+	if (flag==1)
+	{
+		current.aud1.groups_available--;	
+
+
+		for (list<lesson_string>::iterator itq=llist.begin(); itq!=llist.end(); itq++)
+		{
+			//if ((*itq).id==les && strcmp(current.gr1.name,(*itq).group.c_str()))
+			if (strcmp(current.les1.name,(*itq).lesson_name) && 
+				strcmp(current.les1.type,(*itq).lesson_type) && 
+				strcmp(current.gr1.name,(*itq).group.c_str()) &&
+				(current.les1.id==(*itq).from_lessons_id))
+				//current.les1.
+			{
+				(*itq).used=true;
+			}
+		}
+
+		// добавление в расписание
+		this->AddNewStr_List(current);
+
+		bo=0;
+		i=4;
+	}
+	flag=1;
+
+
+	return true; // успех
 }

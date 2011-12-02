@@ -49,6 +49,7 @@ struct lesson_struct
 	list<string> for_groups;	// целевые группы данного занятия
 	int groups_max;			// максимальное количество групп для одного занятия
 	int groups_available;		// количество свободных групп 
+	bool in_sch;				// отражает наличие занятия в расписании
 	bool operator <(const lesson_struct& les) const; // метод, необходимый для применения сортировки для списка групп
 };
 

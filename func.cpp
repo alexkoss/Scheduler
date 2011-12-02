@@ -24,7 +24,7 @@ bool day_struct::operator <(const day_struct& day) const
 
 bool lesson_struct::operator <(const lesson_struct& les) const
 {
-	return groups_max < les.groups_max;
+	return groups_max > les.groups_max;
 }
 
 bool time_struct::operator <(const time_struct& tim) const
@@ -199,7 +199,7 @@ String^ out_text(schedule_inputs* inputs, String^ filename_in)
 							char one_group_name[10] = "";
 							int cnt = 0;
 							strcpy(one_group_name,"");
-							for (int j=0;j<strlen(readerValue);j++)
+							for (unsigned int j=0;j<strlen(readerValue);j++)
 							{
 								if (j<strlen(readerValue)-1)
 								{
@@ -224,7 +224,7 @@ String^ out_text(schedule_inputs* inputs, String^ filename_in)
 									//MessageBox::Show(String(s.c_str()).ToString());
 								}
 							}
-
+							one_lesson.in_sch=false;
 							for (list<string>::iterator it=one_lesson.for_groups.begin(); it!=one_lesson.for_groups.end(); it++)
 							{
 								//MessageBox::Show(String::Concat(String(it->c_str()).ToString()));
