@@ -148,7 +148,6 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 
 	if (current.les1.for_groups.size()!=0)
 	{
-		//выбираем случайное время, день
 		
 		String^ outstr = "";
 		//outstr+=String(current.les1.name).ToString()+"; "+String(current.les1.type).ToString()+"; "+String(current.day1.name).ToString();
@@ -315,7 +314,8 @@ void SCHEDULE::Create(schedule_inputs* inputs)
 {
 	Make_Lesson_List(inputs);
 	// создание расписания - добавление максимально возможного количества строк
-	for (unsigned int i=0;i<llist.size();i++)
+	//for (unsigned int i=0;i<llist.size();i++)
+	for (unsigned int i=0;i<(inputs->inputs.lessons).size();i++)
 	{
 		this->AddNewStr(inputs);
 	}
@@ -912,41 +912,66 @@ auditory_struct SCHEDULE::Get_Aud_From (schedule_inputs* inputs, lesson_struct l
 bool SCHEDULE::Fill_Les_into (schedule_inputs* inputs, lesson_struct ls, auditory_struct as)
 {
 	sched_string current;	// добавляемая строка
-	current.tim1 = Get_Time_From(inputs);
-	current.day1 = Get_Day_From(inputs);
 	
-	bool Can_Add_to_sch==true;
+	
+	
+	bool Can_Add_to_sch = true;
 	//выбор группы
-	int cntr=0;
-	for (list<string>::iterator it=ls.for_groups.begin(); it!=ls.for_groups.end(); it++)
-	{
-		cntr++;
-		if (ls.groups_available>0)
-		{
-			//если мы можем добавить в аудиторию
-		}
-	}
+	int cntr = 0;
+	
 
 
 	//проверка на возможность добавления
-
-	for (list<sched_string>::iterator it1=slist.begin(); it1!=slist.end(); it1++)
+	do 
 	{
-		// проверка на конфликты
-		if ( ((*it1).gr1.id == current.gr1.id  &&  (*it1).les1.id==current.les1.id) ||
-			( ((*it1).gr1.id == current.gr1.id  || ((*it1).aud1.id==current.aud1.id && 
-			(*it1).les1.id!= current.les1.id)) && 
-			(*it1).day1.id== current.day1.id &&  (*it1).tim1.id==current.tim1.id) ) 
-		{flag=0;} 
-		else if ((*it1).gr1.id!=current.gr1.id   && (*it1).day1.id==current.day1.id && 
-			(*it1).tim1.id==current.tim1.id && (*it1).aud1.id==current.aud1.id)
+		//выбираем случайное время, день
+		current.tim1 = Get_Time_From(inputs);
+		current.day1 = Get_Day_From(inputs);
+		for (list<sched_string>::iterator it1=slist.begin(); it1!=slist.end(); it1++)
 		{
-			if ((*it1).aud1.groups_available==0)
-			{flag=0;} else current.aud1.groups_available--;
+			for (list<string>::iterator it=ls.for_groups.begin(); it!=ls.for_groups.end(); it++)
+			{
+				cntr++;
+				if (!strcmp((*it).c_str(),(*it1).gr1.name) && 
+					!strcmp((*it1).day1.name,current.day1.name) &&
+					!strcmp((*it1).tim1.begin_time,current.tim1.begin_time))
+				{
+					//если мы нашли разногласие - флаг на обновление день-время
+					Can_Add_to_sch=false;
+				}
+			}
+			// проверка на конфликты
+			/*if ( ((*it1).gr1.id == current.gr1.id  &&  (*it1).les1.id==current.les1.id) ||
+				( ((*it1).gr1.id == current.gr1.id  || ((*it1).aud1.id==current.aud1.id && 
+				(*it1).les1.id!= current.les1.id)) && 
+				(*it1).day1.id== current.day1.id &&  (*it1).tim1.id==current.tim1.id) ) 
+			{flag=0;} 
+			else if ((*it1).gr1.id!=current.gr1.id   && (*it1).day1.id==current.day1.id && 
+				(*it1).tim1.id==current.tim1.id && (*it1).aud1.id==current.aud1.id)
+			{
+				if ((*it1).aud1.groups_available==0)
+				{flag=0;} else current.aud1.groups_available--;
+			}*/
+		}
+	} while (!Can_Add_to_sch);
+
+	//тут нужно добавить группы из списка групп
+	/*int min_of_groups_or_size = as.groups_max;
+	if (ls.for_groups.size<min_of_groups_or_size)
+	{
+		min_of_groups_or_size=ls.for_groups.size;
+	}*/
+	for (int i=0; i<as.groups_max; i++)
+	{
+		if (ls.for_groups.size>0)
+		{
+			ls.for_groups.pop_back();
 		}
 	}
 
-	if (flag==1)
+
+
+	/*if (flag==1)
 	{
 		current.aud1.groups_available--;	
 
@@ -970,7 +995,7 @@ bool SCHEDULE::Fill_Les_into (schedule_inputs* inputs, lesson_struct ls, auditor
 		bo=0;
 		i=4;
 	}
-	flag=1;
+	flag=1;*/
 
 
 	return true; // успех
