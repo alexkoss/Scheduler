@@ -491,7 +491,7 @@ void SCHEDULE::skr(schedule_inputs* inputs,SCHEDULE & sch1, SCHEDULE & sch2)
 		for (int i=0;i<cnt1;i++)
 		{
 			
-m1:			day=rand() %(inputs->inputs.days.size());
+			day=rand() %(inputs->inputs.days.size());
 			tim=rand() %(inputs->inputs.times.size());
 
 			for (list<day_struct>::iterator it=inputs->inputs.days.begin(); it!=inputs->inputs.days.end(); it++)
@@ -510,7 +510,7 @@ m1:			day=rand() %(inputs->inputs.days.size());
 			cur[0][i][0].tim1=current_parameters.tim1;
 			cur[0][i][1].tim1=current_parameters.tim1;
 			if (search(cur[0][i][0])!=0)// && cntmax1<20)
-			{	goto m1;}//cntmax1++;}
+			{	/*goto m1;*/}//cntmax1++;}
 
 			//	cout << "\nerr1 " << search(cur[0][i][0]) << '\n';
 /*			while ((this->search(cur[0][i][0]))!=0)
@@ -544,7 +544,7 @@ m3:			day=rand() %2;
 		for (int i=0;i<cnt2;i++)
 		{
 			
-m2:			day=rand() %(inputs->inputs.days.size());
+			day=rand() %(inputs->inputs.days.size());
 			tim=rand() %(inputs->inputs.times.size());
 
 			for (list<day_struct>::iterator it=inputs->inputs.days.begin(); it!=inputs->inputs.days.end(); it++)
@@ -564,7 +564,7 @@ m2:			day=rand() %(inputs->inputs.days.size());
 			cur[1][i][1].tim1=current_parameters.tim1;
 
 			if (search(cur[1][i][0])!=0 )//&& cntmax2<20)
-			{	goto m2;}//cntmax2++;}
+			{	/*goto m2;*/}//cntmax2++;}
 	//			cout << "\nerr2 " << search(cur[1][i][0]) << '\n';
 /*			while ((this->search(cur[1][i][0]))!=0)
 			{
@@ -918,7 +918,8 @@ bool SCHEDULE::Fill_Les_into (schedule_inputs* inputs, lesson_struct ls, auditor
 	bool Can_Add_to_sch = true;
 	//выбор группы
 	int cntr = 0;
-	
+	current.les1=ls;
+	current.aud1=as;
 
 
 	//проверка на возможность добавления
@@ -934,7 +935,7 @@ bool SCHEDULE::Fill_Les_into (schedule_inputs* inputs, lesson_struct ls, auditor
 				cntr++;
 				if (!strcmp((*it).c_str(),(*it1).gr1.name) && 
 					!strcmp((*it1).day1.name,current.day1.name) &&
-					!strcmp((*it1).tim1.begin_time,current.tim1.begin_time))
+					(*it1).tim1.begin_time==current.tim1.begin_time)
 				{
 					//если мы нашли разногласие - флаг на обновление день-время
 					Can_Add_to_sch=false;
@@ -961,11 +962,45 @@ bool SCHEDULE::Fill_Les_into (schedule_inputs* inputs, lesson_struct ls, auditor
 	{
 		min_of_groups_or_size=ls.for_groups.size;
 	}*/
+	MessageBox::Show(String::Concat(String(as.name).ToString()));
+	lesson_struct TempLessonStruct = ls;
+
 	for (int i=0; i<as.groups_max; i++)
 	{
-		if (ls.for_groups.size>0)
+		// если в аудиторию можно добавить группу - добавляем из списка
+		if (TempLessonStruct.for_groups.size()>0)
 		{
-			ls.for_groups.pop_back();
+			String^ current_group="";
+			char current_group_char[10]="";
+			for (list<string>::iterator it12=TempLessonStruct.for_groups.begin(); it12!=TempLessonStruct.for_groups.end(); it12++)
+			{
+				current_group=String((*it12).c_str()).ToString();
+				MessageBox::Show(current_group);
+				strcpy(current_group_char,(*it12).c_str());
+				// прогнать по группам и сравнить с названиями
+				for (list<group_struct>::iterator it123=inputs->inputs.groups.begin(); it123!=inputs->inputs.groups.end(); it123++)
+				{
+					if (String((*it123).name).ToString()==current_group)
+					{
+						current.gr1=*it123;
+					}
+				}
+				//// записываем строку в расписание
+				//AddNewStr_List(current);
+				slist.push_back(current);
+				////
+
+				MessageBox::Show(String::Concat("Current group = ",current_group));
+				//тут нужно вытащить группу из списка групп
+				if (TempLessonStruct.for_groups.size()>0)
+				{
+					TempLessonStruct.for_groups.pop_back();
+				}
+				//else
+					//TempLessonStruct.for_groups.pop_front();
+				//MessageBox::Show(String::Concat(TempLessonStruct.for_groups.size()));
+			}
+			
 		}
 	}
 
