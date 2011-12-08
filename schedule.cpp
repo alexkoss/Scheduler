@@ -315,8 +315,8 @@ void SCHEDULE::Create(schedule_inputs* inputs)
 	Make_Lesson_List(inputs);
 	// создание расписания - добавление максимально возможного количества строк
 	//for (unsigned int i=0;i<llist.size();i++)
-	//for (unsigned int i=0;i<(inputs->inputs.lessons).size();i++)
-	for (unsigned int i=0;i<10;i++)
+	for (unsigned int i=0;i<(inputs->inputs.lessons).size();i++)
+	//for (unsigned int i=0;i<10;i++)
 	{
 		this->AddNewStr(inputs);
 	}
@@ -927,13 +927,15 @@ bool SCHEDULE::Fill_Les_into (schedule_inputs* inputs, lesson_struct ls, auditor
 	do 
 	{
 		//выбираем случайное время, день
+		cntr++;
 		current.tim1 = Get_Time_From(inputs);
 		current.day1 = Get_Day_From(inputs);
+		Can_Add_to_sch=true;
 		for (list<sched_string>::iterator it1=slist.begin(); it1!=slist.end(); it1++)
 		{
 			for (list<string>::iterator it=ls.for_groups.begin(); it!=ls.for_groups.end(); it++)
 			{
-				cntr++;
+				
 				if (!strcmp((*it).c_str(),(*it1).gr1.name) && 
 					!strcmp((*it1).day1.name,current.day1.name) &&
 					(*it1).tim1.begin_time==current.tim1.begin_time)
@@ -955,7 +957,7 @@ bool SCHEDULE::Fill_Les_into (schedule_inputs* inputs, lesson_struct ls, auditor
 				{flag=0;} else current.aud1.groups_available--;
 			}*/
 		}
-	} while (!Can_Add_to_sch);
+	} while (!Can_Add_to_sch && cntr<5000);
 
 	//тут нужно добавить группы из списка групп
 	/*int min_of_groups_or_size = as.groups_max;
