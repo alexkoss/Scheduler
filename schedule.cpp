@@ -162,7 +162,7 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 
 			if (Fill_Les_into(inputs, current.les1, current.aud1)) 
 			{
-				MessageBox::Show("sum groups added to schedule ", String::Concat(i));
+				//MessageBox::Show("sum groups added to schedule ", String::Concat(i));
 			}
 		}
 		
@@ -315,7 +315,8 @@ void SCHEDULE::Create(schedule_inputs* inputs)
 	Make_Lesson_List(inputs);
 	// создание расписания - добавление максимально возможного количества строк
 	//for (unsigned int i=0;i<llist.size();i++)
-	for (unsigned int i=0;i<(inputs->inputs.lessons).size();i++)
+	//for (unsigned int i=0;i<(inputs->inputs.lessons).size();i++)
+	for (unsigned int i=0;i<10;i++)
 	{
 		this->AddNewStr(inputs);
 	}
@@ -962,7 +963,7 @@ bool SCHEDULE::Fill_Les_into (schedule_inputs* inputs, lesson_struct ls, auditor
 	{
 		min_of_groups_or_size=ls.for_groups.size;
 	}*/
-	MessageBox::Show(String::Concat(String(as.name).ToString()));
+	//MessageBox::Show(String::Concat(String(as.name).ToString()));
 	lesson_struct TempLessonStruct = ls;
 
 	for (int i=0; i<as.groups_max; i++)
@@ -972,10 +973,14 @@ bool SCHEDULE::Fill_Les_into (schedule_inputs* inputs, lesson_struct ls, auditor
 		{
 			String^ current_group="";
 			char current_group_char[10]="";
+			list<string> list_to_del;
+			
 			for (list<string>::iterator it12=TempLessonStruct.for_groups.begin(); it12!=TempLessonStruct.for_groups.end(); it12++)
 			{
+				string group_string = *it12;
+				list_to_del.push_back(group_string);
 				current_group=String((*it12).c_str()).ToString();
-				MessageBox::Show(current_group);
+				//MessageBox::Show(current_group);
 				strcpy(current_group_char,(*it12).c_str());
 				// прогнать по группам и сравнить с названиями
 				for (list<group_struct>::iterator it123=inputs->inputs.groups.begin(); it123!=inputs->inputs.groups.end(); it123++)
@@ -983,24 +988,30 @@ bool SCHEDULE::Fill_Les_into (schedule_inputs* inputs, lesson_struct ls, auditor
 					if (String((*it123).name).ToString()==current_group)
 					{
 						current.gr1=*it123;
+						
 					}
 				}
+				//
+
 				//// записываем строку в расписание
 				//AddNewStr_List(current);
 				slist.push_back(current);
 				////
 
-				MessageBox::Show(String::Concat("Current group = ",current_group));
+//				MessageBox::Show(String::Concat("Current group = ",current_group));
 				//тут нужно вытащить группу из списка групп
 				if (TempLessonStruct.for_groups.size()>0)
 				{
-					TempLessonStruct.for_groups.pop_back();
+				//	TempLessonStruct.for_groups.pop_back();
 				}
 				//else
 					//TempLessonStruct.for_groups.pop_front();
 				//MessageBox::Show(String::Concat(TempLessonStruct.for_groups.size()));
 			}
-			
+			for (list<string>::iterator it12=list_to_del.begin(); it12!=list_to_del.end(); it12++)
+			{
+				TempLessonStruct.for_groups.remove(*it12);
+			}
 		}
 	}
 
