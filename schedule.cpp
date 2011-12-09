@@ -162,6 +162,13 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 
 			if (Fill_Les_into(inputs, current.les1, current.aud1)) 
 			{
+				for (list<auditory_struct>::iterator it=inputs->inputs.auditories.begin(); it!=inputs->inputs.auditories.end(); it++)
+				{
+					//inputs->inputs.auditories
+					if ((*it).name == current.aud1.name) {
+						(*it).groups_available = 0;
+					}
+				}
 				//MessageBox::Show("sum groups added to schedule ", String::Concat(i));
 			}
 		}

@@ -215,6 +215,7 @@ namespace xmltest_dotnet {
 			this->richTextBox3->Size = System::Drawing::Size(536, 406);
 			this->richTextBox3->TabIndex = 19;
 			this->richTextBox3->Text = L"";
+			this->richTextBox3->Visible = false;
 			// 
 			// button3
 			// 
@@ -225,6 +226,7 @@ namespace xmltest_dotnet {
 			this->button3->TabIndex = 18;
 			this->button3->Text = L"button3";
 			this->button3->UseVisualStyleBackColor = true;
+			this->button3->Visible = false;
 			this->button3->Click += gcnew System::EventHandler(this, &Form1::button3_Click_1);
 			// 
 			// tabControl3
