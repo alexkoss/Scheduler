@@ -1,5 +1,3 @@
-// xmltest_dotnet.cpp : main project file.
-
 #include "stdafx.h"
 #include "Form1.h"
 

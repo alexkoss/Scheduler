@@ -155,7 +155,8 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 
 		//тут нужно определить, сколько нужно аудиторий для заполнения данного занятия
 		int num_of_auds = current.les1.for_groups.size() / current.les1.groups_max;
-
+		
+		//по количеству занимаемых аудиторий заполняем группы занятиями
 		for (int i=0; i<num_of_auds; i++)
 		{
 			current.aud1 = Get_Aud_From(inputs, current.les1);
@@ -888,7 +889,7 @@ auditory_struct SCHEDULE::Get_Aud_From (schedule_inputs* inputs, lesson_struct l
 	//ищем подходящие аудитории
 	for (list<auditory_struct>::iterator it=inputs->inputs.auditories.begin(); it!=inputs->inputs.auditories.end(); it++)
 	{
-		if ((*it).groups_max>=ls.groups_max && !strcmp((*it).type,ls.type))
+		if ((*it).groups_max>=ls.groups_max && !strcmp((*it).type,ls.type) && (*it).groups_available>0)
 		{
 			//добавление данной аудитории в список возможных
 			mas[audnumber++]=(*it).id;
@@ -921,8 +922,6 @@ bool SCHEDULE::Fill_Les_into (schedule_inputs* inputs, lesson_struct ls, auditor
 {
 	sched_string current;	// добавляемая строка
 	
-	
-	
 	bool Can_Add_to_sch = true;
 	//выбор группы
 	int cntr = 0;
@@ -939,13 +938,26 @@ bool SCHEDULE::Fill_Les_into (schedule_inputs* inputs, lesson_struct ls, auditor
 		current.day1 = Get_Day_From(inputs);
 		Can_Add_to_sch=true;
 		for (list<sched_string>::iterator it1=slist.begin(); it1!=slist.end(); it1++)
-		{
+		{	// (*it1) - элементы расписания
 			for (list<string>::iterator it=ls.for_groups.begin(); it!=ls.for_groups.end(); it++)
 			{
 				
-				if (!strcmp((*it).c_str(),(*it1).gr1.name) && 
+				if ((!strcmp((*it).c_str(),(*it1).gr1.name) && 
 					!strcmp((*it1).day1.name,current.day1.name) &&
-					(*it1).tim1.begin_time==current.tim1.begin_time)
+					(*it1).tim1.begin_time==current.tim1.begin_time && as.groups_available>0 &&
+					!strcmp(as.name,(*it1).aud1.name)))
+
+					/*(!strcmp(current_parameters.aud1.type,"лекция") && 
+					(current_parameters.aud1.groups_available>0) && 
+					!strcmp(current_parameters.les1.type,"лекция")) || 
+					(!strcmp(current_parameters.aud1.type,"семинар") && 
+					(current_parameters.aud1.groups_available>0) && 
+					!strcmp(current_parameters.les1.type,"семинар")) || 
+					(!strcmp(current_parameters.aud1.type,"лаб")	 && 
+					(current_parameters.aud1.groups_available>0) && 
+					!strcmp(current_parameters.les1.type,"лаб"))*/
+
+
 				{
 					//если мы нашли разногласие - флаг на обновление день-время
 					Can_Add_to_sch=false;
@@ -978,7 +990,7 @@ bool SCHEDULE::Fill_Les_into (schedule_inputs* inputs, lesson_struct ls, auditor
 	for (int i=0; i<as.groups_max; i++)
 	{
 		// если в аудиторию можно добавить группу - добавляем из списка
-		if (TempLessonStruct.for_groups.size()>0)
+		if (TempLessonStruct.for_groups.size()>0 && as.groups_available>0)
 		{
 			String^ current_group="";
 			char current_group_char[10]="";
@@ -992,12 +1004,12 @@ bool SCHEDULE::Fill_Les_into (schedule_inputs* inputs, lesson_struct ls, auditor
 				//MessageBox::Show(current_group);
 				strcpy(current_group_char,(*it12).c_str());
 				// прогнать по группам и сравнить с названиями
-				for (list<group_struct>::iterator it123=inputs->inputs.groups.begin(); it123!=inputs->inputs.groups.end(); it123++)
+				for (list<group_struct>::iterator it123=(inputs)->inputs.groups.begin(); it123!=(inputs)->inputs.groups.end(); it123++)
 				{
 					if (String((*it123).name).ToString()==current_group)
 					{
 						current.gr1=*it123;
-						
+						current.aud1.groups_available--;
 					}
 				}
 				//
