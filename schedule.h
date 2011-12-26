@@ -25,6 +25,14 @@ struct lesson_string
 	int from_lessons_id;	// номер в списке всех занятий
 };
 
+struct adt_string
+{
+	auditory_struct aud;	// аудитория
+	day_struct day;			// день
+	time_struct time;		// время
+	bool operator <(const adt_string& str) const;
+};
+
 class SCHEDULE
 {
 protected:
@@ -34,6 +42,9 @@ public:
 	unsigned int max_num_of_strings;
 	list<sched_string> slist;
 	list<lesson_string> llist;
+	list<adt_string> lec_list;
+	list<adt_string> sem_list;
+	list<adt_string> lab_list;
 	//методы
 
 public:

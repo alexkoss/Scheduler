@@ -16,6 +16,11 @@ bool sched_string::operator <(const sched_string& str) const
 		return day1.id < str.day1.id;
 }
 
+bool adt_string::operator <(const adt_string& str) const 
+{
+	return aud.groups_max > str.aud.groups_max;
+}
+
 inline void SCHEDULE::AddNewStr_List (const sched_string &current)
 {
 	slist.push_back(current);
@@ -123,7 +128,7 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
    }
 */
 {
-	//
+	// TODO: нужно сделать проверку на конфликты - занята ли группа в данное время
 
 	sched_string current;	// добавляемая строка
 	bool bo=1;
@@ -134,15 +139,117 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 	int day=0;
 	int tim=0;
 	
-	//итерация по добавлению
-	//while (bo==1 && CanAdd(inputs) /*&& cnt<100*/)	
-		// 100, потому что CanAdd проверяет на количество строк в расписании 
-		// по отношению к количеству строк с полностью распределённым расписанием.
-		// В версии с реальными входными данными нужно проверить без cnt<100
+	list<lesson_struct> lessons_list = inputs->inputs.lessons;
 
-	//les = Get_Lesson_Number(inputs);
-	//lesson_struct current_lesson = Get_Lesson_From(inputs);
-	
+	lessons_list.sort();
+	//MessageBox::Show(String::Concat((lessons_list.begin())->groups_max));
+
+	// отсортировать список по максимальному количеству групп в занятиях
+	bool flag_to_exit=false;
+	for (list<lesson_struct>::iterator it_l=lessons_list.begin(); it_l!=lessons_list.end(); it_l++)
+	{
+		current.les1=*it_l;
+		if (!strcmp(current.les1.type,"лекция")) 
+		{
+			//MessageBox::Show(String::Concat("this is first suitable aud", String(lec_list.begin()->aud.name).ToString()));
+			
+			// если это лекция - выбираем из списка лекций, ппосле использования нужно удалить использованную строку из списка lec_list
+			current.aud1=lec_list.begin()->aud;
+			current.day1=lec_list.begin()->day;
+			current.tim1=lec_list.begin()->time;
+			for (list<string>::iterator it_s=it_l->for_groups.begin(); it_s!=it_l->for_groups.end(); it_s++)
+			{
+				
+				// тут есть группа в формате string. находим её из списка групп, добавляем в current, добавляем в расписание
+				for (list<group_struct>::iterator it_t=inputs->inputs.groups.begin(); it_t!=inputs->inputs.groups.end(); it_t++)
+				{
+					// сравниваем название группы из списка целевых групп занятия  и общего списка групп
+					if (!strcmp((*it_t).name,(*it_s).c_str()))
+					{
+						current.gr1=*it_t;
+						slist.push_back(current);
+						// нашли группу, выходим
+						flag_to_exit=true;
+					}
+					if (flag_to_exit)
+					{
+						//break;
+					}
+				}
+			}
+
+			// убираем связку аудитория-дата-время из списка
+			lec_list.pop_front();
+		}
+		else if (!strcmp(current.les1.type,"семинар")) 
+		{
+			//MessageBox::Show(String::Concat("this is first suitable aud", String(lec_list.begin()->aud.name).ToString()));
+
+			// если это лекция - выбираем из списка лекций, ппосле использования нужно удалить использованную строку из списка lec_list
+			current.aud1=sem_list.begin()->aud;
+			current.day1=sem_list.begin()->day;
+			current.tim1=sem_list.begin()->time;
+			for (list<string>::iterator it_s=it_l->for_groups.begin(); it_s!=it_l->for_groups.end(); it_s++)
+			{
+
+				// тут есть группа в формате string. находим её из списка групп, добавляем в current, добавляем в расписание
+				for (list<group_struct>::iterator it_t=inputs->inputs.groups.begin(); it_t!=inputs->inputs.groups.end(); it_t++)
+				{
+					// сравниваем название группы из списка целевых групп занятия  и общего списка групп
+					if (!strcmp((*it_t).name,(*it_s).c_str()))
+					{
+						current.gr1=*it_t;
+						slist.push_back(current);
+						// нашли группу, выходим
+						flag_to_exit=true;
+					}
+					if (flag_to_exit)
+					{
+						//break;
+					}
+				}
+			}
+
+			// убираем связку аудитория-дата-время из списка
+			sem_list.pop_front();
+		}
+		else if (!strcmp(current.les1.type,"лаб")) 
+		{
+			//MessageBox::Show(String::Concat("this is first suitable aud", String(lec_list.begin()->aud.name).ToString()));
+
+			// если это лекция - выбираем из списка лекций, ппосле использования нужно удалить использованную строку из списка lec_list
+			current.aud1=lab_list.begin()->aud;
+			current.day1=lab_list.begin()->day;
+			current.tim1=lab_list.begin()->time;
+			for (list<string>::iterator it_s=it_l->for_groups.begin(); it_s!=it_l->for_groups.end(); it_s++)
+			{
+
+				// тут есть группа в формате string. находим её из списка групп, добавляем в current, добавляем в расписание
+				for (list<group_struct>::iterator it_t=inputs->inputs.groups.begin(); it_t!=inputs->inputs.groups.end(); it_t++)
+				{
+					// сравниваем название группы из списка целевых групп занятия  и общего списка групп
+					if (!strcmp((*it_t).name,(*it_s).c_str()))
+					{
+						current.gr1=*it_t;
+						slist.push_back(current);
+						// нашли группу, выходим
+						flag_to_exit=true;
+					}
+					if (flag_to_exit)
+					{
+						//break;
+					}
+				}
+			}
+
+			// убираем связку аудитория-дата-время из списка
+			lab_list.pop_front();
+		}
+		
+	}
+
+/*
+
 	//не правильно, потому что будем вытаскивать из списка групп 
 	current.les1 = Get_Lesson_From(inputs);
 
@@ -150,9 +257,7 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 	{
 		
 		String^ outstr = "";
-		//outstr+=String(current.les1.name).ToString()+"; "+String(current.les1.type).ToString()+"; "+String(current.day1.name).ToString();
-		//MessageBox::Show(outstr);
-
+		
 		//тут нужно определить, сколько нужно аудиторий для заполнения данного занятия
 		int num_of_auds = current.les1.for_groups.size() / current.les1.groups_max;
 		
@@ -173,7 +278,7 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 				//MessageBox::Show("sum groups added to schedule ", String::Concat(i));
 			}
 		}
-		
+	}	*/
 
 		//сопоставить время
 
@@ -315,7 +420,7 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 			
 		}  
 		cnt+=1;*/
-	}
+	
 }
 
 void SCHEDULE::Create(schedule_inputs* inputs)
@@ -323,8 +428,7 @@ void SCHEDULE::Create(schedule_inputs* inputs)
 	Make_Lesson_List(inputs);
 	// создание расписания - добавление максимально возможного количества строк
 	//for (unsigned int i=0;i<llist.size();i++)
-	for (unsigned int i=0;i<(inputs->inputs.lessons).size();i++)
-	//for (unsigned int i=0;i<10;i++)
+	//for (unsigned int i=0;i<(inputs->inputs.lessons).size();i++)
 	{
 		this->AddNewStr(inputs);
 	}
@@ -721,7 +825,7 @@ int SCHEDULE::num_free_groups ()
 // Создает массив из всех занатий
 void SCHEDULE::Make_Lesson_List	(schedule_inputs* inputs)
 {
-	int id = 1;
+	/*int id = 1;
 	for (list<lesson_struct>::iterator it=inputs->inputs.lessons.begin(); it!=inputs->inputs.lessons.end(); it++)
 	{
 		for (list<string>::iterator it2=(*it).for_groups.begin(); it2!=(*it).for_groups.end(); it2++)
@@ -738,8 +842,59 @@ void SCHEDULE::Make_Lesson_List	(schedule_inputs* inputs)
 			new_lesson_string.from_lessons_id=(*it).id;
 			llist.push_back(new_lesson_string);
 		}
-	}
+	}*/
 	//MessageBox::Show(String::Concat(llist.size()));
+
+	
+	
+	// тут создаём 3 списка аудитория - день - время для лекций, аудиторий, семинаров
+
+	adt_string new_adt_string; // строка для заполнения
+	for (list<auditory_struct>::iterator it_a=inputs->inputs.auditories.begin(); it_a!=inputs->inputs.auditories.end(); it_a++)
+	{
+		new_adt_string.aud=(*it_a);
+		for (list<day_struct>::iterator it_d=inputs->inputs.days.begin(); it_d!=inputs->inputs.days.end(); it_d++)
+		{
+			new_adt_string.day=(*it_d);
+			for (list<time_struct>::iterator it_t=inputs->inputs.times.begin(); it_t!=inputs->inputs.times.end(); it_t++)
+			{
+				new_adt_string.time=(*it_t);
+				//adtlist.push_back(new_adt_string);
+				char cur_aud_type[100];
+				strcpy(cur_aud_type,new_adt_string.aud.type);
+				if (!strcmp(cur_aud_type,"лекция"))
+				{
+					lec_list.push_back(new_adt_string);
+				}
+				else if (!strcmp(cur_aud_type,"семинар"))
+				{
+					sem_list.push_back(new_adt_string);
+				}
+				else if (!strcmp(cur_aud_type,"лаб"))
+				{
+					lab_list.push_back(new_adt_string);
+				}
+			}
+		}
+	}
+
+	// тут нужно отсортировать аудитории из списков по вместимости; аудитории с максимальной вместимостью - в конце
+
+	lec_list.sort();
+	sem_list.sort();
+	lab_list.sort();
+	
+	// теперь из отсортированных списков аудиторий нужно создавать строки расписания
+
+	//sem_list.pop_back();
+	//sem_list.pop_front();
+	//MessageBox::Show(String::Concat((--sem_list.end())->aud.groups_max));
+
+
+	/*MessageBox::Show(String::Concat("Max number of strings in schedule lections is ",lec_list.size()));
+	MessageBox::Show(String::Concat("Max number of strings in schedule seminars is ",sem_list.size()));
+	MessageBox::Show(String::Concat("Max number of strings in schedule labs is ",lab_list.size()));
+	MessageBox::Show(String::Concat("Max number of strings in schedule is ",lec_list.size()+sem_list.size()+lab_list.size()));*/
 }
 
 String^ SCHEDULE::Show_Lesson_List	()

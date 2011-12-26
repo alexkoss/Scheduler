@@ -481,9 +481,9 @@ namespace xmltest_dotnet {
 			richTextBox1->Text=out_text(inp,openFileDialog1->FileName);
 		}
 
-		s->Make_Lesson_List(inp);
-		String^ lesson_list = s->Show_Lesson_List();
-		richTextBox3->Text=lesson_list;
+		//s->Make_Lesson_List(inp);
+		//String^ lesson_list = s->Show_Lesson_List();
+		//richTextBox3->Text=lesson_list;
 		//s->Get_Lesson_Number(inp);
 
 		comboBox1_SelectedIndexChanged(sender,e);
