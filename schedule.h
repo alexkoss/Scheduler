@@ -30,6 +30,7 @@ struct adt_string
 	auditory_struct aud;	// аудитория
 	day_struct day;			// день
 	time_struct time;		// время
+	list<string> restricted;// список занятых групп
 	bool operator <(const adt_string& str) const;
 };
 
@@ -86,5 +87,6 @@ public:
 	day_struct Get_Day_From					(schedule_inputs* inputs);
 	auditory_struct Get_Aud_From			(schedule_inputs* inputs, lesson_struct ls);
 	bool Fill_Les_into						(schedule_inputs* inputs, lesson_struct ls, auditory_struct as);
+	bool is_not_in_restricted_list			(group_struct gr, list<string> restricted);
 };
 
