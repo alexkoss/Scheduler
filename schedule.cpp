@@ -21,12 +21,6 @@ bool adt_string::operator <(const adt_string& str) const
 	return aud.groups_max > str.aud.groups_max;
 }
 
-inline void SCHEDULE::AddNewStr_List (const sched_string &current)
-{
-	slist.push_back(current);
-	return;
-};
-
 void SCHEDULE::Show_All_List(char* out)
 {
 	//выводит расписание в out
@@ -128,10 +122,10 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
    }
 */
 {
-	// TODO: нужно сделать проверку на конфликты - занята ли группа в данное время
+	// TODO: сделать случайный выбор аудитории в пределах высших вместимостей
 
 	sched_string current;	// добавляемая строка
-	adt_string to_remove;	// строка для удаления из les_list, sem_list или lab_list
+	
 	bool bo=1;
 	bool flag=1;
 	int les=0;
@@ -143,147 +137,23 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 	list<lesson_struct> lessons_list = inputs->inputs.lessons;
 
 	lessons_list.sort();
-	//MessageBox::Show(String::Concat((lessons_list.begin())->groups_max));
-
+	
 	// отсортировать список по максимальному количеству групп в занятиях
 	for (list<lesson_struct>::iterator it_l=lessons_list.begin(); it_l!=lessons_list.end(); it_l++)
 	{
 		current.les1=*it_l;
 		if (!strcmp(current.les1.type,"лекция")) 
 		{
-			//MessageBox::Show(String::Concat("this is first suitable aud", String(lec_list.begin()->aud.name).ToString()));
-			
-			// если это лекция - выбираем из списка лекций, после использования нужно удалить использованную строку из списка lec_list
-
-			for (list<string>::iterator it_s=it_l->for_groups.begin(); it_s!=it_l->for_groups.end(); it_s++)
-			{
-				
-				// тут есть группа в формате string. находим её из списка групп, добавляем в current, добавляем в расписание
-				for (list<group_struct>::iterator it_t=inputs->inputs.groups.begin(); it_t!=inputs->inputs.groups.end(); it_t++)
-				{
-					// сравниваем название группы из списка целевых групп занятия  и общего списка групп
-					if (!strcmp((*it_t).name,(*it_s).c_str()))
-					{
-						current.gr1=*it_t;
-
-						// на самом деле выбирать строку из lec_list нужно тут с проверкой группы на наличие в restrict-листе
-						for (list<adt_string>::iterator it_adt=lec_list.begin(); it_adt!=lec_list.end(); it_adt++)
-						{
-							if (is_not_in_restricted_list(current.gr1,(*it_adt).restricted))	// если не в запретном списке - выбираем текущие параметры строки
-							{
-								current.aud1=(*it_adt).aud;
-								current.day1=(*it_adt).day;
-								current.tim1=(*it_adt).time;
-								to_remove.aud=(*it_adt).aud;
-								to_remove.day=(*it_adt).day;
-								to_remove.time=(*it_adt).time;
-								to_remove.restricted=(*it_adt).restricted;
-							}
-							// TODO: продумать, какое условие по выходу
-						}
-
-
-						slist.push_back(current);	// добавление строки в расписание
-						// тут нужно в оставшийся список занести информацию, что группа в данное день-время занята
-						for (list<adt_string>::iterator it_adt=lec_list.begin(); it_adt!=lec_list.end(); it_adt++)
-						{
-							if ((*it_adt).day.id==current.day1.id && (*it_adt).time.id==current.tim1.id)
-							{
-								(*it_adt).restricted.push_back(*it_s);
-								break;
-							}
-
-						}
-						to_remove.restricted.push_back(*it_s);
-					}
-				}
-			}
-
-			// убираем связку аудитория-дата-время из списка		!!! не правильно! нужно удалять тот элемент, который использовался!
-			//lec_list.pop_front();
-			lec_list.remove(to_remove);
+			Fill_One_Lesson(&lec_list,&current,inputs);
 		}
-		/*else if (!strcmp(current.les1.type,"семинар")) 
+		else if (!strcmp(current.les1.type,"семинар")) 
 		{
-			//MessageBox::Show(String::Concat("this is first suitable aud", String(lec_list.begin()->aud.name).ToString()));
-
-			// если это лекция - выбираем из списка лекций, после использования нужно удалить использованную строку из списка lec_list
-			/ *current.aud1=sem_list.begin()->aud;
-			current.day1=sem_list.begin()->day;
-			current.tim1=sem_list.begin()->time;* /
-			for (list<string>::iterator it_s=it_l->for_groups.begin(); it_s!=it_l->for_groups.end(); it_s++)
-			{
-
-				// тут есть группа в формате string. находим её из списка групп, добавляем в current, добавляем в расписание
-				for (list<group_struct>::iterator it_t=inputs->inputs.groups.begin(); it_t!=inputs->inputs.groups.end(); it_t++)
-				{
-					// сравниваем название группы из списка целевых групп занятия  и общего списка групп
-					if (!strcmp((*it_t).name,(*it_s).c_str()))
-					{
-						current.gr1=*it_t;
-
-						for (list<adt_string>::iterator it_adt=sem_list.begin(); it_adt!=sem_list.end(); it_adt++)
-						{
-							if (is_not_in_restricted_list(current.gr1,(*it_adt).restricted))	// если не в запретном списке - выбираем текущие параметры строки
-							{
-								current.aud1=(*it_adt).aud;
-								current.day1=(*it_adt).day;
-								current.tim1=(*it_adt).time;
-								to_remove.aud=(*it_adt).aud;
-								to_remove.day=(*it_adt).day;
-								to_remove.time=(*it_adt).time;
-								to_remove.restricted=(*it_adt).restricted;
-							}
-						}
-
-						slist.push_back(current);	// добавление строки в расписание
-						
-						// тут нужно в оставшийся список занести информацию, что группа в данное день-время занята
-						for (list<adt_string>::iterator it_adt=lec_list.begin(); it_adt!=lec_list.end(); it_adt++)
-						{
-							if ((*it_adt).day.id==current.day1.id && (*it_adt).time.id==current.tim1.id)
-							{
-								(*it_adt).restricted.push_back(*it_s);
-								break;
-							}
-
-						}
-					}
-				}
-			}
-
-			// убираем связку аудитория-дата-время из списка
-			//sem_list.pop_front();
-			sem_list.remove(to_remove);
-		}*/
-		/*else if (!strcmp(current.les1.type,"лаб")) 
+			Fill_One_Lesson(&sem_list,&current,inputs);
+		}
+		else if (!strcmp(current.les1.type,"лаб")) 
 		{
-			//MessageBox::Show(String::Concat("this is first suitable aud", String(lec_list.begin()->aud.name).ToString()));
-
-			// если это лекция - выбираем из списка лекций, после использования нужно удалить использованную строку из списка lec_list
-			current.aud1=lab_list.begin()->aud;
-			current.day1=lab_list.begin()->day;
-			current.tim1=lab_list.begin()->time;
-			for (list<string>::iterator it_s=it_l->for_groups.begin(); it_s!=it_l->for_groups.end(); it_s++)
-			{
-
-				// тут есть группа в формате string. находим её из списка групп, добавляем в current, добавляем в расписание
-				for (list<group_struct>::iterator it_t=inputs->inputs.groups.begin(); it_t!=inputs->inputs.groups.end(); it_t++)
-				{
-					// сравниваем название группы из списка целевых групп занятия  и общего списка групп
-					if (!strcmp((*it_t).name,(*it_s).c_str()))
-					{
-						current.gr1=*it_t;
-						slist.push_back(current);	// добавление строки в расписание
-						// нашли группу, выходим
-					}
-				}
-			}
-
-			// убираем связку аудитория-дата-время из списка
-			lab_list.pop_front();
-		}*/
-		
+			Fill_One_Lesson(&lab_list,&current,inputs);
+		}
 	}
 
 /*
@@ -461,17 +331,93 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 	
 }
 
-bool SCHEDULE::is_not_in_restricted_list(group_struct gr, list<string> restricted)
+void SCHEDULE::Fill_One_Lesson(list<adt_string> *inlist, sched_string *current, schedule_inputs* inputs) //*it_l=current->les1
 {
-	bool is_in=false;
-	for (list<string>::iterator it=restricted.begin();it!=restricted.end();it++)
+	list<adt_string>::iterator ptr_to_erase;	// для памяти указателя на удаляемую строку
+
+	// выбираем из списка соответсвующих аудиторий, после использования нужно удалить использованную строку из списка ***_list
+
+	for (list<string>::iterator it_s=current->les1.for_groups.begin(); it_s!=current->les1.for_groups.end(); it_s++)
 	{
-		if (!strcmp((*it).c_str(),gr.name))
+
+		// тут есть группа в формате string. находим её из списка групп, добавляем в current, добавляем в расписание
+		for (list<group_struct>::iterator it_t=inputs->inputs.groups.begin(); it_t!=inputs->inputs.groups.end(); it_t++)
 		{
-			is_in=true;
+			// сравниваем название группы из списка целевых групп занятия  и общего списка групп
+			if (!strcmp((*it_t).name,(*it_s).c_str()))
+			{
+				(*current).gr1=*it_t;
+
+				// на самом деле выбирать строку из ***_list нужно тут с проверкой группы на наличие в restrict-листе
+				for (list<adt_string>::iterator it_adt=(*inlist).begin(); it_adt!=(*inlist).end(); it_adt++)
+				{
+					if (is_not_in_restricted_list_and_not_full((*current).gr1,(*it_adt)))	// если не в запретном списке - выбираем текущие параметры строки
+					{
+						(*it_adt).aud.groups_available--;
+						(*current).aud1=(*it_adt).aud;
+						(*current).day1=(*it_adt).day;
+						(*current).tim1=(*it_adt).time;
+						ptr_to_erase=it_adt;
+						break;
+					}
+				}
+
+				slist.push_back(*current);	// добавление строки в расписание
+
+				// тут нужно в оставшиеся 3 списка занести информацию, что группа в данное день-время занята
+				Fill_Restricted(&lec_list,*it_s,*current);
+				Fill_Restricted(&sem_list,*it_s,*current);
+				Fill_Restricted(&lab_list,*it_s,*current);
+			}
 		}
 	}
-	return !is_in;
+
+	// проверяем списки на наличие в них запрещённых групп
+	int cnt=Check_Restricted_Count(lec_list);
+	cnt=Check_Restricted_Count(sem_list);
+	cnt=Check_Restricted_Count(lab_list);
+
+	// убираем связку аудитория-дата-время из списка		!!! не правильно! нужно удалять тот элемент, который использовался!
+	(*inlist).erase(ptr_to_erase);
+}
+
+void SCHEDULE::Fill_Restricted(list<adt_string> *inlist, string adt_str, sched_string current)
+{
+	for (list<adt_string>::iterator it_adt=(*inlist).begin(); it_adt!=(*inlist).end(); it_adt++)
+	{
+		if ((*it_adt).day.id==current.day1.id && (*it_adt).time.id==current.tim1.id)
+		{
+			(*it_adt).restricted.push_back(adt_str);
+		}
+	}
+}
+
+int SCHEDULE::Check_Restricted_Count(list<adt_string> inlist)
+{
+	int num=0;
+	for (list<adt_string>::iterator it=inlist.begin(); it!=inlist.end(); it++)
+	{
+		num+=(*it).restricted.size();
+	}
+	return num;
+}
+
+bool SCHEDULE::is_not_in_restricted_list_and_not_full(group_struct gr, adt_string adt_str)
+{
+	if (adt_str.aud.groups_available>0)
+	{
+		bool is_in=false;
+		for (list<string>::iterator it=adt_str.restricted.begin();it!=adt_str.restricted.end();it++)
+		{
+			if (!strcmp((*it).c_str(),gr.name))
+			{
+				is_in=true;
+			}
+		}
+		return !is_in;
+	}
+	else 
+		return false;
 }
 
 void SCHEDULE::Create(schedule_inputs* inputs)
@@ -789,6 +735,7 @@ void SCHEDULE::Cycle2(schedule_inputs* inputs)
 	sch.Create(inputs);
 	slist=sch.slist;
 	llist=sch.llist;
+	slist.sort();
 	//sch.Make_Lesson_List(inputs);
 	//sch.Show_Lesson_List();
 }

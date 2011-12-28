@@ -66,7 +66,6 @@ public:
 	{
 		slist.clear();
 	}
-	inline void AddNewStr_List	(const sched_string &current);
 	void Show_All_List			(char* out);
 	void Create					(schedule_inputs* inputs);
 	void AddNewStr				(schedule_inputs* inputs);
@@ -87,6 +86,9 @@ public:
 	day_struct Get_Day_From					(schedule_inputs* inputs);
 	auditory_struct Get_Aud_From			(schedule_inputs* inputs, lesson_struct ls);
 	bool Fill_Les_into						(schedule_inputs* inputs, lesson_struct ls, auditory_struct as);
-	bool is_not_in_restricted_list			(group_struct gr, list<string> restricted);
+	bool is_not_in_restricted_list_and_not_full			(group_struct gr, adt_string adt_str);
+	void Fill_Restricted					(list<adt_string> *inlist, string adt_str, sched_string current);
+	int Check_Restricted_Count				(list<adt_string> inlist);
+	void Fill_One_Lesson					(list<adt_string> *inlist, sched_string *current, schedule_inputs* inputs);
 };
 
