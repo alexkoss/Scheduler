@@ -129,7 +129,7 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 	bool bo=1;
 	bool flag=1;
 	int les=0;
-	int cnt=0;
+	int cnt=0;  
 	int gr=0;
 	int day=0;
 	int tim=0;

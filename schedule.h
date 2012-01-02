@@ -75,7 +75,7 @@ public:
 	bool search					(const sched_string &current);
 	bool search2				(const sched_string &current);
 	bool CanAdd					(schedule_inputs* inputs);
-	void Cycle					(schedule_inputs* inputs);
+	void Cycle					(schedule_inputs* inputs);  
 	void Cycle2					(schedule_inputs* inputs);
 	int  num_free_groups		();
 	void Make_Lesson_List		(schedule_inputs* inputs);
