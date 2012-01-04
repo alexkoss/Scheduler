@@ -335,8 +335,11 @@ void SCHEDULE::Fill_One_Lesson(list<adt_string> *inlist, sched_string *current, 
 {
 	list<adt_string>::iterator ptr_to_erase;	// для памяти указателя на удаляемую строку
 	bool need_to_change=true;
+	int num_of_inserted=0;
 	// выбираем из списка соответсвующих аудиторий, после использования нужно удалить использованную строку из списка ***_list
-
+	
+	// нужно добавить проверку на максимальное количество групп для занятия
+	
 	for (list<string>::iterator it_s=current->les1.for_groups.begin(); it_s!=current->les1.for_groups.end(); it_s++)
 	{
 
@@ -349,12 +352,15 @@ void SCHEDULE::Fill_One_Lesson(list<adt_string> *inlist, sched_string *current, 
 				(*current).gr1=*it_t;
 
 				// выбираем группу, если это необходимо
-				if (need_to_change)
-				{
+				if (need_to_change) {
 					Select_New_Group(inputs,current,inlist,&need_to_change,&ptr_to_erase);
 				}
-				if ((*ptr_to_erase).aud.groups_available==0)
-				{
+				else  {
+					(*ptr_to_erase).aud.groups_available--;
+					(*current).aud1.groups_available--;
+				}
+				//if ((*ptr_to_erase).aud.groups_available==0) {
+				if ((*current).aud1.groups_available==0) {
 					need_to_change=true;
 					//break;
 				}
@@ -362,6 +368,11 @@ void SCHEDULE::Fill_One_Lesson(list<adt_string> *inlist, sched_string *current, 
 				
 
 				slist.push_back(*current);	// добавление строки в расписание
+				num_of_inserted++;
+				if (num_of_inserted==(*current).les1.groups_max)
+				{
+					need_to_change=true;
+				}
 
 				// тут нужно в оставшиеся 3 списка занести информацию, что группа в данное день-время занята
 				Fill_Restricted(&lec_list,*it_s,*current);
@@ -380,9 +391,11 @@ void SCHEDULE::Fill_One_Lesson(list<adt_string> *inlist, sched_string *current, 
 	(*inlist).erase(ptr_to_erase);
 }
 
-void SCHEDULE::Select_New_Group(schedule_inputs* inputs, sched_string* current,list<adt_string>* inlist, bool* need_to_change, list<adt_string>::iterator *ptr_to_erase)
+void SCHEDULE::Select_New_Group(schedule_inputs* inputs, sched_string* current,
+								list<adt_string>* inlist, bool* need_to_change, 
+								list<adt_string>::iterator *ptr_to_erase)
 {
-	// TODO: случайный выбор аудитории, правильный выход need_to_change
+	// TODO: случайный выбор аудитории, правильный выход need_to_change. выбирать из groups_available -> max
 	for (list<adt_string>::iterator it_adt=(*inlist).begin(); it_adt!=(*inlist).end(); it_adt++)
 	{
 		if (is_not_in_restricted_list_and_not_full((*current).gr1,(*it_adt)))	// если не в запретном списке - выбираем текущие параметры строки
@@ -395,12 +408,13 @@ void SCHEDULE::Select_New_Group(schedule_inputs* inputs, sched_string* current,l
 			break;
 		}
 	}
-	if ((*ptr_to_erase).aud.groups_available>0)
+	if ((*(*ptr_to_erase)).aud.groups_available>0)
 		*need_to_change=false;
 	else
 		*need_to_change=true;
 }
 
+// добавление группы в списки
 void SCHEDULE::Fill_Restricted(list<adt_string> *inlist, string adt_str, sched_string current)
 {
 	for (list<adt_string>::iterator it_adt=(*inlist).begin(); it_adt!=(*inlist).end(); it_adt++)
