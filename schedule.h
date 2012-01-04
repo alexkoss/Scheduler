@@ -90,5 +90,6 @@ public:
 	void Fill_Restricted					(list<adt_string> *inlist, string adt_str, sched_string current);
 	int Check_Restricted_Count				(list<adt_string> inlist);
 	void Fill_One_Lesson					(list<adt_string> *inlist, sched_string *current, schedule_inputs* inputs);
+	void Select_New_Group(schedule_inputs* inputs, sched_string* current,list<adt_string>* inlist, bool* need_to_change, list<adt_string>::iterator *ptr_to_erase);
 };
 

@@ -334,7 +334,7 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 void SCHEDULE::Fill_One_Lesson(list<adt_string> *inlist, sched_string *current, schedule_inputs* inputs) //*it_l=current->les1
 {
 	list<adt_string>::iterator ptr_to_erase;	// для памяти указателя на удаляемую строку
-
+	bool need_to_change=true;
 	// выбираем из списка соответсвующих аудиторий, после использования нужно удалить использованную строку из списка ***_list
 
 	for (list<string>::iterator it_s=current->les1.for_groups.begin(); it_s!=current->les1.for_groups.end(); it_s++)
@@ -343,24 +343,23 @@ void SCHEDULE::Fill_One_Lesson(list<adt_string> *inlist, sched_string *current, 
 		// тут есть группа в формате string. находим её из списка групп, добавляем в current, добавляем в расписание
 		for (list<group_struct>::iterator it_t=inputs->inputs.groups.begin(); it_t!=inputs->inputs.groups.end(); it_t++)
 		{
-			// сравниваем название группы из списка целевых групп занятия  и общего списка групп
+			// сравниваем название группы из списка целевых групп занятия и общего списка групп
 			if (!strcmp((*it_t).name,(*it_s).c_str()))
 			{
 				(*current).gr1=*it_t;
 
-				// на самом деле выбирать строку из ***_list нужно тут с проверкой группы на наличие в restrict-листе
-				for (list<adt_string>::iterator it_adt=(*inlist).begin(); it_adt!=(*inlist).end(); it_adt++)
+				// выбираем группу, если это необходимо
+				if (need_to_change)
 				{
-					if (is_not_in_restricted_list_and_not_full((*current).gr1,(*it_adt)))	// если не в запретном списке - выбираем текущие параметры строки
-					{
-						(*it_adt).aud.groups_available--;
-						(*current).aud1=(*it_adt).aud;
-						(*current).day1=(*it_adt).day;
-						(*current).tim1=(*it_adt).time;
-						ptr_to_erase=it_adt;
-						break;
-					}
+					Select_New_Group(inputs,current,inlist,&need_to_change,&ptr_to_erase);
 				}
+				if ((*ptr_to_erase).aud.groups_available==0)
+				{
+					need_to_change=true;
+					//break;
+				}
+				// на самом деле выбирать строку из ***_list нужно тут с проверкой группы на наличие в restrict-листе
+				
 
 				slist.push_back(*current);	// добавление строки в расписание
 
@@ -379,6 +378,27 @@ void SCHEDULE::Fill_One_Lesson(list<adt_string> *inlist, sched_string *current, 
 
 	// убираем связку аудитория-дата-время из списка		!!! не правильно! нужно удалять тот элемент, который использовался!
 	(*inlist).erase(ptr_to_erase);
+}
+
+void SCHEDULE::Select_New_Group(schedule_inputs* inputs, sched_string* current,list<adt_string>* inlist, bool* need_to_change, list<adt_string>::iterator *ptr_to_erase)
+{
+	// TODO: случайный выбор аудитории, правильный выход need_to_change
+	for (list<adt_string>::iterator it_adt=(*inlist).begin(); it_adt!=(*inlist).end(); it_adt++)
+	{
+		if (is_not_in_restricted_list_and_not_full((*current).gr1,(*it_adt)))	// если не в запретном списке - выбираем текущие параметры строки
+		{
+			(*it_adt).aud.groups_available--;
+			(*current).aud1=(*it_adt).aud;
+			(*current).day1=(*it_adt).day;
+			(*current).tim1=(*it_adt).time;
+			*ptr_to_erase=it_adt;
+			break;
+		}
+	}
+	if ((*ptr_to_erase).aud.groups_available>0)
+		*need_to_change=false;
+	else
+		*need_to_change=true;
 }
 
 void SCHEDULE::Fill_Restricted(list<adt_string> *inlist, string adt_str, sched_string current)
