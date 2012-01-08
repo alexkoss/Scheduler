@@ -60,9 +60,10 @@
     <lesson id="24" name="Физическая культура" type="семинар" hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
   </lessons>
   <times>
-    <time id="1" begin_time="10"/>
-    <time id="2" begin_time="12"/>
-    <time id="3" begin_time="14"/>
-    <time id="4" begin_time="16"/>
+    <time id="1" begin_time="8"/>
+    <time id="2" begin_time="10"/>
+    <time id="3" begin_time="12"/>
+    <time id="4" begin_time="14"/>
+    <time id="5" begin_time="16"/>
   </times>
 </schedule>
