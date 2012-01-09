@@ -87,6 +87,7 @@ namespace xmltest_dotnet {
 	private: System::Windows::Forms::Button^  button8;
 	private: System::Windows::Forms::Button^  button3;
 	private: System::Windows::Forms::RichTextBox^  richTextBox3;
+	private: System::Windows::Forms::Button^  button4;
 			 static selected_indexes* selected_ind;  // = gcnew selected_indexes;
 			 //SCHEDULE current_schedule;
 			 //list<schedule_inputs> inplist;
@@ -122,6 +123,7 @@ namespace xmltest_dotnet {
 			this->tableLayoutPanel2 = (gcnew System::Windows::Forms::TableLayoutPanel());
 			this->button9 = (gcnew System::Windows::Forms::Button());
 			this->button6 = (gcnew System::Windows::Forms::Button());
+			this->button4 = (gcnew System::Windows::Forms::Button());
 			this->tabControl1->SuspendLayout();
 			this->tabPage1->SuspendLayout();
 			this->tabControl3->SuspendLayout();
@@ -324,6 +326,7 @@ namespace xmltest_dotnet {
 			// 
 			// tabPage2
 			// 
+			this->tabPage2->Controls->Add(this->button4);
 			this->tabPage2->Controls->Add(this->button8);
 			this->tabPage2->Controls->Add(this->tabControl2);
 			this->tabPage2->Controls->Add(this->button9);
@@ -340,7 +343,7 @@ namespace xmltest_dotnet {
 			// button8
 			// 
 			this->button8->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->button8->Location = System::Drawing::Point(903, 197);
+			this->button8->Location = System::Drawing::Point(903, 274);
 			this->button8->Name = L"button8";
 			this->button8->Size = System::Drawing::Size(110, 34);
 			this->button8->TabIndex = 10;
@@ -415,7 +418,7 @@ namespace xmltest_dotnet {
 			// button9
 			// 
 			this->button9->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->button9->Location = System::Drawing::Point(902, 97);
+			this->button9->Location = System::Drawing::Point(902, 174);
 			this->button9->Name = L"button9";
 			this->button9->Size = System::Drawing::Size(111, 37);
 			this->button9->TabIndex = 8;
@@ -426,7 +429,7 @@ namespace xmltest_dotnet {
 			// button6
 			// 
 			this->button6->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->button6->Location = System::Drawing::Point(902, 155);
+			this->button6->Location = System::Drawing::Point(902, 232);
 			this->button6->Name = L"button6";
 			this->button6->Size = System::Drawing::Size(111, 36);
 			this->button6->TabIndex = 7;
@@ -434,6 +437,17 @@ namespace xmltest_dotnet {
 			this->button6->UseVisualStyleBackColor = true;
 			this->button6->Visible = false;
 			this->button6->Click += gcnew System::EventHandler(this, &Form1::button6_Click);
+			// 
+			// button4
+			// 
+			this->button4->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->button4->Location = System::Drawing::Point(902, 97);
+			this->button4->Name = L"button4";
+			this->button4->Size = System::Drawing::Size(111, 63);
+			this->button4->TabIndex = 11;
+			this->button4->Text = L"Составить расписание с ипользованием ГА!";
+			this->button4->UseVisualStyleBackColor = true;
+			this->button4->Click += gcnew System::EventHandler(this, &Form1::button4_Click);
 			// 
 			// Form1
 			// 
@@ -543,7 +557,7 @@ namespace xmltest_dotnet {
 	private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
 		delete s;
 		s = new SCHEDULE;
-		s->remax(inp);
+//		s->remax(inp);
 		s->Cycle2(inp);
 		char str[65000]="";
 		s->Show_All_List(str);
@@ -1089,6 +1103,19 @@ namespace xmltest_dotnet {
 		String^ lesson_list = s->Show_Lesson_List();
 		richTextBox3->Text=lesson_list;
 			 
+	}
+	
+	private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
+		delete s;
+		s = new SCHEDULE;
+//		s->remax(inp);
+		s->Cycle(inp);
+		char str[65000]="";
+		s->Show_All_List(str);
+		richTextBox2->Text=String(str).ToString();
+		MessageBox::Show(String::Concat(s->num_free_groups()));
+		button6_Click(sender,e);
+		button8_Click(sender,e);
 	}
 };
 }

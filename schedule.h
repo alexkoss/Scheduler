@@ -58,10 +58,10 @@ public:
 	{
 		slist.clear();
 	}
-	void remax(schedule_inputs* inputs)
+/*	void remax(schedule_inputs* inputs)
 	{
 		max_num_of_strings = inputs->inputs.groups.size() * inputs->inputs.lessons.size();
-	}
+	}*/
 	void clear(void)
 	{
 		slist.clear();
@@ -91,5 +91,7 @@ public:
 	int Check_Restricted_Count				(list<adt_string> inlist);
 	void Fill_One_Lesson					(list<adt_string> *inlist, sched_string *current, schedule_inputs* inputs);
 	void Select_New_Group(schedule_inputs* inputs, sched_string* current,list<adt_string>* inlist, bool* need_to_change, list<adt_string>::iterator *ptr_to_erase);
+	void Mutate	();
+	int Get_Stat ();
 };
 

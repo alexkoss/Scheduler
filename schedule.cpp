@@ -29,9 +29,13 @@ void SCHEDULE::Show_All_List(char* out)
 	cout << '\n';
 	int iiicnt=1;
 	char tmpstr[65000]="";
-	strcat(tmpstr,"This is automatically generated schedule\n\n");
-	strcat(tmpstr, "N\tDay\t\tStart\tL_name\t\t\tL_type\tAud\t\tFree\tGroup N\n");
-	strcat(tmpstr,"-------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+	char thisis[]="This is automatically generated schedule\n\n";
+	char header1[]="N\tDay\t\tStart\tL_name\t\t\tL_type\tAud\t\tFree\tGroup N\n";
+	char header2[]="-------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
+	int header_length=strlen(header1);
+	strcat(tmpstr,thisis);
+	strcat(tmpstr,header1);
+	strcat(tmpstr,header2);
 	
 	for (list<sched_string>::iterator it=slist.begin(); it!=slist.end(); it++)
 	{
@@ -42,7 +46,7 @@ void SCHEDULE::Show_All_List(char* out)
 		cout << "\n";*/
 		
 		char iiicnt_char[10];
-		itoa(iiicnt,iiicnt_char,10);
+		_itoa_s(iiicnt,iiicnt_char,sizeof(iiicnt_char),10);
 
 		strcat(tmpstr, iiicnt_char);
 		strcat(tmpstr, "\t");
@@ -52,7 +56,7 @@ void SCHEDULE::Show_All_List(char* out)
 		strcat(tmpstr, "\t");
 
 		char bt_char[10];
-		itoa((*it).tim1.begin_time,bt_char,10);
+		_itoa_s((*it).tim1.begin_time,bt_char,sizeof(bt_char),10);
 		strcat(tmpstr, bt_char);
 		strcat(tmpstr, "\t");
 		strcat(tmpstr, (*it).les1.name);
@@ -70,7 +74,7 @@ void SCHEDULE::Show_All_List(char* out)
 		strcat(tmpstr, (*it).les1.type);
 		strcat(tmpstr, "\t");
 
-		char audid_char[10];
+		//char audid_char[10];
 		//itoa((*it).aud1.id,audid_char,10);
 		//strcat(tmpstr, audid_char);
 		strcat(tmpstr, (*it).aud1.name);
@@ -79,7 +83,7 @@ void SCHEDULE::Show_All_List(char* out)
 		strcat(tmpstr, "\t");
 
 		char grav_char[10];
-		itoa((*it).aud1.groups_available,grav_char,10);
+		_itoa_s((*it).aud1.groups_available,grav_char,sizeof(grav_char),10);
 		strcat(tmpstr, grav_char);
 		strcat(tmpstr, "\t");
 		strcat(tmpstr, (*it).gr1.name);
@@ -88,7 +92,7 @@ void SCHEDULE::Show_All_List(char* out)
 		iiicnt++; 
 
 	}
-	strcpy (out,tmpstr);
+	strcpy(out,tmpstr);
 	return;
 };
 
@@ -356,20 +360,13 @@ void SCHEDULE::Fill_One_Lesson(list<adt_string> *inlist, sched_string *current, 
 
 				// выбираем группу, если это необходимо
 				// каждую группу необходимо проверять на допустимость заполнения
-				//if (!first_time && need_to_change && (*ptr_to_erase).aud.id>0)
-				if (!first_time && !noptr)
+				//if (!first_time && !noptr)
+				if (!noptr)
 				{
 					if (!is_not_in_restricted_list_and_not_full((*current).gr1,(*ptr_to_erase)))
-					//	need_to_change = false;
-					//else
 						need_to_change = true;
 				}
-				first_time=false;
-/*
-				if (is_not_in_restricted_list_and_not_full((*current).gr1,(*ptr_to_erase)))
-					need_to_change = false;
-				else
-					need_to_change = true;*/
+				//first_time=false;
 
 				if (need_to_change) {
 					Select_New_Group(inputs,current,inlist,&need_to_change,&ptr_to_erase);
@@ -841,38 +838,104 @@ bool SCHEDULE::CanAdd(schedule_inputs* inputs)
 	return 0;
 }
 
+// создание одного расписания
 void SCHEDULE::Cycle2(schedule_inputs* inputs)
 {
 	SCHEDULE sch;
-	sch.remax(inputs);
 	sch.Create(inputs);
 	slist=sch.slist;
 	llist=sch.llist;
 	slist.sort();
-	//sch.Make_Lesson_List(inputs);
-	//sch.Show_Lesson_List();
 }
 
+// применение ГА для построения расписания
 void SCHEDULE::Cycle(schedule_inputs* inputs)
 {
 	const int number_of_schedules=10;
 	SCHEDULE mas[number_of_schedules],mas2[number_of_schedules],mas3[number_of_schedules];
-	for (int i=0;i<number_of_schedules;i++)
-	{
-		mas[i].remax(inputs);
-		mas2[i].remax(inputs);
-		mas3[i].remax(inputs);
-	}
-
-	int stats[number_of_schedules],max,nmax,iter;
-	iter=0;
-	for (int i=0;i<number_of_schedules;i++)		// - создание массива статистик
+	int stats[number_of_schedules];//,max,nmax,iter;
+	//iter=0;
+	
+	for (int i=0;i<number_of_schedules;i++)		// - создание начальной популяции
 	{
 		mas[i].Create(inputs);
-		stats[i]=mas[i].stats(inputs);
+	}
+	// создали начальную популяцию
+	
+	// мутация каждого
+	// выбор лучших
+	// формирование нового поколения (добавление )
+	// достигнут результат? нет - на мутацию; да - результирующая популяция
+
+	int iterations=5;
+	SCHEDULE ret_sch;
+	int min=0;
+	int min_index=0;
+	bool finished = false;	// условие останова
+	for (int i=0; i<iterations; i++)
+	{
+		// мутация, статистика
+		for (int j=0; j<number_of_schedules;j++)
+		{
+			mas[j].Mutate();
+			stats[j]=mas[j].Get_Stat();
+			if (min==0)
+			{
+				min=stats[j];
+			}
+			if (stats[j]<min)
+			{
+				min=stats[j];	// вычисляем наименьшее количество пар в 8 утра
+			}
+		}
+		int min_plus=min+3; // вычисляем допустимую погрешность для лучших расписаний
+		int cntr=0;
+		for (int j=0;j<number_of_schedules;j++)	// заполняем новую генерацию лучшими особями
+		{
+			if (stats[j]<min_plus)
+			{
+				mas3[cntr++]=mas[j];
+			}
+		}
+
+		for (cntr;cntr<=number_of_schedules;cntr++)	// дополняем новую генерацию новыми расписаниями
+		{
+			SCHEDULE new_s;
+			new_s.Create(inputs);
+			mas3[cntr]=new_s;
+		}
+		// получили новую популяцию, возвращаем её в mas для следующего шага
+
+		for (int j=0;j<number_of_schedules;j++)
+		{
+			mas[j]=mas3[j];
+			stats[j]=mas[j].Get_Stat();
+			if (j==0)
+			{
+				min=stats[j];
+				min_index=j;
+			}
+			if (stats[j]<min)
+			{
+				min=stats[j];
+				min_index=j;
+			}
+		}
+		// новая популяция
+
+		// выбор лучших
+
+		if (finished)
+		{
+			break;
+		}
 	}
 
-	max=stats[0];
+	ret_sch=mas[min_index];
+	// выбираем лучшее расписание, выводим ret_sch
+	slist=ret_sch.slist;
+	slist.sort();
+	/*max=stats[0];
 	nmax=1;
 
 	do
@@ -895,7 +958,7 @@ void SCHEDULE::Cycle(schedule_inputs* inputs)
 			mas3[i].skr(inputs,mas2[i],mas2[i+1]); // - скрещенный массив списков
 		for (int i=nmax-1;i<number_of_schedules;i++)
 			mas3[i]=mas[i];				// - дополняем списками - родителями
-		for (int i=0;i<10;i++)
+		for (int i=0;i<number_of_schedules;i++)
 		{
 			mas3[i].modify(inputs,5);
 			mas[i]=mas3[i];
@@ -918,9 +981,17 @@ void SCHEDULE::Cycle(schedule_inputs* inputs)
 		} //else if (stats[i]==max)
 			//slist=mas[i].slist;
 
-	}
+	}*/
+}
 
-	return;
+int SCHEDULE::Get_Stat()	// функция расчёта количества пар в 8 утра
+{
+	return 0;
+}
+
+void SCHEDULE::Mutate()		// мутирование расписание - перемещение пар с 8 утра
+{
+
 }
 
 int SCHEDULE::num_free_groups ()
@@ -1123,7 +1194,8 @@ time_struct SCHEDULE::Get_Time_From (schedule_inputs* inputs)
 	time_struct ts;
 	for (list<time_struct>::iterator it=inputs->inputs.times.begin(); it!=inputs->inputs.times.end(); it++)
 	{
-		if (cnt==randnum) {return *it;}
+		//if (cnt==randnum) {return *it;}
+		if (cnt==randnum) { ts=*it; break; }
 		cnt++;
 	}
 	return ts;
@@ -1136,7 +1208,8 @@ day_struct SCHEDULE::Get_Day_From (schedule_inputs* inputs)
 	day_struct ds;
 	for (list<day_struct>::iterator it=inputs->inputs.days.begin(); it!=inputs->inputs.days.end(); it++)
 	{
-		if (cnt==randnum) {return *it;}
+		//if (cnt==randnum) {return *it;}
+		if (cnt==randnum) { ds=*it; break; }
 		cnt++;
 	}
 	return ds;
