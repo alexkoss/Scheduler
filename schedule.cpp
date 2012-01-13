@@ -335,13 +335,14 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 	
 }
 
-void SCHEDULE::Fill_One_Lesson(list<adt_string> *inlist, sched_string *current, schedule_inputs* inputs) //*it_l=current->les1
+bool SCHEDULE::Fill_One_Lesson(list<adt_string> *inlist, sched_string *current, schedule_inputs* inputs) //*it_l=current->les1
 {
 	list<adt_string>::iterator ptr_to_erase;	// для памяти указателя на удаляемую строку
 	bool need_to_change=true;
 	int num_of_inserted=0;
 	bool first_time=true;
 	bool noptr=true;
+	bool retval=false;	// возвращаемое значение - если тру - добавили строку
 	// выбираем из списка соответсвующих аудиторий, после использования нужно удалить использованную строку из списка ***_list
 	
 	// нужно добавить проверку на максимальное количество групп для занятия
@@ -387,6 +388,7 @@ void SCHEDULE::Fill_One_Lesson(list<adt_string> *inlist, sched_string *current, 
 				
 
 				slist.push_back(*current);	// добавление строки в расписание
+				retval = true;
 				num_of_inserted++;
 				if (num_of_inserted==(*current).les1.groups_max || (*current).aud1.groups_available==0)
 				{
@@ -416,6 +418,7 @@ void SCHEDULE::Fill_One_Lesson(list<adt_string> *inlist, sched_string *current, 
 		(*inlist).erase(ptr_to_erase);
 	}
 	
+	return retval;
 }
 
 void SCHEDULE::Select_New_Group(schedule_inputs* inputs, sched_string* current,
@@ -839,17 +842,18 @@ bool SCHEDULE::CanAdd(schedule_inputs* inputs)
 }
 
 // создание одного расписания
-void SCHEDULE::Cycle2(schedule_inputs* inputs)
+int SCHEDULE::Cycle2(schedule_inputs* inputs)
 {
 	SCHEDULE sch;
 	sch.Create(inputs);
 	slist=sch.slist;
 	llist=sch.llist;
 	slist.sort();
+	return Get_Stat();
 }
 
 // применение ГА для построения расписания
-void SCHEDULE::Cycle(schedule_inputs* inputs)
+int SCHEDULE::Cycle(schedule_inputs* inputs)
 {
 	const int number_of_schedules=10;
 	SCHEDULE mas[number_of_schedules],mas2[number_of_schedules],mas3[number_of_schedules];
@@ -877,7 +881,7 @@ void SCHEDULE::Cycle(schedule_inputs* inputs)
 		// мутация, статистика
 		for (int j=0; j<number_of_schedules;j++)
 		{
-			mas[j].Mutate();
+			mas[j].Mutate(inputs);
 			stats[j]=mas[j].Get_Stat();
 			if (min==0)
 			{
@@ -894,11 +898,19 @@ void SCHEDULE::Cycle(schedule_inputs* inputs)
 		{
 			if (stats[j]<min_plus)
 			{
-				mas3[cntr++]=mas[j];
+				//mas3[cntr++]=mas[j];
+				/*mas3[cntr].slist=mas[j].slist;
+				mas3[cntr].lec_list=mas[j].lec_list;
+				mas3[cntr].sem_list=mas[j].sem_list;
+				mas3[cntr].lab_list=mas[j].lab_list;*/
+				mas3[cntr].CopySched(mas[j]);
+				cntr++;
+				//mas3[cntr] = mas[j];
+				//cntr++;
 			}
 		}
 
-		for (cntr;cntr<=number_of_schedules;cntr++)	// дополняем новую генерацию новыми расписаниями
+		for (cntr;cntr<number_of_schedules;cntr++)	// дополняем новую генерацию новыми расписаниями
 		{
 			SCHEDULE new_s;
 			new_s.Create(inputs);
@@ -908,7 +920,7 @@ void SCHEDULE::Cycle(schedule_inputs* inputs)
 
 		for (int j=0;j<number_of_schedules;j++)
 		{
-			mas[j]=mas3[j];
+			mas[j].CopySched(mas3[j]);
 			stats[j]=mas[j].Get_Stat();
 			if (j==0)
 			{
@@ -935,6 +947,7 @@ void SCHEDULE::Cycle(schedule_inputs* inputs)
 	// выбираем лучшее расписание, выводим ret_sch
 	slist=ret_sch.slist;
 	slist.sort();
+	return min;
 	/*max=stats[0];
 	nmax=1;
 
@@ -986,13 +999,96 @@ void SCHEDULE::Cycle(schedule_inputs* inputs)
 
 int SCHEDULE::Get_Stat()	// функция расчёта количества пар в 8 утра
 {
-	return 0;
-}
+	int retval = 0;
+	for (list<sched_string>::iterator it=slist.begin(); it!=slist.end(); it++)
+	{
+		if ((*it).tim1.begin_time==8)
+		{
+			retval++;
+		}
+	}
+	return retval;
+} 
 
-void SCHEDULE::Mutate()		// мутирование расписание - перемещение пар с 8 утра
+void SCHEDULE::Mutate(schedule_inputs* inputs)		// мутирование расписание - перемещение пар с 8 утра
 {
-
+	list<sched_string>::iterator ptrmas[100];//mas [10];// = new list<sched_string>::iterator []();
+	int cntr = 0, cntr2 = 0;
+	int dayId = 0;
+	int audId = 0;
+	int lesId = 0;
+	for (list<sched_string>::iterator it=slist.begin(); it!=slist.end(); it++)
+	{
+		if ((*it).tim1.begin_time==8)
+		{
+			if (dayId==0)
+				dayId=(*it).day1.id;
+			if (audId==0)
+				audId=(*it).aud1.id;
+			if (lesId==0)
+				lesId=(*it).les1.id;
+			if (((*it).aud1.id!=audId || (*it).day1.id!=dayId || (*it).les1.id!=lesId))	// && cntr2>1)
+			{
+				audId = (*it).aud1.id;
+				dayId = (*it).day1.id;
+				lesId = (*it).les1.id;
+				if (cntr==1)
+				{
+					ptrmas[cntr2]=it;
+					cntr2++;
+				}
+				cntr=1;
+				//cntr2=0;
+				//break;
+			}
+			else {
+				/*if (cntr>1)
+				{
+					cntr=0;
+				}*/
+				// то есть в 8 больше одной группы на одном занятии
+				//mas[cntr++]=it;
+				//ptrmas[cntr]=it;
+				cntr++;
+				//cntr2++;
+			}
+		}
+	}
+	slist.sort();
+	int num = Get_Stat();
+	for (int i=0;i<cntr2;i++)
+	{
+		if (ReplaceSchedStr(&(*ptrmas[i]),inputs))
+		{
+			slist.erase(ptrmas[i]);
+		}
+		num = Get_Stat();
+	}
+	slist.sort();
+	num = Get_Stat();
+	int o=0;
 }
+
+bool SCHEDULE::ReplaceSchedStr (sched_string *current, schedule_inputs* inputs)
+{
+	(*current).les1.for_groups.clear();
+	(*current).les1.for_groups.push_back((*current).gr1.name);
+	bool retval=false;
+	if (!strcmp((*current).les1.type,"лекция")) 
+	{
+		retval = Fill_One_Lesson(&lec_list,current,inputs);
+	}
+	else if (!strcmp((*current).les1.type,"семинар")) 
+	{
+		retval = Fill_One_Lesson(&sem_list,current,inputs);
+	}
+	else if (!strcmp((*current).les1.type,"лаб")) 
+	{
+		retval = Fill_One_Lesson(&lab_list,current,inputs);
+	}
+	return retval;
+}
+
 
 int SCHEDULE::num_free_groups ()
 {

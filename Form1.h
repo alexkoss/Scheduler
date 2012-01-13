@@ -558,11 +558,12 @@ namespace xmltest_dotnet {
 		delete s;
 		s = new SCHEDULE;
 //		s->remax(inp);
-		s->Cycle2(inp);
+		int num_of_8_am_pairs = s->Cycle2(inp);
 		char str[65000]="";
 		s->Show_All_List(str);
 		richTextBox2->Text=String(str).ToString();
-		MessageBox::Show(String::Concat(s->num_free_groups()));
+		//MessageBox::Show(String::Concat(s->num_free_groups()));
+		MessageBox::Show(String::Concat("Number of 8 am pairs: ", num_of_8_am_pairs));
 		button6_Click(sender,e);
 		button8_Click(sender,e);
 	}
@@ -673,7 +674,7 @@ namespace xmltest_dotnet {
 					tableLayoutPanel1->ColumnCount+=1;
 					tableLayoutPanel1->ColumnStyles->Add(gcnew ColumnStyle(SizeType::AutoSize));
 				}
-				while (tableLayoutPanel1->RowCount<inp->inputs.auditories.size())
+				while (tableLayoutPanel1->RowCount < (int)(inp->inputs.auditories.size()))
 				{
 					tableLayoutPanel1->RowCount+=1;
 					tableLayoutPanel1->RowStyles->Add(gcnew RowStyle(SizeType::AutoSize));
@@ -747,7 +748,7 @@ namespace xmltest_dotnet {
 					tableLayoutPanel1->ColumnCount+=1;
 					tableLayoutPanel1->ColumnStyles->Add(gcnew ColumnStyle(SizeType::AutoSize));
 				}
-				while (tableLayoutPanel1->RowCount<inp->inputs.groups.size())
+				while (tableLayoutPanel1->RowCount < (int)(inp->inputs.groups.size()))
 				{
 					tableLayoutPanel1->RowCount+=1;
 					tableLayoutPanel1->RowStyles->Add(gcnew RowStyle(SizeType::AutoSize));
@@ -793,7 +794,7 @@ namespace xmltest_dotnet {
 					tableLayoutPanel1->ColumnCount+=1;
 					tableLayoutPanel1->ColumnStyles->Add(gcnew ColumnStyle(SizeType::AutoSize));
 				}
-				while (tableLayoutPanel1->RowCount<inp->inputs.days.size())
+				while (tableLayoutPanel1->RowCount < (int)(inp->inputs.days.size()))
 				{
 					tableLayoutPanel1->RowCount+=1;
 					//tableLayoutPanel1->RowStyles->Add(gcnew RowStyle(SizeType::Absolute, 25));
@@ -844,7 +845,7 @@ namespace xmltest_dotnet {
 					tableLayoutPanel1->ColumnStyles->Add(gcnew ColumnStyle(SizeType::AutoSize));
 				}
 				tableLayoutPanel1->ColumnStyles[4]->Width = 200;
-				while (tableLayoutPanel1->RowCount<inp->inputs.lessons.size())
+				while (tableLayoutPanel1->RowCount < (int)(inp->inputs.lessons.size()))
 				{
 					tableLayoutPanel1->RowCount+=1;
 					tableLayoutPanel1->RowStyles->Add(gcnew RowStyle(SizeType::AutoSize));
@@ -925,7 +926,7 @@ namespace xmltest_dotnet {
 					tableLayoutPanel1->ColumnCount+=1;
 					tableLayoutPanel1->ColumnStyles->Add(gcnew ColumnStyle(SizeType::AutoSize));
 				}
-				while (tableLayoutPanel1->RowCount<inp->inputs.times.size())
+				while (tableLayoutPanel1->RowCount < (int)(inp->inputs.times.size()))
 				{
 					tableLayoutPanel1->RowCount+=1;
 					tableLayoutPanel1->RowStyles->Add(gcnew RowStyle(SizeType::AutoSize));
@@ -1109,11 +1110,11 @@ namespace xmltest_dotnet {
 		delete s;
 		s = new SCHEDULE;
 //		s->remax(inp);
-		s->Cycle(inp);
+		int num_of_8_am_pairs = s->Cycle(inp);
 		char str[65000]="";
 		s->Show_All_List(str);
 		richTextBox2->Text=String(str).ToString();
-		MessageBox::Show(String::Concat(s->num_free_groups()));
+		MessageBox::Show(String::Concat("Number of 8 am pairs: ", num_of_8_am_pairs));//s->num_free_groups()));
 		button6_Click(sender,e);
 		button8_Click(sender,e);
 	}

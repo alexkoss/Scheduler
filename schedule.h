@@ -53,7 +53,16 @@ public:
 	{
 		max_num_of_strings = 0;
 	}
-
+	//SCHEDULE(list<sched_string> slist, list<adt_string> lec_list, list<adt_string> sem_list, list<adt_string> lab_list)
+	//	: slist(slist), lec_list(lec_list), sem_list(sem_list), lab_list(lab_list) {}
+	SCHEDULE(SCHEDULE const& copy) 
+		: slist(copy.slist), lec_list(copy.lec_list), sem_list(copy.sem_list), lab_list(copy.lab_list) 
+	{
+		slist=copy.slist;
+		lec_list=copy.lec_list;
+		sem_list=copy.sem_list;
+		lab_list=copy.lab_list;
+	}
 	~SCHEDULE(void)
 	{
 		slist.clear();
@@ -62,6 +71,15 @@ public:
 	{
 		max_num_of_strings = inputs->inputs.groups.size() * inputs->inputs.lessons.size();
 	}*/
+	void CopySched(SCHEDULE copy)
+	{
+		//SCHEDULE retSched;
+		slist=copy.slist;
+		lec_list=copy.lec_list;
+		sem_list=copy.sem_list;
+		lab_list=copy.lab_list;
+		//return retSched;
+	}
 	void clear(void)
 	{
 		slist.clear();
@@ -75,8 +93,8 @@ public:
 	bool search					(const sched_string &current);
 	bool search2				(const sched_string &current);
 	bool CanAdd					(schedule_inputs* inputs);
-	void Cycle					(schedule_inputs* inputs);  
-	void Cycle2					(schedule_inputs* inputs);
+	int Cycle					(schedule_inputs* inputs);  
+	int Cycle2					(schedule_inputs* inputs);
 	int  num_free_groups		();
 	void Make_Lesson_List		(schedule_inputs* inputs);
 	String^ Show_Lesson_List	();
@@ -89,9 +107,10 @@ public:
 	bool is_not_in_restricted_list_and_not_full			(group_struct gr, adt_string adt_str);
 	void Fill_Restricted					(list<adt_string> *inlist, string adt_str, sched_string current);
 	int Check_Restricted_Count				(list<adt_string> inlist);
-	void Fill_One_Lesson					(list<adt_string> *inlist, sched_string *current, schedule_inputs* inputs);
+	bool Fill_One_Lesson					(list<adt_string> *inlist, sched_string *current, schedule_inputs* inputs);
 	void Select_New_Group(schedule_inputs* inputs, sched_string* current,list<adt_string>* inlist, bool* need_to_change, list<adt_string>::iterator *ptr_to_erase);
-	void Mutate	();
+	void Mutate	(schedule_inputs* inputs);
 	int Get_Stat ();
+	bool ReplaceSchedStr (sched_string *current, schedule_inputs* inputs);
 };
 
