@@ -445,8 +445,17 @@ void SCHEDULE::Select_New_Group(schedule_inputs* inputs, sched_string* current,
 		{
 			if (is_not_in_restricted_list_and_not_full((*current).gr1,(*it_adt)))	// если не в запретном списке - добавляем текущие параметры строки в массив
 			{
-				*(mas+cntr)=it_adt;
-				cntr++;
+				//*(mas+cntr)=it_adt;
+				//cntr++;
+				// проверка нахождения группы в списке разрешённых занятий
+				for (list<string>::iterator it_for=(*it_adt).aud.for_lessons.begin(); it_for!=(*it_adt).aud.for_lessons.end(); it_for++)
+				{
+					if (!strcmp((*it_for).c_str(),(*current).les1.name))
+					{
+						*(mas+cntr)=it_adt;
+						cntr++;
+					}
+				}
 			}
 		}
 	}
@@ -458,11 +467,23 @@ void SCHEDULE::Select_New_Group(schedule_inputs* inputs, sched_string* current,
 			{
 				if (is_not_in_restricted_list_and_not_full((*current).gr1,(*it_adt)))	// если не в запретном списке - добавляем текущие параметры строки в массив
 				{
-					*(mas+cntr)=it_adt;
-					cntr++;
+					// проверка нахождения группы в списке разрешённых занятий
+					for (list<string>::iterator it_for=(*it_adt).aud.for_lessons.begin(); it_for!=(*it_adt).aud.for_lessons.end(); it_for++)
+					{
+						if (!strcmp((*it_for).c_str(),(*current).les1.name))
+						{
+							*(mas+cntr)=it_adt;
+							cntr++;
+						}
+					}
+					
 				}
 			}
 		}
+	}
+	if (cntr==0)
+	{
+		int sizeofslist=slist.size();
 	}
 	// выбираем случайно из массива
 	itr = mas[rand() %(cntr)];
@@ -1089,7 +1110,6 @@ bool SCHEDULE::ReplaceSchedStr (sched_string *current, schedule_inputs* inputs)
 	return retval;
 }
 
-
 int SCHEDULE::num_free_groups ()
 {
 	int sum_num_free=0;
@@ -1326,6 +1346,8 @@ auditory_struct SCHEDULE::Get_Aud_From (schedule_inputs* inputs, lesson_struct l
 	{
 		if ((*it).groups_max>=ls.groups_max && !strcmp((*it).type,ls.type) && (*it).groups_available>0)
 		{
+			
+
 			//добавление данной аудитории в список возможных
 			mas[audnumber++]=(*it).id;
 			

@@ -54,26 +54,14 @@ namespace xmltest_dotnet {
 	private: System::Windows::Forms::TabControl^  tabControl1;
 	private: System::Windows::Forms::TabPage^  tabPage1;
 	private: System::Windows::Forms::TabPage^  tabPage2;
-
-
-
 	private: System::Windows::Forms::TableLayoutPanel^  tableLayoutPanel1;
 	private: System::Windows::Forms::Panel^  panel1;
-
-
 	private: System::Windows::Forms::Button^  button7;
 			 static schedule_inputs* inp;
 			 SCHEDULE* s;
-
 			 static int selected_index;
-
 	private: System::Windows::Forms::ComboBox^  comboBox1;
-
-			 
 	private: System::Windows::Forms::Label^  label1;
-
-
-
 	private: System::Windows::Forms::Panel^  panel2;
 	private: System::Windows::Forms::TableLayoutPanel^  tableLayoutPanel2;
 	private: System::Windows::Forms::TabControl^  tabControl2;
@@ -88,9 +76,7 @@ namespace xmltest_dotnet {
 	private: System::Windows::Forms::Button^  button3;
 	private: System::Windows::Forms::RichTextBox^  richTextBox3;
 	private: System::Windows::Forms::Button^  button4;
-			 static selected_indexes* selected_ind;  // = gcnew selected_indexes;
-			 //SCHEDULE current_schedule;
-			 //list<schedule_inputs> inplist;
+			 static selected_indexes* selected_ind;
 #pragma region Windows Form Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -543,6 +529,7 @@ namespace xmltest_dotnet {
 		selected_index=-1;
 
 		Form1::DoubleBuffered = true;
+		button6_Click(sender,e);
 		//panel1->DoubleBuffered = true;
 	}
 
@@ -564,7 +551,7 @@ namespace xmltest_dotnet {
 		richTextBox2->Text=String(str).ToString();
 		//MessageBox::Show(String::Concat(s->num_free_groups()));
 		MessageBox::Show(String::Concat("Number of 8 am pairs: ", num_of_8_am_pairs));
-		button6_Click(sender,e);
+		//button6_Click(sender,e);
 		button8_Click(sender,e);
 	}
 
@@ -1115,7 +1102,7 @@ namespace xmltest_dotnet {
 		s->Show_All_List(str);
 		richTextBox2->Text=String(str).ToString();
 		MessageBox::Show(String::Concat("Number of 8 am pairs: ", num_of_8_am_pairs));//s->num_free_groups()));
-		button6_Click(sender,e);
+		//button6_Click(sender,e);
 		button8_Click(sender,e);
 	}
 };

@@ -90,6 +90,40 @@ String^ out_text(schedule_inputs* inputs, String^ filename_in)
 						{
 							one_auditory.groups_available=atoi(readerValue);
 						}
+						else if (reader->Name=="forles")
+						{
+							//one_auditory.groups_available=atoi(readerValue);
+							// добавляем в список допустимых занятий
+							char one_les_name[40] = "";
+							int cnt = 0;
+							strcpy(one_les_name,"");
+							for (unsigned int j=0;j<strlen(readerValue);j++)
+							{
+								if (j<strlen(readerValue)-1)
+								{
+									if (readerValue[j]!=',')
+									{
+										one_les_name[cnt]=readerValue[j];
+										cnt++;
+									}
+									else
+									{
+										one_les_name[cnt]='\0';
+										string s = one_les_name;
+										one_auditory.for_lessons.push_back(s);
+										strcpy(one_les_name,"");
+										cnt=0;
+									}
+								}
+								else 
+								{
+									one_les_name[cnt++]=readerValue[j];
+									one_les_name[cnt]='\0';
+									string s = one_les_name;
+									one_auditory.for_lessons.push_back(s);
+								}
+							}
+						}
 						else 
 						{}
 
@@ -194,8 +228,6 @@ String^ out_text(schedule_inputs* inputs, String^ filename_in)
 						}
 						else if (reader->Name=="forgr")
 						{
-							//MessageBox::Show(reader->Value);
-							//string [10] split = (reader->Value).Split(',');
 							char one_group_name[10] = "";
 							int cnt = 0;
 							strcpy(one_group_name,"");
@@ -212,7 +244,6 @@ String^ out_text(schedule_inputs* inputs, String^ filename_in)
 									{
 										string s = one_group_name;
 										one_lesson.for_groups.push_back(s);
-										//MessageBox::Show(String(s.c_str()).ToString());
 										cnt=0;
 									}
 								}
@@ -221,22 +252,9 @@ String^ out_text(schedule_inputs* inputs, String^ filename_in)
 									one_group_name[cnt]=readerValue[j];
 									string s = one_group_name;
 									one_lesson.for_groups.push_back(s);
-									//MessageBox::Show(String(s.c_str()).ToString());
 								}
 							}
 							one_lesson.in_sch=false;
-							for (list<string>::iterator it=one_lesson.for_groups.begin(); it!=one_lesson.for_groups.end(); it++)
-							{
-								//MessageBox::Show(String::Concat(String(it->c_str()).ToString()));
-							}
-							//MessageBox::Show(one_lesson.for_groups.size().ToString());
-							/*for (int j=0;j<split.Length;j++)
-							{
-								//char* splitchar = (char*)(void*)Marshal::StringToHGlobalAnsi(split[j]);
-								one_lesson.for_groups.push_back(splitchar);
-								Marshal::FreeHGlobal((IntPtr)(splitchar));
-							}*/
-							//one_lesson.for_groups.push_back() .hours=atoi(readerValue);
 						} else if (reader->Name=="groups_max") 
 						{
 							one_lesson.groups_max=atoi(readerValue);
@@ -280,8 +298,6 @@ String^ out_text(schedule_inputs* inputs, String^ filename_in)
 					inputs->inputs.times.push_back(one_time);
 				}
 			}
-			
-			
 
 			break;
 		case XmlNodeType::Text: // Вывести текст в каждом элементе.

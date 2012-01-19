@@ -23,6 +23,7 @@ struct auditory_struct
 	int groups_max;			// вместимость аудитории
 	int groups_available;	// остаточная вместимость (сколько групп ещё может заниматься в данной аудитории)
 	int priority;			// приоритет аудитории (выше - приоритетнее)
+	list<string> for_lessons;	// целевые занятия данной аудитории
 	bool operator <(const auditory_struct& aud) const; // метод, необходимый для применения сортировки для списка аудиторий
 };
 
