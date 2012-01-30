@@ -141,198 +141,43 @@ void SCHEDULE::AddNewStr(schedule_inputs* inputs)
 	list<lesson_struct> lessons_list = inputs->inputs.lessons;
 
 	lessons_list.sort();
-	
+	bool SchedOk = false;
+	bool BadSched = false;
 	// отсортировать список по максимальному количеству групп в занятиях
-	for (list<lesson_struct>::iterator it_l=lessons_list.begin(); it_l!=lessons_list.end(); it_l++)
+	while (!SchedOk)
 	{
-		current.les1=*it_l;
-		if (!strcmp(current.les1.type,"лекция")) 
+		for (list<lesson_struct>::iterator it_l=lessons_list.begin(); it_l!=lessons_list.end(); it_l++)
 		{
-			Fill_One_Lesson(&lec_list,&current,inputs);
+			current.les1=*it_l;
+			bool ResOfFillOneLesson = true;
+			if (!strcmp(current.les1.type,"лекция")) 
+			{
+				ResOfFillOneLesson = Fill_One_Lesson(&lec_list,&current,inputs);
+			}
+			else if (!strcmp(current.les1.type,"семинар")) 
+			{
+				ResOfFillOneLesson = Fill_One_Lesson(&sem_list,&current,inputs);
+			}
+			else if (!strcmp(current.les1.type,"лаб")) 
+			{
+				ResOfFillOneLesson = Fill_One_Lesson(&lab_list,&current,inputs);
+			}
+			if (ResOfFillOneLesson == false)
+			{
+				BadSched = true;
+				break;
+			}
 		}
-		else if (!strcmp(current.les1.type,"семинар")) 
+		if (!BadSched)
 		{
-			Fill_One_Lesson(&sem_list,&current,inputs);
+			SchedOk = true;
 		}
-		else if (!strcmp(current.les1.type,"лаб")) 
+		else
 		{
-			Fill_One_Lesson(&lab_list,&current,inputs);
+			slist.clear(); // обнуление расписания
 		}
 	}
 
-/*
-
-	//не правильно, потому что будем вытаскивать из списка групп 
-	current.les1 = Get_Lesson_From(inputs);
-
-	if (current.les1.for_groups.size()!=0)
-	{
-		
-		String^ outstr = "";
-		
-		//тут нужно определить, сколько нужно аудиторий для заполнения данного занятия
-		int num_of_auds = current.les1.for_groups.size() / current.les1.groups_max;
-		
-		//по количеству занимаемых аудиторий заполняем группы занятиями
-		for (int i=0; i<num_of_auds; i++)
-		{
-			current.aud1 = Get_Aud_From(inputs, current.les1);
-
-			if (Fill_Les_into(inputs, current.les1, current.aud1)) 
-			{
-				for (list<auditory_struct>::iterator it=inputs->inputs.auditories.begin(); it!=inputs->inputs.auditories.end(); it++)
-				{
-					//inputs->inputs.auditories
-					if ((*it).name == current.aud1.name) {
-						(*it).groups_available = 0;
-					}
-				}
-				//MessageBox::Show("sum groups added to schedule ", String::Concat(i));
-			}
-		}
-	}	*/
-
-		//сопоставить время
-
-
-
-		//les=rand() %(inputs->inputs.lessons.size());
-		
-		/*
-		lesson_string current_lesson_string;
-		for (list<lesson_string>::iterator it=llist.begin(); it!=llist.end(); it++)
-		{
-			if ((*it).id==les)
-			{
-				current_lesson_string=*it;
-			}
-		}
-
-		for (list<lesson_struct>::iterator it=inputs->inputs.lessons.begin(); it!=inputs->inputs.lessons.end(); it++)
-		{	// выбор аудитории из списка аудиторий
-			//if ((*it).id==les+1)
-			if ((*it).id==current_lesson_string.from_lessons_id)
-			{
-				current_parameters.les1=(*it);
-			}
-		}*/
-		/*int some_size_of_auditories=inputs->inputs.auditories.size();
-		for (int i=0;i<some_size_of_auditories;i++)
-		{	
-			// проверка аудитории на занятость
-			bool free_groups=false; // по какой ветке пойдём
-			bool get_out=false;		// выйти из ветки
-			int const max_free_groups=5555;
-
-			if (num_free_groups()>max_free_groups)
-			{
-				free_groups=true;
-			}
-
-			// прогон строки по аудиториям
-			for (list<auditory_struct>::iterator it2=inputs->inputs.auditories.begin(); it2!=inputs->inputs.auditories.end(); it2++)
-			{
-				if ((*it2).id==i+1)
-				{
-					current_parameters.aud1=(*it2);
-					if (free_groups)
-					{
-						//if (current_parameters.aud1.priority==0)
-						if (num_free_groups()+current_parameters.aud1.groups_available>max_free_groups)
-						{
-							get_out=true;
-						}
-					}
-					
-				}
-			}
-			if (!get_out)
-			{
-				if ((!strcmp(current_parameters.aud1.type,"лекция") && 
-					(current_parameters.aud1.groups_available>0) && 
-					!strcmp(current_parameters.les1.type,"лекция")) || 
-					(!strcmp(current_parameters.aud1.type,"семинар") && 
-					(current_parameters.aud1.groups_available>0) && 
-					!strcmp(current_parameters.les1.type,"семинар")) || 
-					(!strcmp(current_parameters.aud1.type,"лаб")	 && 
-					(current_parameters.aud1.groups_available>0) && 
-					!strcmp(current_parameters.les1.type,"лаб")) )
-				{
-					gr=rand() %(inputs->inputs.groups.size());
-					day=rand() %(inputs->inputs.days.size());
-					tim=rand() %(inputs->inputs.times.size());
-
-					for (list<group_struct>::iterator it=inputs->inputs.groups.begin(); it!=inputs->inputs.groups.end(); it++)
-					{	// выбор случайной группы из списка
-						if ((*it).id==gr+1)
-							current_parameters.gr1=(*it);
-					}
-					for (list<day_struct>::iterator it=inputs->inputs.days.begin(); it!=inputs->inputs.days.end(); it++)
-					{	// выбор случайного дня недели из списка
-						if ((*it).id==day+1)
-							current_parameters.day1=(*it);
-					}
-					for (list<time_struct>::iterator it=inputs->inputs.times.begin(); it!=inputs->inputs.times.end(); it++)
-					{	// выбор случайного времени начала из списка 
-						if ((*it).id==tim+1)
-							current_parameters.tim1=(*it);
-					}
-
-
-					//	создание текущей строки
-					current.aud1=current_parameters.aud1;
-					current.day1=current_parameters.day1;
-					current.gr1 =current_parameters.gr1;
-					current.les1=current_parameters.les1;
-					current.tim1=current_parameters.tim1;
-
-					for (list<sched_string>::iterator it1=slist.begin(); it1!=slist.end(); it1++)
-					{
-						// проверка на конфликты
-						if ( ((*it1).gr1.id == current.gr1.id  &&  (*it1).les1.id==current.les1.id) ||
-							( ((*it1).gr1.id == current.gr1.id  || ((*it1).aud1.id==current.aud1.id && 
-							(*it1).les1.id!= current.les1.id)) && 
-							(*it1).day1.id== current.day1.id &&  (*it1).tim1.id==current.tim1.id) ) 
-						{flag=0;} 
-						else if ((*it1).gr1.id!=current.gr1.id   && (*it1).day1.id==current.day1.id && 
-							(*it1).tim1.id==current.tim1.id && (*it1).aud1.id==current.aud1.id)
-						{
-							if ((*it1).aud1.groups_available==0)
-							{flag=0;} else current.aud1.groups_available--;
-						}
-					}
-
-					if (flag==1)
-					{
-						current.aud1.groups_available--;	
-
-						
-						for (list<lesson_string>::iterator itq=llist.begin(); itq!=llist.end(); itq++)
-						{
-							//if ((*itq).id==les && strcmp(current.gr1.name,(*itq).group.c_str()))
-							if (strcmp(current.les1.name,(*itq).lesson_name) && 
-								strcmp(current.les1.type,(*itq).lesson_type) && 
-								strcmp(current.gr1.name,(*itq).group.c_str()) &&
-								(current.les1.id==(*itq).from_lessons_id))
-								//current.les1.
-							{
-								(*itq).used=true;
-							}
-						}
-
-						// добавление в расписание
-						this->AddNewStr_List(current);
-
-						bo=0;
-						i=4;
-					}
-					flag=1;
-				}
-			}
-			
-		}  
-		cnt+=1;*/
-	
 }
 
 bool SCHEDULE::Fill_One_Lesson(list<adt_string> *inlist, sched_string *current, schedule_inputs* inputs) //*it_l=current->les1
@@ -370,25 +215,22 @@ bool SCHEDULE::Fill_One_Lesson(list<adt_string> *inlist, sched_string *current, 
 				//first_time=false;
 
 				if (need_to_change) {
-					Select_New_Group(inputs,current,inlist,&need_to_change,&ptr_to_erase);
+					bool ResOfSelectNewGroup = Select_New_Group(inputs,current,inlist,&need_to_change,&ptr_to_erase);
+					if (ResOfSelectNewGroup == false)
+					{
+						return false; // неудачное расписание - нужно создать заново
+					}
 					noptr=false;
 				}
 				else  {
 					(*ptr_to_erase).aud.groups_available--;
 					(*current).aud1.groups_available--;
 				}
-				//if ((*ptr_to_erase).aud.groups_available==0) {
-				//if () {
-					
-
-				//	need_to_change=true;
-					//break;
-				//}
-				// на самом деле выбирать строку из ***_list нужно тут с проверкой группы на наличие в restrict-листе
 				
+				// на самом деле выбирать строку из ***_list нужно тут с проверкой группы на наличие в restrict-листе
 
 				slist.push_back(*current);	// добавление строки в расписание
-				retval = true;
+				//retval = true;
 				num_of_inserted++;
 				if (num_of_inserted==(*current).les1.groups_max || (*current).aud1.groups_available==0)
 				{
@@ -418,10 +260,10 @@ bool SCHEDULE::Fill_One_Lesson(list<adt_string> *inlist, sched_string *current, 
 		(*inlist).erase(ptr_to_erase);
 	}
 	
-	return retval;
+	return true; // расписание создано удачно
 }
 
-void SCHEDULE::Select_New_Group(schedule_inputs* inputs, sched_string* current,
+bool SCHEDULE::Select_New_Group(schedule_inputs* inputs, sched_string* current,
 								list<adt_string>* inlist, bool* need_to_change, 
 								list<adt_string>::iterator *ptr_to_erase)
 {
@@ -484,6 +326,8 @@ void SCHEDULE::Select_New_Group(schedule_inputs* inputs, sched_string* current,
 	if (cntr==0)
 	{
 		int sizeofslist=slist.size();
+		delete[] mas;
+		return false;
 	}
 	// выбираем случайно из массива
 	itr = mas[rand() %(cntr)];
@@ -512,6 +356,7 @@ void SCHEDULE::Select_New_Group(schedule_inputs* inputs, sched_string* current,
 	else
 		*need_to_change=true;
 	delete[] mas;
+	return true;
 }
 
 // добавление группы в списки

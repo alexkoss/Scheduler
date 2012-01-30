@@ -1,8 +1,6 @@
 #pragma once
 #include "stdafx.h"
 
-
-
 struct uni_input
 {
 	int num;

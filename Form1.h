@@ -101,6 +101,7 @@ namespace xmltest_dotnet {
 			this->tableLayoutPanel1 = (gcnew System::Windows::Forms::TableLayoutPanel());
 			this->button7 = (gcnew System::Windows::Forms::Button());
 			this->tabPage2 = (gcnew System::Windows::Forms::TabPage());
+			this->button4 = (gcnew System::Windows::Forms::Button());
 			this->button8 = (gcnew System::Windows::Forms::Button());
 			this->tabControl2 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPage3 = (gcnew System::Windows::Forms::TabPage());
@@ -109,7 +110,6 @@ namespace xmltest_dotnet {
 			this->tableLayoutPanel2 = (gcnew System::Windows::Forms::TableLayoutPanel());
 			this->button9 = (gcnew System::Windows::Forms::Button());
 			this->button6 = (gcnew System::Windows::Forms::Button());
-			this->button4 = (gcnew System::Windows::Forms::Button());
 			this->tabControl1->SuspendLayout();
 			this->tabPage1->SuspendLayout();
 			this->tabControl3->SuspendLayout();
@@ -309,6 +309,7 @@ namespace xmltest_dotnet {
 			this->button7->TabIndex = 9;
 			this->button7->Text = L"Сохранить учебный план";
 			this->button7->UseVisualStyleBackColor = true;
+			this->button7->Visible = false;
 			// 
 			// tabPage2
 			// 
@@ -325,6 +326,17 @@ namespace xmltest_dotnet {
 			this->tabPage2->TabIndex = 1;
 			this->tabPage2->Text = L"Расписание";
 			this->tabPage2->UseVisualStyleBackColor = true;
+			// 
+			// button4
+			// 
+			this->button4->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->button4->Location = System::Drawing::Point(902, 97);
+			this->button4->Name = L"button4";
+			this->button4->Size = System::Drawing::Size(111, 63);
+			this->button4->TabIndex = 11;
+			this->button4->Text = L"Составить расписание с ипользованием ГА!";
+			this->button4->UseVisualStyleBackColor = true;
+			this->button4->Click += gcnew System::EventHandler(this, &Form1::button4_Click);
 			// 
 			// button8
 			// 
@@ -423,17 +435,6 @@ namespace xmltest_dotnet {
 			this->button6->UseVisualStyleBackColor = true;
 			this->button6->Visible = false;
 			this->button6->Click += gcnew System::EventHandler(this, &Form1::button6_Click);
-			// 
-			// button4
-			// 
-			this->button4->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->button4->Location = System::Drawing::Point(902, 97);
-			this->button4->Name = L"button4";
-			this->button4->Size = System::Drawing::Size(111, 63);
-			this->button4->TabIndex = 11;
-			this->button4->Text = L"Составить расписание с ипользованием ГА!";
-			this->button4->UseVisualStyleBackColor = true;
-			this->button4->Click += gcnew System::EventHandler(this, &Form1::button4_Click);
 			// 
 			// Form1
 			// 
