@@ -21,7 +21,7 @@
     <auditory id="18" name="9-319"      type="семинар"  groups_max="1" groups_available="1" forles="Математика,Дискретная математика"/>
     <auditory id="19" name="9-501"      type="семинар"  groups_max="1" groups_available="1" forles="Математика"/>
     <auditory id="20" name="9-502"      type="семинар"  groups_max="1" groups_available="1" forles="Английский язык"/>
-    <auditory id="21" name="9-503"      type="семинар"  groups_max="1" groups_available="1" forles="Физика"/>
+    <auditory id="21" name="9-503"      type="семинар"  groups_max="2" groups_available="2" forles="Физика"/>
     <auditory id="22" name="9-504"      type="лекция"   groups_max="4" groups_available="4" forles="Дискретная математика"/>
     <auditory id="23" name="9-509"      type="семинар"  groups_max="1" groups_available="1" forles="История"/>
   </auditories>

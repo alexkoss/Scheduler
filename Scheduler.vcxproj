@@ -91,6 +91,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.ico" />
+    <None Include="images\MakeGA.png" />
+    <None Include="images\MakeOne.png" />
+    <None Include="images\Open.png" />
     <None Include="ReadMe.txt" />
     <None Include="xml.xml">
       <SubType>Designer</SubType>

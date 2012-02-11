@@ -37,45 +37,62 @@ namespace xmltest_dotnet {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::Button^  button1;
-	protected: 
-	public: 
-		
-	private: System::Windows::Forms::RichTextBox^  richTextBox1;
-
-	private: System::Windows::Forms::Button^  button2;
+	private: System::ComponentModel::IContainer^  components;
 
 	private:
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-		System::ComponentModel::Container ^components;
-	private: System::Windows::Forms::RichTextBox^  richTextBox2;
+
+
 	private: System::Windows::Forms::TabControl^  tabControl1;
 	private: System::Windows::Forms::TabPage^  tabPage1;
 	private: System::Windows::Forms::TabPage^  tabPage2;
-	private: System::Windows::Forms::TableLayoutPanel^  tableLayoutPanel1;
-	private: System::Windows::Forms::Panel^  panel1;
-	private: System::Windows::Forms::Button^  button7;
+
 			 static schedule_inputs* inp;
 			 SCHEDULE* s;
+			 SCHEDULE* s_template;
 			 static int selected_index;
-	private: System::Windows::Forms::ComboBox^  comboBox1;
+			 static bool NeedToWork;
+			 static bool NeedToUpdate;
+			 
+			 // Текущие значения предмета для добавления
+			 /*public lesson_struct TemplLes;
+			 group_struct  TemplGr;
+			 auditory_struct TemplAud;
+			 day_struct    TemplDay;
+			 time_struct   TemplTime;*/
+
 	private: System::Windows::Forms::Label^  label1;
+	private: System::Windows::Forms::ComboBox^  comboBox1;
+	private: System::Windows::Forms::Panel^  panel1;
+	private: System::Windows::Forms::TableLayoutPanel^  tableLayoutPanel1;
 	private: System::Windows::Forms::Panel^  panel2;
 	private: System::Windows::Forms::TableLayoutPanel^  tableLayoutPanel2;
-	private: System::Windows::Forms::TabControl^  tabControl2;
+	private: System::Windows::Forms::ToolStrip^  toolStrip1;
+	private: System::Windows::Forms::ToolStripButton^  toolStripButton1;
+	private: System::Windows::Forms::ToolStripSeparator^  toolStripSeparator1;
+	private: System::Windows::Forms::ToolStripButton^  toolStripButton2;
+	private: System::Windows::Forms::ToolStripButton^  toolStripButton3;
+	private: System::Windows::Forms::ToolStripButton^  toolStripButton4;
+	private: System::Windows::Forms::ToolStripSeparator^  toolStripSeparator2;
 	private: System::Windows::Forms::TabPage^  tabPage3;
-	private: System::Windows::Forms::TabPage^  tabPage4;
-	private: System::Windows::Forms::Button^  button9;
-	private: System::Windows::Forms::Button^  button6;
-	private: System::Windows::Forms::TabControl^  tabControl3;
-	private: System::Windows::Forms::TabPage^  tabPage5;
-	private: System::Windows::Forms::TabPage^  tabPage6;
-	private: System::Windows::Forms::Button^  button8;
+	private: System::Windows::Forms::GroupBox^  groupBox1;
+	private: System::Windows::Forms::Label^  label5;
+	private: System::Windows::Forms::Label^  label4;
+	private: System::Windows::Forms::Label^  label3;
+	private: System::Windows::Forms::Label^  label2;
+	private: System::Windows::Forms::ComboBox^  comboBox6;
+	private: System::Windows::Forms::ComboBox^  comboBox5;
+	private: System::Windows::Forms::ComboBox^  comboBox4;
+	private: System::Windows::Forms::ComboBox^  comboBox3;
+	private: System::Windows::Forms::ComboBox^  comboBox2;
+	private: System::Windows::Forms::Label^  label6;
 	private: System::Windows::Forms::Button^  button3;
-	private: System::Windows::Forms::RichTextBox^  richTextBox3;
-	private: System::Windows::Forms::Button^  button4;
+	private: System::Windows::Forms::Button^  button2;
+	private: System::Windows::Forms::Button^  button1;
+	private: System::ComponentModel::BackgroundWorker^  backgroundWorker1;
+
 			 static selected_indexes* selected_ind;
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -84,88 +101,48 @@ namespace xmltest_dotnet {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->button1 = (gcnew System::Windows::Forms::Button());
-			this->richTextBox1 = (gcnew System::Windows::Forms::RichTextBox());
-			this->button2 = (gcnew System::Windows::Forms::Button());
-			this->richTextBox2 = (gcnew System::Windows::Forms::RichTextBox());
+			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(Form1::typeid));
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPage1 = (gcnew System::Windows::Forms::TabPage());
-			this->richTextBox3 = (gcnew System::Windows::Forms::RichTextBox());
-			this->button3 = (gcnew System::Windows::Forms::Button());
-			this->tabControl3 = (gcnew System::Windows::Forms::TabControl());
-			this->tabPage5 = (gcnew System::Windows::Forms::TabPage());
-			this->tabPage6 = (gcnew System::Windows::Forms::TabPage());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->comboBox1 = (gcnew System::Windows::Forms::ComboBox());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->tableLayoutPanel1 = (gcnew System::Windows::Forms::TableLayoutPanel());
-			this->button7 = (gcnew System::Windows::Forms::Button());
-			this->tabPage2 = (gcnew System::Windows::Forms::TabPage());
-			this->button4 = (gcnew System::Windows::Forms::Button());
-			this->button8 = (gcnew System::Windows::Forms::Button());
-			this->tabControl2 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPage3 = (gcnew System::Windows::Forms::TabPage());
-			this->tabPage4 = (gcnew System::Windows::Forms::TabPage());
+			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->button3 = (gcnew System::Windows::Forms::Button());
+			this->button2 = (gcnew System::Windows::Forms::Button());
+			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->comboBox6 = (gcnew System::Windows::Forms::ComboBox());
+			this->comboBox5 = (gcnew System::Windows::Forms::ComboBox());
+			this->comboBox4 = (gcnew System::Windows::Forms::ComboBox());
+			this->comboBox3 = (gcnew System::Windows::Forms::ComboBox());
+			this->comboBox2 = (gcnew System::Windows::Forms::ComboBox());
+			this->label6 = (gcnew System::Windows::Forms::Label());
+			this->label5 = (gcnew System::Windows::Forms::Label());
+			this->label4 = (gcnew System::Windows::Forms::Label());
+			this->label3 = (gcnew System::Windows::Forms::Label());
+			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->tabPage2 = (gcnew System::Windows::Forms::TabPage());
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
 			this->tableLayoutPanel2 = (gcnew System::Windows::Forms::TableLayoutPanel());
-			this->button9 = (gcnew System::Windows::Forms::Button());
-			this->button6 = (gcnew System::Windows::Forms::Button());
+			this->toolStrip1 = (gcnew System::Windows::Forms::ToolStrip());
+			this->toolStripButton1 = (gcnew System::Windows::Forms::ToolStripButton());
+			this->toolStripSeparator1 = (gcnew System::Windows::Forms::ToolStripSeparator());
+			this->toolStripButton4 = (gcnew System::Windows::Forms::ToolStripButton());
+			this->toolStripSeparator2 = (gcnew System::Windows::Forms::ToolStripSeparator());
+			this->toolStripButton2 = (gcnew System::Windows::Forms::ToolStripButton());
+			this->toolStripButton3 = (gcnew System::Windows::Forms::ToolStripButton());
+			this->backgroundWorker1 = (gcnew System::ComponentModel::BackgroundWorker());
 			this->tabControl1->SuspendLayout();
 			this->tabPage1->SuspendLayout();
-			this->tabControl3->SuspendLayout();
-			this->tabPage5->SuspendLayout();
-			this->tabPage6->SuspendLayout();
 			this->panel1->SuspendLayout();
-			this->tabPage2->SuspendLayout();
-			this->tabControl2->SuspendLayout();
 			this->tabPage3->SuspendLayout();
-			this->tabPage4->SuspendLayout();
+			this->groupBox1->SuspendLayout();
+			this->tabPage2->SuspendLayout();
 			this->panel2->SuspendLayout();
+			this->toolStrip1->SuspendLayout();
 			this->SuspendLayout();
-			// 
-			// button1
-			// 
-			this->button1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->button1->Location = System::Drawing::Point(894, 28);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(111, 37);
-			this->button1->TabIndex = 0;
-			this->button1->Text = L"Загрузить учебный план";
-			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &Form1::button1_Click);
-			// 
-			// richTextBox1
-			// 
-			this->richTextBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
-				| System::Windows::Forms::AnchorStyles::Left) 
-				| System::Windows::Forms::AnchorStyles::Right));
-			this->richTextBox1->Location = System::Drawing::Point(3, 3);
-			this->richTextBox1->Name = L"richTextBox1";
-			this->richTextBox1->Size = System::Drawing::Size(871, 528);
-			this->richTextBox1->TabIndex = 1;
-			this->richTextBox1->Text = L"";
-			// 
-			// button2
-			// 
-			this->button2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->button2->Location = System::Drawing::Point(902, 28);
-			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(111, 63);
-			this->button2->TabIndex = 3;
-			this->button2->Text = L"Составить расписание!";
-			this->button2->UseVisualStyleBackColor = true;
-			this->button2->Click += gcnew System::EventHandler(this, &Form1::button2_Click);
-			// 
-			// richTextBox2
-			// 
-			this->richTextBox2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
-				| System::Windows::Forms::AnchorStyles::Left) 
-				| System::Windows::Forms::AnchorStyles::Right));
-			this->richTextBox2->Location = System::Drawing::Point(3, 3);
-			this->richTextBox2->Name = L"richTextBox2";
-			this->richTextBox2->Size = System::Drawing::Size(873, 524);
-			this->richTextBox2->TabIndex = 4;
-			this->richTextBox2->Text = L"";
 			// 
 			// tabControl1
 			// 
@@ -173,103 +150,43 @@ namespace xmltest_dotnet {
 				| System::Windows::Forms::AnchorStyles::Left) 
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->tabControl1->Controls->Add(this->tabPage1);
+			this->tabControl1->Controls->Add(this->tabPage3);
 			this->tabControl1->Controls->Add(this->tabPage2);
-			this->tabControl1->Location = System::Drawing::Point(0, -1);
+			this->tabControl1->Location = System::Drawing::Point(0, 28);
 			this->tabControl1->Name = L"tabControl1";
 			this->tabControl1->SelectedIndex = 0;
-			this->tabControl1->Size = System::Drawing::Size(1028, 592);
+			this->tabControl1->Size = System::Drawing::Size(1030, 563);
 			this->tabControl1->TabIndex = 5;
 			// 
 			// tabPage1
 			// 
-			this->tabPage1->Controls->Add(this->richTextBox3);
-			this->tabPage1->Controls->Add(this->button3);
-			this->tabPage1->Controls->Add(this->tabControl3);
-			this->tabPage1->Controls->Add(this->button7);
-			this->tabPage1->Controls->Add(this->button1);
+			this->tabPage1->Controls->Add(this->label1);
+			this->tabPage1->Controls->Add(this->comboBox1);
+			this->tabPage1->Controls->Add(this->panel1);
 			this->tabPage1->Location = System::Drawing::Point(4, 22);
 			this->tabPage1->Name = L"tabPage1";
 			this->tabPage1->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage1->Size = System::Drawing::Size(1020, 566);
+			this->tabPage1->Size = System::Drawing::Size(1022, 537);
 			this->tabPage1->TabIndex = 0;
 			this->tabPage1->Text = L"Учебный план";
 			this->tabPage1->UseVisualStyleBackColor = true;
 			// 
-			// richTextBox3
-			// 
-			this->richTextBox3->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
-			this->richTextBox3->Location = System::Drawing::Point(478, 153);
-			this->richTextBox3->Name = L"richTextBox3";
-			this->richTextBox3->Size = System::Drawing::Size(536, 406);
-			this->richTextBox3->TabIndex = 19;
-			this->richTextBox3->Text = L"";
-			this->richTextBox3->Visible = false;
-			// 
-			// button3
-			// 
-			this->button3->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->button3->Location = System::Drawing::Point(914, 125);
-			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(75, 23);
-			this->button3->TabIndex = 18;
-			this->button3->Text = L"button3";
-			this->button3->UseVisualStyleBackColor = true;
-			this->button3->Visible = false;
-			this->button3->Click += gcnew System::EventHandler(this, &Form1::button3_Click);
-			// 
-			// tabControl3
-			// 
-			this->tabControl3->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
-				| System::Windows::Forms::AnchorStyles::Left) 
-				| System::Windows::Forms::AnchorStyles::Right));
-			this->tabControl3->Controls->Add(this->tabPage5);
-			this->tabControl3->Controls->Add(this->tabPage6);
-			this->tabControl3->Location = System::Drawing::Point(6, 6);
-			this->tabControl3->Name = L"tabControl3";
-			this->tabControl3->SelectedIndex = 0;
-			this->tabControl3->Size = System::Drawing::Size(882, 557);
-			this->tabControl3->TabIndex = 17;
-			// 
-			// tabPage5
-			// 
-			this->tabPage5->Controls->Add(this->richTextBox1);
-			this->tabPage5->Location = System::Drawing::Point(4, 22);
-			this->tabPage5->Name = L"tabPage5";
-			this->tabPage5->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage5->Size = System::Drawing::Size(874, 531);
-			this->tabPage5->TabIndex = 0;
-			this->tabPage5->Text = L"Текст";
-			this->tabPage5->UseVisualStyleBackColor = true;
-			// 
-			// tabPage6
-			// 
-			this->tabPage6->Controls->Add(this->label1);
-			this->tabPage6->Controls->Add(this->comboBox1);
-			this->tabPage6->Controls->Add(this->panel1);
-			this->tabPage6->Location = System::Drawing::Point(4, 22);
-			this->tabPage6->Name = L"tabPage6";
-			this->tabPage6->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage6->Size = System::Drawing::Size(874, 531);
-			this->tabPage6->TabIndex = 1;
-			this->tabPage6->Text = L"Таблица";
-			this->tabPage6->UseVisualStyleBackColor = true;
-			// 
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(6, 12);
+			this->label1->Location = System::Drawing::Point(6, 15);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(114, 13);
-			this->label1->TabIndex = 13;
+			this->label1->TabIndex = 20;
 			this->label1->Text = L"Выберите категорию";
 			// 
 			// comboBox1
 			// 
 			this->comboBox1->FormattingEnabled = true;
-			this->comboBox1->Location = System::Drawing::Point(135, 9);
+			this->comboBox1->Location = System::Drawing::Point(135, 12);
 			this->comboBox1->Name = L"comboBox1";
 			this->comboBox1->Size = System::Drawing::Size(121, 21);
-			this->comboBox1->TabIndex = 12;
+			this->comboBox1->TabIndex = 19;
 			this->comboBox1->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::comboBox1_SelectedIndexChanged);
 			// 
 			// panel1
@@ -279,10 +196,10 @@ namespace xmltest_dotnet {
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->panel1->AutoScroll = true;
 			this->panel1->Controls->Add(this->tableLayoutPanel1);
-			this->panel1->Location = System::Drawing::Point(6, 38);
+			this->panel1->Location = System::Drawing::Point(6, 41);
 			this->panel1->Name = L"panel1";
-			this->panel1->Size = System::Drawing::Size(864, 489);
-			this->panel1->TabIndex = 6;
+			this->panel1->Size = System::Drawing::Size(1010, 493);
+			this->panel1->TabIndex = 18;
 			// 
 			// tableLayoutPanel1
 			// 
@@ -299,91 +216,171 @@ namespace xmltest_dotnet {
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
 			this->tableLayoutPanel1->Size = System::Drawing::Size(3, 2);
 			this->tableLayoutPanel1->TabIndex = 2;
-			// 
-			// button7
-			// 
-			this->button7->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->button7->Location = System::Drawing::Point(894, 71);
-			this->button7->Name = L"button7";
-			this->button7->Size = System::Drawing::Size(111, 34);
-			this->button7->TabIndex = 9;
-			this->button7->Text = L"Сохранить учебный план";
-			this->button7->UseVisualStyleBackColor = true;
-			this->button7->Visible = false;
-			// 
-			// tabPage2
-			// 
-			this->tabPage2->Controls->Add(this->button4);
-			this->tabPage2->Controls->Add(this->button8);
-			this->tabPage2->Controls->Add(this->tabControl2);
-			this->tabPage2->Controls->Add(this->button9);
-			this->tabPage2->Controls->Add(this->button6);
-			this->tabPage2->Controls->Add(this->button2);
-			this->tabPage2->Location = System::Drawing::Point(4, 22);
-			this->tabPage2->Name = L"tabPage2";
-			this->tabPage2->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage2->Size = System::Drawing::Size(1020, 566);
-			this->tabPage2->TabIndex = 1;
-			this->tabPage2->Text = L"Расписание";
-			this->tabPage2->UseVisualStyleBackColor = true;
-			// 
-			// button4
-			// 
-			this->button4->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->button4->Location = System::Drawing::Point(902, 97);
-			this->button4->Name = L"button4";
-			this->button4->Size = System::Drawing::Size(111, 63);
-			this->button4->TabIndex = 11;
-			this->button4->Text = L"Составить расписание с ипользованием ГА!";
-			this->button4->UseVisualStyleBackColor = true;
-			this->button4->Click += gcnew System::EventHandler(this, &Form1::button4_Click);
-			// 
-			// button8
-			// 
-			this->button8->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->button8->Location = System::Drawing::Point(903, 274);
-			this->button8->Name = L"button8";
-			this->button8->Size = System::Drawing::Size(110, 34);
-			this->button8->TabIndex = 10;
-			this->button8->Text = L"Обновить";
-			this->button8->UseVisualStyleBackColor = true;
-			this->button8->Visible = false;
-			this->button8->Click += gcnew System::EventHandler(this, &Form1::button8_Click);
-			// 
-			// tabControl2
-			// 
-			this->tabControl2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
-				| System::Windows::Forms::AnchorStyles::Left) 
-				| System::Windows::Forms::AnchorStyles::Right));
-			this->tabControl2->Controls->Add(this->tabPage3);
-			this->tabControl2->Controls->Add(this->tabPage4);
-			this->tabControl2->Location = System::Drawing::Point(6, 6);
-			this->tabControl2->Name = L"tabControl2";
-			this->tabControl2->SelectedIndex = 0;
-			this->tabControl2->Size = System::Drawing::Size(890, 556);
-			this->tabControl2->TabIndex = 9;
+			this->tableLayoutPanel1->Visible = false;
 			// 
 			// tabPage3
 			// 
-			this->tabPage3->Controls->Add(this->richTextBox2);
+			this->tabPage3->Controls->Add(this->groupBox1);
 			this->tabPage3->Location = System::Drawing::Point(4, 22);
 			this->tabPage3->Name = L"tabPage3";
 			this->tabPage3->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage3->Size = System::Drawing::Size(882, 530);
-			this->tabPage3->TabIndex = 0;
-			this->tabPage3->Text = L"Текст";
+			this->tabPage3->Size = System::Drawing::Size(1022, 537);
+			this->tabPage3->TabIndex = 2;
+			this->tabPage3->Text = L"Шаблон";
 			this->tabPage3->UseVisualStyleBackColor = true;
 			// 
-			// tabPage4
+			// groupBox1
 			// 
-			this->tabPage4->Controls->Add(this->panel2);
-			this->tabPage4->Location = System::Drawing::Point(4, 22);
-			this->tabPage4->Name = L"tabPage4";
-			this->tabPage4->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage4->Size = System::Drawing::Size(882, 530);
-			this->tabPage4->TabIndex = 1;
-			this->tabPage4->Text = L"Таблица";
-			this->tabPage4->UseVisualStyleBackColor = true;
+			this->groupBox1->Controls->Add(this->button3);
+			this->groupBox1->Controls->Add(this->button2);
+			this->groupBox1->Controls->Add(this->button1);
+			this->groupBox1->Controls->Add(this->comboBox6);
+			this->groupBox1->Controls->Add(this->comboBox5);
+			this->groupBox1->Controls->Add(this->comboBox4);
+			this->groupBox1->Controls->Add(this->comboBox3);
+			this->groupBox1->Controls->Add(this->comboBox2);
+			this->groupBox1->Controls->Add(this->label6);
+			this->groupBox1->Controls->Add(this->label5);
+			this->groupBox1->Controls->Add(this->label4);
+			this->groupBox1->Controls->Add(this->label3);
+			this->groupBox1->Controls->Add(this->label2);
+			this->groupBox1->Location = System::Drawing::Point(9, 7);
+			this->groupBox1->Name = L"groupBox1";
+			this->groupBox1->Size = System::Drawing::Size(331, 211);
+			this->groupBox1->TabIndex = 0;
+			this->groupBox1->TabStop = false;
+			this->groupBox1->Text = L"Редактирование";
+			// 
+			// button3
+			// 
+			this->button3->Location = System::Drawing::Point(250, 183);
+			this->button3->Name = L"button3";
+			this->button3->Size = System::Drawing::Size(75, 23);
+			this->button3->TabIndex = 8;
+			this->button3->Text = L"Удалить";
+			this->button3->UseVisualStyleBackColor = true;
+			// 
+			// button2
+			// 
+			this->button2->Location = System::Drawing::Point(133, 183);
+			this->button2->Name = L"button2";
+			this->button2->Size = System::Drawing::Size(75, 23);
+			this->button2->TabIndex = 7;
+			this->button2->Text = L"Изменить";
+			this->button2->UseVisualStyleBackColor = true;
+			// 
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(10, 183);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(75, 23);
+			this->button1->TabIndex = 6;
+			this->button1->Text = L"Добавить";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &Form1::button1_Click);
+			// 
+			// comboBox6
+			// 
+			this->comboBox6->Enabled = false;
+			this->comboBox6->FormattingEnabled = true;
+			this->comboBox6->Location = System::Drawing::Point(111, 125);
+			this->comboBox6->Name = L"comboBox6";
+			this->comboBox6->Size = System::Drawing::Size(214, 21);
+			this->comboBox6->TabIndex = 5;
+			// 
+			// comboBox5
+			// 
+			this->comboBox5->Enabled = false;
+			this->comboBox5->FormattingEnabled = true;
+			this->comboBox5->Location = System::Drawing::Point(111, 98);
+			this->comboBox5->Name = L"comboBox5";
+			this->comboBox5->Size = System::Drawing::Size(214, 21);
+			this->comboBox5->TabIndex = 5;
+			// 
+			// comboBox4
+			// 
+			this->comboBox4->Enabled = false;
+			this->comboBox4->FormattingEnabled = true;
+			this->comboBox4->Location = System::Drawing::Point(111, 71);
+			this->comboBox4->Name = L"comboBox4";
+			this->comboBox4->Size = System::Drawing::Size(214, 21);
+			this->comboBox4->TabIndex = 5;
+			this->comboBox4->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::comboBox4_SelectedIndexChanged);
+			// 
+			// comboBox3
+			// 
+			this->comboBox3->Enabled = false;
+			this->comboBox3->FormattingEnabled = true;
+			this->comboBox3->Location = System::Drawing::Point(111, 44);
+			this->comboBox3->Name = L"comboBox3";
+			this->comboBox3->Size = System::Drawing::Size(214, 21);
+			this->comboBox3->TabIndex = 5;
+			this->comboBox3->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::comboBox3_SelectedIndexChanged);
+			// 
+			// comboBox2
+			// 
+			this->comboBox2->FormattingEnabled = true;
+			this->comboBox2->Location = System::Drawing::Point(111, 17);
+			this->comboBox2->Name = L"comboBox2";
+			this->comboBox2->Size = System::Drawing::Size(214, 21);
+			this->comboBox2->TabIndex = 5;
+			this->comboBox2->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::comboBox2_SelectedIndexChanged);
+			// 
+			// label6
+			// 
+			this->label6->AutoSize = true;
+			this->label6->Location = System::Drawing::Point(7, 47);
+			this->label6->Name = L"label6";
+			this->label6->Size = System::Drawing::Size(45, 13);
+			this->label6->TabIndex = 4;
+			this->label6->Text = L"Группа:";
+			// 
+			// label5
+			// 
+			this->label5->AutoSize = true;
+			this->label5->Location = System::Drawing::Point(7, 128);
+			this->label5->Name = L"label5";
+			this->label5->Size = System::Drawing::Size(43, 13);
+			this->label5->TabIndex = 3;
+			this->label5->Text = L"Время:";
+			// 
+			// label4
+			// 
+			this->label4->AutoSize = true;
+			this->label4->Location = System::Drawing::Point(7, 101);
+			this->label4->Name = L"label4";
+			this->label4->Size = System::Drawing::Size(37, 13);
+			this->label4->TabIndex = 2;
+			this->label4->Text = L"День:";
+			// 
+			// label3
+			// 
+			this->label3->AutoSize = true;
+			this->label3->Location = System::Drawing::Point(7, 74);
+			this->label3->Name = L"label3";
+			this->label3->Size = System::Drawing::Size(63, 13);
+			this->label3->TabIndex = 1;
+			this->label3->Text = L"Аудитория:";
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Location = System::Drawing::Point(7, 20);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(55, 13);
+			this->label2->TabIndex = 0;
+			this->label2->Text = L"Предмет:";
+			// 
+			// tabPage2
+			// 
+			this->tabPage2->Controls->Add(this->panel2);
+			this->tabPage2->Location = System::Drawing::Point(4, 22);
+			this->tabPage2->Name = L"tabPage2";
+			this->tabPage2->Padding = System::Windows::Forms::Padding(3);
+			this->tabPage2->Size = System::Drawing::Size(1022, 537);
+			this->tabPage2->TabIndex = 1;
+			this->tabPage2->Text = L"Расписание";
+			this->tabPage2->UseVisualStyleBackColor = true;
 			// 
 			// panel2
 			// 
@@ -392,10 +389,10 @@ namespace xmltest_dotnet {
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->panel2->AutoScroll = true;
 			this->panel2->Controls->Add(this->tableLayoutPanel2);
-			this->panel2->Location = System::Drawing::Point(6, 6);
+			this->panel2->Location = System::Drawing::Point(3, 6);
 			this->panel2->Name = L"panel2";
-			this->panel2->Size = System::Drawing::Size(873, 522);
-			this->panel2->TabIndex = 6;
+			this->panel2->Size = System::Drawing::Size(1013, 528);
+			this->panel2->TabIndex = 12;
 			// 
 			// tableLayoutPanel2
 			// 
@@ -412,36 +409,80 @@ namespace xmltest_dotnet {
 			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
 			this->tableLayoutPanel2->Size = System::Drawing::Size(3, 28);
 			this->tableLayoutPanel2->TabIndex = 5;
+			this->tableLayoutPanel2->Visible = false;
 			// 
-			// button9
+			// toolStrip1
 			// 
-			this->button9->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->button9->Location = System::Drawing::Point(902, 174);
-			this->button9->Name = L"button9";
-			this->button9->Size = System::Drawing::Size(111, 37);
-			this->button9->TabIndex = 8;
-			this->button9->Text = L"Добавить столбец";
-			this->button9->UseVisualStyleBackColor = true;
-			this->button9->Click += gcnew System::EventHandler(this, &Form1::button9_Click);
+			this->toolStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(6) {this->toolStripButton1, 
+				this->toolStripSeparator1, this->toolStripButton4, this->toolStripSeparator2, this->toolStripButton2, this->toolStripButton3});
+			this->toolStrip1->Location = System::Drawing::Point(0, 0);
+			this->toolStrip1->Name = L"toolStrip1";
+			this->toolStrip1->Size = System::Drawing::Size(1030, 25);
+			this->toolStrip1->TabIndex = 6;
+			this->toolStrip1->Text = L"toolStrip1";
 			// 
-			// button6
+			// toolStripButton1
 			// 
-			this->button6->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->button6->Location = System::Drawing::Point(902, 232);
-			this->button6->Name = L"button6";
-			this->button6->Size = System::Drawing::Size(111, 36);
-			this->button6->TabIndex = 7;
-			this->button6->Text = L"Загрузить шаблон";
-			this->button6->UseVisualStyleBackColor = true;
-			this->button6->Visible = false;
-			this->button6->Click += gcnew System::EventHandler(this, &Form1::button6_Click);
+			this->toolStripButton1->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Image;
+			this->toolStripButton1->Image = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"toolStripButton1.Image")));
+			this->toolStripButton1->ImageTransparentColor = System::Drawing::Color::Magenta;
+			this->toolStripButton1->Name = L"toolStripButton1";
+			this->toolStripButton1->Size = System::Drawing::Size(23, 22);
+			this->toolStripButton1->Text = L"Загрузить учебный план";
+			this->toolStripButton1->Click += gcnew System::EventHandler(this, &Form1::toolStripButton1_Click);
+			// 
+			// toolStripSeparator1
+			// 
+			this->toolStripSeparator1->Name = L"toolStripSeparator1";
+			this->toolStripSeparator1->Size = System::Drawing::Size(6, 25);
+			// 
+			// toolStripButton4
+			// 
+			this->toolStripButton4->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Image;
+			this->toolStripButton4->Image = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"toolStripButton4.Image")));
+			this->toolStripButton4->ImageTransparentColor = System::Drawing::Color::Magenta;
+			this->toolStripButton4->Name = L"toolStripButton4";
+			this->toolStripButton4->Size = System::Drawing::Size(23, 22);
+			this->toolStripButton4->Text = L"Изменить шаблон расписания";
+			// 
+			// toolStripSeparator2
+			// 
+			this->toolStripSeparator2->Name = L"toolStripSeparator2";
+			this->toolStripSeparator2->Size = System::Drawing::Size(6, 25);
+			// 
+			// toolStripButton2
+			// 
+			this->toolStripButton2->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Image;
+			this->toolStripButton2->Image = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"toolStripButton2.Image")));
+			this->toolStripButton2->ImageTransparentColor = System::Drawing::Color::Magenta;
+			this->toolStripButton2->Name = L"toolStripButton2";
+			this->toolStripButton2->Size = System::Drawing::Size(23, 22);
+			this->toolStripButton2->Text = L"Составить расписание";
+			this->toolStripButton2->Click += gcnew System::EventHandler(this, &Form1::toolStripButton2_Click);
+			// 
+			// toolStripButton3
+			// 
+			this->toolStripButton3->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Image;
+			this->toolStripButton3->Image = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"toolStripButton3.Image")));
+			this->toolStripButton3->ImageTransparentColor = System::Drawing::Color::Magenta;
+			this->toolStripButton3->Name = L"toolStripButton3";
+			this->toolStripButton3->Size = System::Drawing::Size(23, 22);
+			this->toolStripButton3->Text = L"Составить расписание с использованием генетического алгоритма";
+			this->toolStripButton3->Click += gcnew System::EventHandler(this, &Form1::toolStripButton3_Click);
+			// 
+			// backgroundWorker1
+			// 
+			this->backgroundWorker1->DoWork += gcnew System::ComponentModel::DoWorkEventHandler(this, &Form1::backgroundWorker1_DoWork);
+			this->backgroundWorker1->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &Form1::backgroundWorker1_RunWorkerCompleted);
 			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1030, 593);
+			this->Controls->Add(this->toolStrip1);
 			this->Controls->Add(this->tabControl1);
+			this->MinimumSize = System::Drawing::Size(500, 300);
 			this->Name = L"Form1";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Составитель расписания";
@@ -451,49 +492,29 @@ namespace xmltest_dotnet {
 			this->ResizeEnd += gcnew System::EventHandler(this, &Form1::Form1_ResizeEnd);
 			this->tabControl1->ResumeLayout(false);
 			this->tabPage1->ResumeLayout(false);
-			this->tabControl3->ResumeLayout(false);
-			this->tabPage5->ResumeLayout(false);
-			this->tabPage6->ResumeLayout(false);
-			this->tabPage6->PerformLayout();
+			this->tabPage1->PerformLayout();
 			this->panel1->ResumeLayout(false);
 			this->panel1->PerformLayout();
-			this->tabPage2->ResumeLayout(false);
-			this->tabControl2->ResumeLayout(false);
 			this->tabPage3->ResumeLayout(false);
-			this->tabPage4->ResumeLayout(false);
+			this->groupBox1->ResumeLayout(false);
+			this->groupBox1->PerformLayout();
+			this->tabPage2->ResumeLayout(false);
 			this->panel2->ResumeLayout(false);
 			this->panel2->PerformLayout();
+			this->toolStrip1->ResumeLayout(false);
+			this->toolStrip1->PerformLayout();
 			this->ResumeLayout(false);
+			this->PerformLayout();
 
 		}
 #pragma endregion
 
-	// открытие файла с учебным планом
-	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
-		OpenFileDialog^ openFileDialog1 = gcnew OpenFileDialog;
-
-		openFileDialog1->InitialDirectory = "../";
-		openFileDialog1->Filter = "xml files (*.xml)|*.xml|txt files (*.txt)|*.txt|All files (*.*)|*.*";
-		openFileDialog1->FilterIndex = 1;
-		openFileDialog1->RestoreDirectory = true;
-
-		if ( openFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK )
-		{
-			richTextBox1->Text=out_text(inp,openFileDialog1->FileName);
-		}
-
-		//s->Make_Lesson_List(inp);
-		//String^ lesson_list = s->Show_Lesson_List();
-		//richTextBox3->Text=lesson_list;
-		//s->Get_Lesson_Number(inp);
-
-		comboBox1_SelectedIndexChanged(sender,e);
-	}
-	
 	// инициализация при загрузке формы
 	private: System::Void Form1_Load(System::Object^  sender, System::EventArgs^  e) {
 		inp = new schedule_inputs;
 		s = new SCHEDULE;
+		s_template = new SCHEDULE;
+
 		srand(unsigned(time(NULL)));
 				 
 		comboBox1->Items->Add("Аудитории");
@@ -528,10 +549,13 @@ namespace xmltest_dotnet {
 
 		comboBox1->SelectedIndex=0;
 		selected_index=-1;
+		NeedToWork = false;
+		NeedToUpdate = false;
 
 		Form1::DoubleBuffered = true;
-		button6_Click(sender,e);
-		//panel1->DoubleBuffered = true;
+		MakeTemplate();
+		AddColumn();
+		AddColumn();
 	}
 
 	// освобождение памяти при закрытии формы
@@ -541,23 +565,8 @@ namespace xmltest_dotnet {
 		delete s;
 	}
 
-	// запуск расчёта расписания
-	private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
-		delete s;
-		s = new SCHEDULE;
-//		s->remax(inp);
-		int num_of_8_am_pairs = s->Cycle2(inp);
-		char str[65000]="";
-		s->Show_All_List(str);
-		richTextBox2->Text=String(str).ToString();
-		//MessageBox::Show(String::Concat(s->num_free_groups()));
-		MessageBox::Show(String::Concat("Number of 8 am pairs: ", num_of_8_am_pairs));
-		//button6_Click(sender,e);
-		button8_Click(sender,e);
-	}
-
 	// создание шаблона для таблицы расписания
-	private: System::Void button6_Click(System::Object^  sender, System::EventArgs^  e) {
+	private: System::Void MakeTemplate() {
 		tableLayoutPanel2->SuspendLayout();
 
 		while (tableLayoutPanel2->ColumnCount<6)
@@ -965,7 +974,7 @@ namespace xmltest_dotnet {
 	}
 
 	// добавление столбца
-	private: System::Void button9_Click(System::Object^  sender, System::EventArgs^  e) {
+	private: System::Void AddColumn() {
 		tableLayoutPanel2->SuspendLayout();
 
 		if (tableLayoutPanel2->ColumnCount<9)
@@ -1001,11 +1010,11 @@ namespace xmltest_dotnet {
 		}
 
 		tableLayoutPanel2->ResumeLayout();
-		button8_Click(sender,e);
+		TableUpdate();
 	}
 	
 	// обновление таблицы расписания
-	private: System::Void button8_Click(System::Object^  sender, System::EventArgs^  e) {
+	private: System::Void TableUpdate() {
 		tableLayoutPanel2->SuspendLayout();
 
 		int cnt=1;
@@ -1069,43 +1078,293 @@ namespace xmltest_dotnet {
 
 	// обработка начала изменения размера формы
 	private: System::Void Form1_ResizeBegin(System::Object^  sender, System::EventArgs^  e) {
-		/*tableLayoutPanel1->SuspendLayout();
-		tableLayoutPanel2->SuspendLayout();*/
-		//tableLayoutPanel1->Focused=false;
-		//tableLayoutPanel1->TableLayoutPanel();
 		tableLayoutPanel1->Hide();
 		tableLayoutPanel2->Hide();
 	}
 
 	// обработка завершения изменения размера формы
 	private: System::Void Form1_ResizeEnd(System::Object^  sender, System::EventArgs^  e) {
-		/*tableLayoutPanel1->ResumeLayout();
-		tableLayoutPanel2->ResumeLayout();*/
-		//tableLayoutPanel1->Focused=true;   
 		tableLayoutPanel1->Show();
 		tableLayoutPanel2->Show();
 	}
+		
+// открытие файла с учебным планом
+private: System::Void toolStripButton1_Click(System::Object^  sender, System::EventArgs^  e) {
+			 OpenFileDialog^ openFileDialog1 = gcnew OpenFileDialog;
 
-	// временная кнопка
-	private: System::Void button3_Click(System::Object^  sender, System::EventArgs^  e) {
-		//s->Make_Lesson_List(inp);
-		String^ lesson_list = s->Show_Lesson_List();
-		richTextBox3->Text=lesson_list;
+			 openFileDialog1->InitialDirectory = "../";
+			 openFileDialog1->Filter = "xml files (*.xml)|*.xml|txt files (*.txt)|*.txt|All files (*.*)|*.*";
+			 openFileDialog1->FilterIndex = 1;
+			 openFileDialog1->RestoreDirectory = true;
+
+			 if ( openFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK )
+			 {
+				 InitInputs(inp,openFileDialog1->FileName);
+			 }
+			 comboBox1_SelectedIndexChanged(sender,e);
+			 tableLayoutPanel1->Visible = true;
+			 FillFirstCombo();
+		 }
+
+// заполнение предметов для выбора в шаблоне
+private: System::Void FillFirstCombo() {
+			 comboBox2->Text = "Выберите предмет";
+			 comboBox3->Text = "Выберите группу";
+			 comboBox4->Text = "Выберите аудиторию";
+			 comboBox5->Text = "Выберите день";
+			 comboBox6->Text = "Выберите время";
+
+			 for (list<lesson_struct>::iterator it=(inp->inputs).lessons.begin();it!=(inp->inputs).lessons.end();it++)
+			 {
+				 String^ str1 = gcnew String((*it).name);
+				 String^ str2 = gcnew String((*it).type);
+				 String^ str3 = (*it).id.ToString()+" "+str1+" "+str2;
+				 comboBox2->Items->Add(str3);
+			 }
+			 comboBox3->Enabled=false;
+			 comboBox4->Enabled=false;
+			 comboBox5->Enabled=false;
+			 comboBox6->Enabled=false;
+		 }
+
+// запуск расчёта расписания
+private: System::Void toolStripButton2_Click(System::Object^  sender, System::EventArgs^  e) {
+			 delete s;
+			 s = new SCHEDULE;
+			 s->CopySched(*s_template);
+			 int num_of_8_am_pairs = s->Cycle2(inp);
+			 char str[65000]="";
+			 s->Show_All_List(str);
+			 MessageBox::Show(String::Concat("Number of 8 am pairs: ", num_of_8_am_pairs));
+			 TableUpdate();
+			 tableLayoutPanel2->Visible = true;
+		 }
+
+// запуск расчёта расписания с использованием генетического алгоритма
+private: System::Void toolStripButton3_Click(System::Object^  sender, System::EventArgs^  e) {
+			 NeedToWork = true;
+			 backgroundWorker1->RunWorkerAsync();
+		 }
+
+private: System::Void backgroundWorker1_DoWork(System::Object^  sender, System::ComponentModel::DoWorkEventArgs^  e) {
+			 //BackgroundWorker^ worker = dynamic_cast<BackgroundWorker^>(sender);
 			 
-	}
-	
-	private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
-		delete s;
-		s = new SCHEDULE;
-//		s->remax(inp);
-		int num_of_8_am_pairs = s->Cycle(inp);
-		char str[65000]="";
-		s->Show_All_List(str);
-		richTextBox2->Text=String(str).ToString();
-		MessageBox::Show(String::Concat("Number of 8 am pairs: ", num_of_8_am_pairs));//s->num_free_groups()));
-		//button6_Click(sender,e);
-		button8_Click(sender,e);
-	}
+			 //if (NeedToWork)
+			 {
+				 delete s;
+				 s = new SCHEDULE;
+				 s->CopySched(*s_template);
+				 int num_of_8_am_pairs = s->Cycle(inp);
+				 char str[65000]="";
+				 s->Show_All_List(str);
+				 MessageBox::Show(String::Concat("Number of 8 am pairs: ", num_of_8_am_pairs));
+				 //NeedToUpdate = true;
+				 
+				 NeedToWork=false;
+			 }
+		 }
+
+private: System::Void backgroundWorker1_RunWorkerCompleted(System::Object^  sender, System::ComponentModel::RunWorkerCompletedEventArgs^  e) {
+			 TableUpdate();
+			 tableLayoutPanel2->Visible = true;
+		 }
+
+		 // смена значения комбо занятия
+private: System::Void comboBox2_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
+			 int SelectedLes = comboBox2->SelectedIndex;
+
+			 lesson_struct current_lesson;
+			 
+			 int cnt=0;
+			 for (list<lesson_struct>::iterator it=(inp->inputs).lessons.begin();it!=(inp->inputs).lessons.end();it++)
+			 {
+				 String^ str1 = gcnew String((*it).name);
+				 String^ str2 = gcnew String((*it).type);
+				 String^ str3 = (*it).id.ToString()+" "+str1+" "+str2;
+				 if (str3==comboBox2->Text && cnt==SelectedLes)
+				 {
+					 current_lesson=(*it);
+					 break;
+				 }
+				 cnt++;
+			 }
+			 
+			 comboBox3->Items->Clear();
+			 for (list<string>::iterator it2=current_lesson.for_groups.begin();it2!=current_lesson.for_groups.end();it2++)
+			 {
+				 String^ str = gcnew String((*it2).c_str());
+				 comboBox3->Items->Add(str);
+			 }
+			 
+			 //TemplLes = current_lesson;
+			 comboBox3->Text = "Выберите группу";
+			 comboBox4->Text = "Выберите аудиторию";
+			 comboBox5->Text = "Выберите день";
+			 comboBox6->Text = "Выберите время";
+
+			 comboBox3->Enabled=true;
+			 comboBox4->Enabled=false;
+			 comboBox5->Enabled=false;
+			 comboBox6->Enabled=false;
+		 }
+		 
+		 // смена значения комбо группы
+private: System::Void comboBox3_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
+			 int SelectedLes = comboBox2->SelectedIndex;
+			 
+			 lesson_struct current_lesson;
+			 
+			 int cnt=0;
+			 for (list<lesson_struct>::iterator it=(inp->inputs).lessons.begin();it!=(inp->inputs).lessons.end();it++)
+			 {
+				 String^ str1 = gcnew String((*it).name);
+				 String^ str2 = gcnew String((*it).type);
+				 String^ str3 = (*it).id.ToString()+" "+str1+" "+str2;
+				 if (str3==comboBox2->Text && cnt==SelectedLes)
+				 {
+					 current_lesson=(*it);
+					 break;
+				 }
+				 cnt++;
+			 }
+			 
+			 comboBox4->Items->Clear();
+			 for (list<auditory_struct>::iterator it2=inp->inputs.auditories.begin(); it2!=inp->inputs.auditories.end(); it2++)
+			 {
+				 if (/*(*it2).groups_max>=current_lesson.groups_max &&*/ !strcmp((*it2).type,current_lesson.type) && (*it2).groups_available>0)
+				 {
+					 for (list<string>::iterator it3=(*it2).for_lessons.begin(); it3!=(*it2).for_lessons.end(); it3++)
+					 {
+						 //добавление данной аудитории в список возможных
+						 if (!strcmp((*it3).c_str(),current_lesson.name))
+						 {
+							 String^ str = gcnew String((*it2).name);
+							 comboBox4->Items->Add(str);
+						 }
+						 
+					 }
+					 
+				 }
+			 }
+
+			 comboBox4->Text = "Выберите аудиторию";
+			 comboBox5->Text = "Выберите день";
+			 comboBox6->Text = "Выберите время";
+
+			 comboBox3->Enabled=true;
+			 comboBox4->Enabled=true;
+			 comboBox5->Enabled=false;
+			 comboBox6->Enabled=false;
+		 }
+
+		 // смена значения комбо аудитории
+private: System::Void comboBox4_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
+
+			 comboBox5->Text = "Выберите день";
+			 comboBox6->Text = "Выберите время";
+
+			 comboBox5->Items->Clear();
+			 comboBox6->Items->Clear();
+			 for (list<day_struct>::iterator it=(inp->inputs).days.begin();it!=(inp->inputs).days.end();it++)
+			 {
+				 String^ str = gcnew String((*it).name);
+				 comboBox5->Items->Add(str);
+			 }
+
+			 for (list<time_struct>::iterator it=(inp->inputs).times.begin();it!=(inp->inputs).times.end();it++)
+			 {
+				 String^ str = gcnew String(Convert::ToString((*it).begin_time));
+				 comboBox6->Items->Add(str);
+			 }
+
+			 comboBox3->Enabled=true;
+			 comboBox4->Enabled=true;
+			 comboBox5->Enabled=true;
+			 comboBox6->Enabled=true;
+		 }
+
+		 // обработка добавления в шаблон
+private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
+			//MessageBox::Show(comboBox2->Text);
+			 if (comboBox5->SelectedIndex<0)
+			{
+				MessageBox::Show("Для добавления занятия в расписание требуется выбор дня недели");
+				return;
+			}
+			if (comboBox6->SelectedIndex<0)
+			{
+				MessageBox::Show("Для добавления занятия в расписание требуется выбор времени занятия");
+				return;
+			}
+			int SelectedLes = comboBox2->SelectedIndex;
+
+			sched_string current;
+			
+			int cnt=0;
+			for (list<lesson_struct>::iterator it=(inp->inputs).lessons.begin();it!=(inp->inputs).lessons.end();it++)
+			{
+				String^ str1 = gcnew String((*it).name);
+				String^ str2 = gcnew String((*it).type);
+				String^ str3 = (*it).id.ToString()+" "+str1+" "+str2;
+				if (str3==comboBox2->Text && cnt==SelectedLes)
+				{
+					current.les1=(*it);
+					break;
+				}
+				cnt++;
+			}
+
+			for (list<group_struct>::iterator it=(inp->inputs).groups.begin();it!=(inp->inputs).groups.end();it++)
+			{
+				String^ str = gcnew String((*it).name);
+				if (str==comboBox3->Text)
+				{
+					current.gr1=(*it);
+					break;
+				}
+			}
+
+			for (list<auditory_struct>::iterator it=(inp->inputs).auditories.begin();it!=(inp->inputs).auditories.end();it++)
+			{
+				String^ str = gcnew String((*it).name);
+				if (str==comboBox4->Text)
+				{
+					current.aud1=(*it);
+					break;
+				}
+			}
+
+			for (list<day_struct>::iterator it=(inp->inputs).days.begin();it!=(inp->inputs).days.end();it++)
+			{
+				String^ str = gcnew String((*it).name);
+				if (str==comboBox5->Text)
+				{
+					current.day1=(*it);
+					break;
+				}
+			}
+
+			for (list<time_struct>::iterator it=(inp->inputs).times.begin();it!=(inp->inputs).times.end();it++)
+			{
+				if ((*it).begin_time.ToString()==comboBox6->Text)
+				{
+					current.tim1=(*it);
+					break;
+				}
+			}
+
+			s_template->Make_Lesson_List(inp);
+			s_template->slist.push_back(current);
+			string group_name(current.gr1.name);
+			s_template->Fill_Restricted(&(s_template->lec_list),group_name,current);
+			s_template->Fill_Restricted(&(s_template->sem_list),group_name,current);
+			s_template->Fill_Restricted(&(s_template->lab_list),group_name,current);
+
+			//TODO: 
+			// обработать правильно удаление из списка занятий
+
+			int a=1;
+		 }
 };
 }
 

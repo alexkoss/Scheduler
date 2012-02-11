@@ -315,6 +315,264 @@ String^ out_text(schedule_inputs* inputs, String^ filename_in)
 	return text;
 }
 
+void InitInputs(schedule_inputs* inputs, String^ filename_in)
+{
+	XmlTextReader^ reader = gcnew XmlTextReader(filename_in);
+	while (reader->Read())
+	{
+		auditory_struct one_auditory;
+		group_struct one_group;
+		day_struct one_day;
+		lesson_struct one_lesson;
+		time_struct one_time;
+
+		switch (reader->NodeType)
+		{
+		case XmlNodeType::Element:
+
+			if (reader->Name=="auditories" || reader->Name=="auditory")
+			{
+				if (reader->Name=="auditory")
+				{
+					while (reader->MoveToNextAttribute()) // Read the attributes.
+					{
+
+						//здесь проверяем на название атрибутов и записываем в
+						//определённую группу
+
+						char* readerValue = (char*)(void*)Marshal::StringToHGlobalAnsi(reader->Value);
+						if (reader->Name=="id")
+						{
+							one_auditory.id=atoi(readerValue);
+						}
+						else if (reader->Name=="name")
+						{
+							strcpy(one_auditory.name,readerValue);
+						}
+						else if (reader->Name=="type")
+						{
+							strcpy(one_auditory.type,readerValue);
+						}
+						else if (reader->Name=="groups_max")
+						{
+							one_auditory.groups_max=atoi(readerValue);
+							if (atoi(readerValue)==1)
+							{
+								one_auditory.priority=0;
+							}
+							else one_auditory.priority=1;
+						}
+						else if (reader->Name=="groups_available")
+						{
+							one_auditory.groups_available=atoi(readerValue);
+						}
+						else if (reader->Name=="forles")
+						{
+							//one_auditory.groups_available=atoi(readerValue);
+							// добавляем в список допустимых занятий
+							char one_les_name[40] = "";
+							int cnt = 0;
+							strcpy(one_les_name,"");
+							for (unsigned int j=0;j<strlen(readerValue);j++)
+							{
+								if (j<strlen(readerValue)-1)
+								{
+									if (readerValue[j]!=',')
+									{
+										one_les_name[cnt]=readerValue[j];
+										cnt++;
+									}
+									else
+									{
+										one_les_name[cnt]='\0';
+										string s = one_les_name;
+										one_auditory.for_lessons.push_back(s);
+										strcpy(one_les_name,"");
+										cnt=0;
+									}
+								}
+								else 
+								{
+									one_les_name[cnt++]=readerValue[j];
+									one_les_name[cnt]='\0';
+									string s = one_les_name;
+									one_auditory.for_lessons.push_back(s);
+								}
+							}
+						}
+						else 
+						{}
+
+						Marshal::FreeHGlobal((IntPtr)(readerValue));
+					}
+
+					inputs->inputs.auditories.push_back(one_auditory);
+
+				}
+			}
+			else if (reader->Name=="groups" || reader->Name=="group")
+			{
+				if (reader->Name=="group")
+				{
+					while (reader->MoveToNextAttribute()) // Read the attributes.
+					{
+						//здесь проверяем на название атрибутов и записываем в
+						//определённую группу
+
+						char* readerValue = (char*)(void*)Marshal::StringToHGlobalAnsi(reader->Value);
+						if (reader->Name=="id")
+						{
+							one_group.id=atoi(readerValue);
+						}
+						else if (reader->Name=="name")
+						{
+							strcpy(one_group.name,readerValue);
+						}
+						else 
+						{}
+
+						Marshal::FreeHGlobal((IntPtr)(readerValue));
+					}
+
+					inputs->inputs.groups.push_back(one_group);
+				}
+			}
+			else if (reader->Name=="days" || reader->Name=="day")
+			{
+				if (reader->Name=="day")
+				{
+					while (reader->MoveToNextAttribute()) // Read the attributes.
+					{
+						//здесь проверяем на название атрибутов и записываем в
+						//определённую группу
+
+						char* readerValue = (char*)(void*)Marshal::StringToHGlobalAnsi(reader->Value);
+						if (reader->Name=="id")
+						{
+							one_day.id=atoi(readerValue);
+						}
+						else if (reader->Name=="name")
+						{
+							strcpy(one_day.name,readerValue);
+						}
+						else 
+						{}
+
+						Marshal::FreeHGlobal((IntPtr)(readerValue));
+					}
+
+					inputs->inputs.days.push_back(one_day);
+				}
+			}
+			else if (reader->Name=="lessons" || reader->Name=="lesson")
+			{
+				if (reader->Name=="lesson")
+				{
+					while (reader->MoveToNextAttribute()) // Read the attributes.
+					{
+						//здесь проверяем на название атрибутов и записываем в
+						//определённую группу
+
+						char* readerValue = (char*)(void*)Marshal::StringToHGlobalAnsi(reader->Value);
+						if (reader->Name=="id")
+						{
+							one_lesson.id=atoi(readerValue);
+						}
+						else if (reader->Name=="name")
+						{
+							strcpy(one_lesson.name,readerValue);
+						}
+						else if (reader->Name=="type")
+						{
+							strcpy(one_lesson.type,readerValue);
+						}
+						else if (reader->Name=="hours") 
+						{
+							one_lesson.hours=atoi(readerValue);
+						}
+						else if (reader->Name=="forgr")
+						{
+							char one_group_name[10] = "";
+							int cnt = 0;
+							strcpy(one_group_name,"");
+							for (unsigned int j=0;j<strlen(readerValue);j++)
+							{
+								if (j<strlen(readerValue)-1)
+								{
+									if (readerValue[j]!=',')
+									{
+										one_group_name[cnt]=readerValue[j];
+										cnt++;
+									}
+									else
+									{
+										string s = one_group_name;
+										one_lesson.for_groups.push_back(s);
+										cnt=0;
+									}
+								}
+								else 
+								{
+									one_group_name[cnt]=readerValue[j];
+									string s = one_group_name;
+									one_lesson.for_groups.push_back(s);
+								}
+							}
+							one_lesson.in_sch=false;
+						} else if (reader->Name=="groups_max") 
+						{
+							one_lesson.groups_max=atoi(readerValue);
+						} else
+						{}
+
+						Marshal::FreeHGlobal((IntPtr)(readerValue));
+					}
+
+					inputs->inputs.lessons.push_back(one_lesson);
+				}
+			}
+			else if (reader->Name=="times" || reader->Name=="time")
+			{
+				if (reader->Name=="time")
+				{
+					while (reader->MoveToNextAttribute()) // Read the attributes.
+					{
+						//здесь проверяем на название атрибутов и записываем в
+						//определённую группу
+
+						char* readerValue = (char*)(void*)Marshal::StringToHGlobalAnsi(reader->Value);
+						if (reader->Name=="id")
+						{
+							one_time.id=atoi(readerValue);
+						}
+						else if (reader->Name=="begin_time")
+						{
+							one_time.begin_time=atoi(readerValue);
+						}
+						else 
+						{}
+
+						Marshal::FreeHGlobal((IntPtr)(readerValue));
+					}
+
+					inputs->inputs.times.push_back(one_time);
+				}
+			}
+
+			break;
+		case XmlNodeType::Text: // Вывести текст в каждом элементе.
+			break;
+		case XmlNodeType::Attribute:
+			break;
+		case XmlNodeType::EndElement:
+
+			break;
+		default:
+			break;
+		}
+	}
+}
+
 String^ out_struct(schedule_inputs* inputs)
 {
 	String^ text="", ^ ret_text="";

@@ -99,5 +99,6 @@ struct selected_indexes
 	int tim[2];
 };
 
-String^ out_text(schedule_inputs* inputs, String^ filename_in);	// чтение входного xml-файла + заполнение стрктуры учебного плана
+String^ out_text(schedule_inputs* inputs, String^ filename_in);	// чтение входного xml-файла + заполнение структуры учебного плана
 String^ out_struct(schedule_inputs* inputs);					// вывод учебного плана в текстовом виде
+void InitInputs(schedule_inputs* inputs, String^ filename_in);	// чтение входного файла и занесение в структуры учебного плана

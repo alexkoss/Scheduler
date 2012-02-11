@@ -53,32 +53,18 @@ public:
 	{
 		max_num_of_strings = 0;
 	}
-	//SCHEDULE(list<sched_string> slist, list<adt_string> lec_list, list<adt_string> sem_list, list<adt_string> lab_list)
-	//	: slist(slist), lec_list(lec_list), sem_list(sem_list), lab_list(lab_list) {}
-	SCHEDULE(SCHEDULE const& copy) 
-		: slist(copy.slist), lec_list(copy.lec_list), sem_list(copy.sem_list), lab_list(copy.lab_list) 
-	{
-		slist=copy.slist;
-		lec_list=copy.lec_list;
-		sem_list=copy.sem_list;
-		lab_list=copy.lab_list;
-	}
+	
 	~SCHEDULE(void)
 	{
 		slist.clear();
 	}
-/*	void remax(schedule_inputs* inputs)
-	{
-		max_num_of_strings = inputs->inputs.groups.size() * inputs->inputs.lessons.size();
-	}*/
+
 	void CopySched(SCHEDULE copy)
 	{
-		//SCHEDULE retSched;
 		slist=copy.slist;
 		lec_list=copy.lec_list;
 		sem_list=copy.sem_list;
 		lab_list=copy.lab_list;
-		//return retSched;
 	}
 	void clear(void)
 	{
