@@ -40,9 +40,7 @@ protected:
 	sched_string current_parameters;
 
 public: 
-	unsigned int max_num_of_strings;
 	list<sched_string> slist;
-	list<lesson_string> llist;
 	list<adt_string> lec_list;
 	list<adt_string> sem_list;
 	list<adt_string> lab_list;
@@ -51,12 +49,14 @@ public:
 public:
 	SCHEDULE(void)
 	{
-		max_num_of_strings = 0;
 	}
 	
 	~SCHEDULE(void)
 	{
 		slist.clear();
+		lec_list.clear();
+		sem_list.clear();
+		lab_list.clear();
 	}
 
 	void CopySched(SCHEDULE copy)
@@ -66,9 +66,12 @@ public:
 		sem_list=copy.sem_list;
 		lab_list=copy.lab_list;
 	}
-	void clear(void)
+	void clear()
 	{
 		slist.clear();
+		lec_list.clear();
+		sem_list.clear();
+		lab_list.clear();
 	}
 	void Show_All_List			(char* out);
 	void Create					(schedule_inputs* inputs);
@@ -78,13 +81,14 @@ public:
 	void skr					(schedule_inputs* inputs,SCHEDULE & sch1, SCHEDULE & sch2);
 	bool search					(const sched_string &current);
 	bool search2				(const sched_string &current);
-	bool CanAdd					(schedule_inputs* inputs);
+	int CanAdd					(sched_string current);
+	int CanDelete				(sched_string current);
+	void RemoveFromRestricted	(sched_string current);
+	void RemoveOneFromRestricted(sched_string current,list<adt_string> *adt_list);
 	int Cycle					(schedule_inputs* inputs);  
 	int Cycle2					(schedule_inputs* inputs);
 	int  num_free_groups		();
 	void Make_Lesson_List		(schedule_inputs* inputs);
-	String^ Show_Lesson_List	();
-	int Get_Lesson_Number		(schedule_inputs* inputs);
 	lesson_struct Get_Lesson_From			(schedule_inputs* inputs);
 	time_struct Get_Time_From				(schedule_inputs* inputs);
 	day_struct Get_Day_From					(schedule_inputs* inputs);

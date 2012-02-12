@@ -282,7 +282,6 @@ bool SCHEDULE::Select_New_Group(schedule_inputs* inputs, sched_string* current,
 							cntr++;
 						}
 					}
-					
 				}
 			}
 		}
@@ -333,6 +332,10 @@ int SCHEDULE::Check_Restricted_Count(list<adt_string> inlist)
 
 bool SCHEDULE::is_not_in_restricted_list_and_not_full(group_struct gr, adt_string adt_str)
 {	// функция определения допустимости добавления группы в данную комбинацию - аудитория-день-время
+	
+	// проверяем, если группа уже занята в это время
+
+	
 	if (adt_str.aud.groups_available>0)
 	{
 		bool is_in=false;
@@ -351,7 +354,6 @@ bool SCHEDULE::is_not_in_restricted_list_and_not_full(group_struct gr, adt_strin
 
 void SCHEDULE::Create(schedule_inputs* inputs)
 {
-	Make_Lesson_List(inputs);
 	// создание расписания - добавление всех строк
 	AddNewStr(inputs);
 
@@ -636,7 +638,7 @@ m4:			day=rand() %2;
 	//ЗДЕСЬ НУЖНО СДЕЛАТЬ ПРОВЕРКУ НА ВОЗМОЖНОСТЬ ДОБАВЛЕНИЯ - ok
 	// for (int i=0;i<max_num_of_strings;i++)
 	int cnt=0;
-	while (cnt<100 && CanAdd(inputs))
+	while (cnt<100)// && CanAdd(inputs))
 	{
 		this->AddNewStr(inputs);
 		cnt++;
@@ -644,22 +646,99 @@ m4:			day=rand() %2;
 	return;
 }
 
-bool SCHEDULE::CanAdd(schedule_inputs* inputs)
+// проверка на возможность добавления новой строки в расписание
+int SCHEDULE::CanAdd(sched_string current)
 {
-	//тут нужно проверить на список на возможность добавления - ok
+	int cnt = 0;
+	//тут нужно проверить на список на возможность добавления current в список - ok
+	for (list<sched_string>::iterator it=slist.begin();it!=slist.end();it++)
+	{
+		if ((*it).aud1.id==current.aud1.id && (*it).day1.id==current.day1.id && (*it).tim1.id==current.tim1.id)
+		{
+			if ((*it).les1.id==current.les1.id)
+			{
+				cnt++;
+				if ((*it).gr1.id==current.gr1.id)
+				{
+					return 3; // такая группа уже в расписании
+				}
+				if (cnt<=current.aud1.groups_max)
+				{
+					//ok, nothing to do
+				}
+				else
+				{
+					return 2; // избыточная группа в аудитории
+				}
+			}
+			else
+				return 1;
+		}
+	}
 
-	if (slist.size()<max_num_of_strings)
-		return 1;
 	return 0;
+}
+
+// проверка на возможность добавления новой строки в расписание
+int SCHEDULE::CanDelete(sched_string current)
+{
+	bool cnt = false;
+	list<sched_string>::iterator ptrToDelete;
+	//тут нужно проверить на список на возможность удаления current из списка
+	for (list<sched_string>::iterator it=slist.begin();it!=slist.end();it++)
+	{
+		if ((*it).aud1.id==current.aud1.id && (*it).day1.id==current.day1.id && (*it).tim1.id==current.tim1.id && (*it).gr1.id==current.gr1.id && (*it).les1.id==current.les1.id)
+		{
+			cnt=true; // есть в расписании, надо удалять
+			ptrToDelete = it;
+		}
+	}
+	if (!cnt)
+	{
+		return 0;
+	}
+	else
+	{
+		slist.erase(ptrToDelete);
+		RemoveFromRestricted(current);
+		return 1;
+	}
+	
+}
+void SCHEDULE::RemoveFromRestricted(sched_string current)
+{
+	RemoveOneFromRestricted(current,&lec_list);
+	RemoveOneFromRestricted(current,&sem_list);
+	RemoveOneFromRestricted(current,&lab_list);
+}
+void SCHEDULE::RemoveOneFromRestricted(sched_string current,list<adt_string> *adt_list)
+{
+	for (list<adt_string>::iterator it=(*adt_list).begin(); it!=(*adt_list).end(); it++)
+	{
+		if (current.aud1.id==(*it).aud.id && current.day1.id==(*it).day.id && current.tim1.id==(*it).time.id) // нашли ауд-день-время
+		{
+			list<string>::iterator ptrToDelete;
+			bool ok_to_del=false;
+			for (list<string>::iterator it2=(*it).restricted.begin(); it2!=(*it).restricted.end(); it2++)
+			{
+				if (!strcmp((*it2).c_str(),current.gr1.name))	// отметили положение в списке для удаления
+				{
+					ptrToDelete = it2;
+					ok_to_del = true;
+				}
+			}
+			if (ok_to_del)
+			{
+				(*it).restricted.erase(ptrToDelete);
+			}
+		}
+	}
 }
 
 // создание одного расписания
 int SCHEDULE::Cycle2(schedule_inputs* inputs)
 {
-	//SCHEDULE sch;
-	/*sch.*/Create(inputs);
-	//slist=sch.slist;
-	//llist=sch.llist;
+	Create(inputs);
 	slist.sort();
 	return Get_Stat();
 }
@@ -673,6 +752,7 @@ int SCHEDULE::Cycle(schedule_inputs* inputs)
 	
 	for (int i=0;i<number_of_schedules;i++)		// - создание начальной популяции
 	{
+		mas[i].CopySched(*this);
 		mas[i].Create(inputs);
 	}
 	// создали начальную популяцию
@@ -717,6 +797,7 @@ int SCHEDULE::Cycle(schedule_inputs* inputs)
 		for (cntr;cntr<number_of_schedules;cntr++)	// дополняем новую генерацию новыми расписаниями
 		{
 			SCHEDULE new_s;
+			new_s.CopySched(*this);
 			new_s.Create(inputs);
 			mas3[cntr]=new_s;
 		}
@@ -883,83 +964,6 @@ void SCHEDULE::Make_Lesson_List	(schedule_inputs* inputs)
 	// теперь из отсортированных списков аудиторий нужно создавать строки расписания
 }
 
-String^ SCHEDULE::Show_Lesson_List	()
-{
-	String^ output_str="";
-	for (list<lesson_string>::iterator it=llist.begin(); it!=llist.end(); it++)
-	{
-		output_str+=String::Concat((*it).id,"\t",String((*it).group.c_str()).ToString(),"\t",(*it).hours,"\t",
-			String((*it).lesson_name).ToString(),"\t",String((*it).lesson_type).ToString(),"\t",(*it).max_groups,"\t",
-			(*it).used,"\t",(*it).from_lessons_id,"\n");
-	}
-	return output_str;
-}
-
-// Показывает все занятия с максимальным количеством групп
-// inputs - учебный план
-// результат - индекс одного из этих занятий 
-int SCHEDULE::Get_Lesson_Number (schedule_inputs* inputs)
-{
-	int string_id=0;
-	int max_for_groups=0;
-	string cur_group="";
-	char cur_lesson_name[100];
-	char cur_lesson_type[100];
-	int counter=0;
-	int* mas = new int[llist.size()];
-
-	for (list<lesson_string>::iterator it=llist.begin(); it!=llist.end(); it++)
-	{
-		if ((*it).id==1)
-		{
-			cur_group=(*it).group;
-			strcpy(cur_lesson_name,"");
-			strcpy(cur_lesson_type,"");
-		}
-		if ((*it).max_groups>=max_for_groups)
-		{
-			if ((*it).max_groups==max_for_groups)
-			{
-				if (((strcmp((*it).lesson_name,cur_lesson_name)) || (strcmp((*it).lesson_type,cur_lesson_type))) && !((*it).used))
-				{
-					max_for_groups=(*it).max_groups;
-					string_id=(*it).id;
-					strcpy(cur_lesson_name,(*it).lesson_name);
-					strcpy(cur_lesson_type,(*it).lesson_type);
-					mas[counter++]=string_id;
-				}
-			}
-			else
-			{
-				counter=0;			
-				max_for_groups=(*it).max_groups;
-				string_id=(*it).id;
-				strcpy(cur_lesson_name,(*it).lesson_name);
-				strcpy(cur_lesson_type,(*it).lesson_type);
-				mas[counter++]=string_id;
-			}
-		}
-	}
-	String^ str_mas="";
-	for (int i=0; i< counter; i++)
-	{
-		if (i!=0)
-		{
-			str_mas+=",";
-		}
-		str_mas+=mas[i];
-	}
-	int randnum=0;
-	if (counter == 0)
-	{
-		randnum=0;
-	}
-	else
-		randnum=mas[rand()%counter];
-	delete [] mas;
-	return randnum;
-}
-
 lesson_struct SCHEDULE::Get_Lesson_From (schedule_inputs* inputs)
 {
 	inputs->inputs.lessons.sort();
@@ -983,7 +987,6 @@ lesson_struct SCHEDULE::Get_Lesson_From (schedule_inputs* inputs)
 			return *it;
 		}
 	}
-	//MessageBox::Show(outstr);
 	return ls;
 }
 
@@ -1016,7 +1019,6 @@ day_struct SCHEDULE::Get_Day_From (schedule_inputs* inputs)
 auditory_struct SCHEDULE::Get_Aud_From (schedule_inputs* inputs, lesson_struct ls)
 {
 	//тут нужно составить список возможных аудиторий и выбрать случайную
-	//смотреть get_lesson_number
 
 	int audnumber=0;
 	int randnum=0;
