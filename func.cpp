@@ -486,6 +486,10 @@ void InitInputs(schedule_inputs* inputs, String^ filename_in)
 						{
 							strcpy(one_lesson.type,readerValue);
 						}
+						else if (reader->Name=="teacher")
+						{
+							strcpy(one_lesson.teacher,readerValue);
+						}
 						else if (reader->Name=="hours") 
 						{
 							one_lesson.hours=atoi(readerValue);

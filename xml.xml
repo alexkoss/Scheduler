@@ -40,30 +40,30 @@
     <day id="6" name="Суббота"/>
   </days>
   <lessons>
-    <lesson id="1" name="Дискретная математика"   type="лекция"   hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="4"/>
-    <lesson id="2" name="Математика"              type="лекция"   hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="4"/>
-    <lesson id="3" name="Математика"              type="семинар"  hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="4" name="Физика"                  type="семинар"  hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="5" name="Программирование"        type="лекция"   hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="4"/>
-    <lesson id="6" name="Химия"                   type="лекция"   hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="4"/>
-    <lesson id="7" name="Физика"                  type="лаб"      hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="8" name="Физическая культура"     type="семинар"  hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="9" name="Физика"                  type="лекция"   hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="4"/>
-    <lesson id="10" name="Английский язык"        type="семинар"  hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="11" name="Компьютерная графика"   type="лаб"      hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="12" name="Культурология"          type="семинар"  hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="13" name="Английский язык"        type="семинар"  hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="14" name="Математика"             type="лекция"   hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="4"/>
-    <lesson id="15" name="Программирование"       type="семинар"  hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="16" name="Математика"             type="семинар"  hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="17" name="Дискретная математика"  type="семинар"  hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="18" name="Английский язык"        type="семинар"  hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="19" name="Физика"                 type="лекция"   hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="4"/>
-    <lesson id="20" name="История"                type="лекция"   hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="4"/>
-    <lesson id="21" name="История"                type="семинар"  hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="22" name="Английский язык"        type="семинар"  hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="23" name="Химия"                  type="лаб"      hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
-    <lesson id="24" name="Физическая культура"    type="семинар"  hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2"/>
+    <lesson id="1" name="Дискретная математика"   type="лекция"   hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="4" teacher="Митина Т.М."/>
+    <lesson id="2" name="Математика"              type="лекция"   hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="4" teacher="Панкрашова А.Г."/>
+    <lesson id="3" name="Математика"              type="семинар"  hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2" teacher="Панкрашова А.Г."/>
+    <lesson id="4" name="Физика"                  type="семинар"  hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2" teacher="Старовойтов С.А."/>
+    <lesson id="5" name="Программирование"        type="лекция"   hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="4" teacher="Глухих М.И."/>
+    <lesson id="6" name="Химия"                   type="лекция"   hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="4" teacher="Блинов Л.Н."/>
+    <lesson id="7" name="Физика"                  type="лаб"      hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2" teacher="Петров В.Н."/>
+    <lesson id="8" name="Физическая культура"     type="семинар"  hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2" teacher="Моха В.Н."/>
+    <lesson id="9" name="Физика"                  type="лекция"   hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="4" teacher="Козловский В.В."/>
+    <lesson id="10" name="Английский язык"        type="семинар"  hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2" teacher="Панышева Т.Г."/>
+    <lesson id="11" name="Компьютерная графика"   type="лаб"      hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2" teacher="Лексашов А.В."/>
+    <lesson id="12" name="Культурология"          type="семинар"  hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2" teacher="Серов В.Н."/>
+    <lesson id="13" name="Английский язык"        type="семинар"  hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2" teacher="Панышева Т.Г."/>
+    <lesson id="14" name="Математика"             type="лекция"   hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="4" teacher="Панкрашова А.Г."/>
+    <lesson id="15" name="Программирование"       type="семинар"  hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2" teacher="Сидорина "/>
+    <lesson id="16" name="Математика"             type="семинар"  hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2" teacher="Солева А.Б."/>
+    <lesson id="17" name="Дискретная математика"  type="семинар"  hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2" teacher="Митина Т.М."/>
+    <lesson id="18" name="Английский язык"        type="семинар"  hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2" teacher="Панышева Т.Г."/>
+    <lesson id="19" name="Физика"                 type="лекция"   hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="4" teacher="Лукин А.Я."/>
+    <lesson id="20" name="История"                type="лекция"   hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="4" teacher="Мичурин А.Н."/>
+    <lesson id="21" name="История"                type="семинар"  hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2" teacher="Мичурин А.Н."/>
+    <lesson id="22" name="Английский язык"        type="семинар"  hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2" teacher="Панышева Т.Г."/>
+    <lesson id="23" name="Химия"                  type="лаб"      hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2" teacher="Блинов Л.Н."/>
+    <lesson id="24" name="Физическая культура"    type="семинар"  hours="2" forgr="1081/1,1081/2,1081/3,1081/4" groups_max="2" teacher="Моха В.Н."/>
   </lessons>
   <times>
     <time id="1" begin_time="8"/>

@@ -653,6 +653,11 @@ int SCHEDULE::CanAdd(sched_string current)
 	//тут нужно проверить на список на возможность добавления current в список - ok
 	for (list<sched_string>::iterator it=slist.begin();it!=slist.end();it++)
 	{
+		if ((*it).gr1.id==current.gr1.id && (*it).day1.id==current.day1.id && (*it).tim1.id==current.tim1.id)
+		{
+			return 4;
+		}
+
 		if ((*it).aud1.id==current.aud1.id && (*it).day1.id==current.day1.id && (*it).tim1.id==current.tim1.id)
 		{
 			if ((*it).les1.id==current.les1.id)

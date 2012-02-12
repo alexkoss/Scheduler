@@ -94,8 +94,18 @@ namespace xmltest_dotnet {
 	private: System::Windows::Forms::Button^  button1;
 	private: System::ComponentModel::BackgroundWorker^  backgroundWorker1;
 	private: System::Windows::Forms::StatusStrip^  statusStrip1;
-	private: System::Windows::Forms::ToolStripProgressBar^  toolStripProgressBar1;
+
 	private: System::Windows::Forms::ToolStripStatusLabel^  toolStripStatusLabel1;
+	private: System::Windows::Forms::DataGridView^  TTable;
+
+
+	private: System::Windows::Forms::GroupBox^  groupBox2;
+	private: System::Windows::Forms::Button^  button6;
+
+
+
+
+
 
 			 static selected_indexes* selected_ind;
 #pragma region Windows Form Designer generated code
@@ -105,6 +115,7 @@ namespace xmltest_dotnet {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(Form1::typeid));
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPage1 = (gcnew System::Windows::Forms::TabPage());
@@ -113,6 +124,9 @@ namespace xmltest_dotnet {
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->tableLayoutPanel1 = (gcnew System::Windows::Forms::TableLayoutPanel());
 			this->tabPage3 = (gcnew System::Windows::Forms::TabPage());
+			this->button6 = (gcnew System::Windows::Forms::Button());
+			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
+			this->TTable = (gcnew System::Windows::Forms::DataGridView());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
 			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->button2 = (gcnew System::Windows::Forms::Button());
@@ -139,12 +153,13 @@ namespace xmltest_dotnet {
 			this->toolStripButton3 = (gcnew System::Windows::Forms::ToolStripButton());
 			this->backgroundWorker1 = (gcnew System::ComponentModel::BackgroundWorker());
 			this->statusStrip1 = (gcnew System::Windows::Forms::StatusStrip());
-			this->toolStripProgressBar1 = (gcnew System::Windows::Forms::ToolStripProgressBar());
 			this->toolStripStatusLabel1 = (gcnew System::Windows::Forms::ToolStripStatusLabel());
 			this->tabControl1->SuspendLayout();
 			this->tabPage1->SuspendLayout();
 			this->panel1->SuspendLayout();
 			this->tabPage3->SuspendLayout();
+			this->groupBox2->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->TTable))->BeginInit();
 			this->groupBox1->SuspendLayout();
 			this->tabPage2->SuspendLayout();
 			this->panel2->SuspendLayout();
@@ -228,6 +243,8 @@ namespace xmltest_dotnet {
 			// 
 			// tabPage3
 			// 
+			this->tabPage3->Controls->Add(this->button6);
+			this->tabPage3->Controls->Add(this->groupBox2);
 			this->tabPage3->Controls->Add(this->groupBox1);
 			this->tabPage3->Location = System::Drawing::Point(4, 22);
 			this->tabPage3->Name = L"tabPage3";
@@ -236,6 +253,49 @@ namespace xmltest_dotnet {
 			this->tabPage3->TabIndex = 2;
 			this->tabPage3->Text = L"Шаблон";
 			this->tabPage3->UseVisualStyleBackColor = true;
+			// 
+			// button6
+			// 
+			this->button6->Location = System::Drawing::Point(341, 7);
+			this->button6->Name = L"button6";
+			this->button6->Size = System::Drawing::Size(26, 211);
+			this->button6->TabIndex = 5;
+			this->button6->Text = L"<<<<<<";
+			this->button6->UseVisualStyleBackColor = true;
+			this->button6->Click += gcnew System::EventHandler(this, &Form1::button6_Click);
+			// 
+			// groupBox2
+			// 
+			this->groupBox2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
+				| System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->groupBox2->Controls->Add(this->TTable);
+			this->groupBox2->Location = System::Drawing::Point(373, 7);
+			this->groupBox2->Name = L"groupBox2";
+			this->groupBox2->Size = System::Drawing::Size(641, 504);
+			this->groupBox2->TabIndex = 4;
+			this->groupBox2->TabStop = false;
+			this->groupBox2->Text = L"Просмотр шаблона";
+			// 
+			// TTable
+			// 
+			this->TTable->AllowUserToAddRows = false;
+			this->TTable->AllowUserToDeleteRows = false;
+			this->TTable->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
+				| System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->TTable->AutoSizeRowsMode = System::Windows::Forms::DataGridViewAutoSizeRowsMode::DisplayedCells;
+			this->TTable->Location = System::Drawing::Point(6, 17);
+			this->TTable->Name = L"TTable";
+			this->TTable->ReadOnly = true;
+			dataGridViewCellStyle1->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
+			dataGridViewCellStyle1->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->TTable->RowsDefaultCellStyle = dataGridViewCellStyle1;
+			this->TTable->RowTemplate->Resizable = System::Windows::Forms::DataGridViewTriState::True;
+			this->TTable->Size = System::Drawing::Size(629, 481);
+			this->TTable->TabIndex = 1;
+			this->TTable->CellPainting += gcnew System::Windows::Forms::DataGridViewCellPaintingEventHandler(this, &Form1::TTable_CellPainting);
+			this->TTable->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &Form1::TTable_Paint);
 			// 
 			// groupBox1
 			// 
@@ -454,6 +514,7 @@ namespace xmltest_dotnet {
 			this->toolStripButton4->Name = L"toolStripButton4";
 			this->toolStripButton4->Size = System::Drawing::Size(23, 22);
 			this->toolStripButton4->Text = L"Изменить шаблон расписания";
+			this->toolStripButton4->Click += gcnew System::EventHandler(this, &Form1::toolStripButton4_Click);
 			// 
 			// toolStripSeparator2
 			// 
@@ -487,18 +548,12 @@ namespace xmltest_dotnet {
 			// 
 			// statusStrip1
 			// 
-			this->statusStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {this->toolStripProgressBar1, 
-				this->toolStripStatusLabel1});
+			this->statusStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) {this->toolStripStatusLabel1});
 			this->statusStrip1->Location = System::Drawing::Point(0, 571);
 			this->statusStrip1->Name = L"statusStrip1";
 			this->statusStrip1->Size = System::Drawing::Size(1030, 22);
 			this->statusStrip1->TabIndex = 7;
 			this->statusStrip1->Text = L"statusStrip1";
-			// 
-			// toolStripProgressBar1
-			// 
-			this->toolStripProgressBar1->Name = L"toolStripProgressBar1";
-			this->toolStripProgressBar1->Size = System::Drawing::Size(100, 16);
 			// 
 			// toolStripStatusLabel1
 			// 
@@ -514,7 +569,7 @@ namespace xmltest_dotnet {
 			this->Controls->Add(this->statusStrip1);
 			this->Controls->Add(this->toolStrip1);
 			this->Controls->Add(this->tabControl1);
-			this->MinimumSize = System::Drawing::Size(500, 300);
+			this->MinimumSize = System::Drawing::Size(800, 350);
 			this->Name = L"Form1";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Составитель расписания";
@@ -528,6 +583,8 @@ namespace xmltest_dotnet {
 			this->panel1->ResumeLayout(false);
 			this->panel1->PerformLayout();
 			this->tabPage3->ResumeLayout(false);
+			this->groupBox2->ResumeLayout(false);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->TTable))->EndInit();
 			this->groupBox1->ResumeLayout(false);
 			this->groupBox1->PerformLayout();
 			this->tabPage2->ResumeLayout(false);
@@ -676,7 +733,7 @@ namespace xmltest_dotnet {
 				break;
 			case 3:
 				new_row_count=inp->inputs.lessons.size();
-				new_col_count=6;
+				new_col_count=7;
 				break;
 			case 4:
 				new_row_count=inp->inputs.times.size();
@@ -911,6 +968,9 @@ namespace xmltest_dotnet {
 					case 5:
 						l0->Text="Макс. групп";
 						break;
+					case 6:
+						l0->Text="Преподаватель";
+						break;
 					default:
 						break;
 					}
@@ -934,6 +994,9 @@ namespace xmltest_dotnet {
 						} else if (tableLayoutPanel1->GetControlFromPosition(i,0)->Text=="Длительность")
 						{
 							l1->Text=String::Concat((*it).hours);
+						} else if (tableLayoutPanel1->GetControlFromPosition(i,0)->Text=="Преподаватель")
+						{
+							l1->Text=String::Concat(String((*it).teacher).ToString());
 						} else if (tableLayoutPanel1->GetControlFromPosition(i,0)->Text=="Группы")
 						{
 							String^ groups_all = "";
@@ -1132,7 +1195,8 @@ namespace xmltest_dotnet {
 private: System::Void toolStripButton1_Click(System::Object^  sender, System::EventArgs^  e) {
 			 OpenFileDialog^ openFileDialog1 = gcnew OpenFileDialog;
 
-			 openFileDialog1->InitialDirectory = "../";
+			 String^ app_path=Application::StartupPath;
+			 openFileDialog1->InitialDirectory = app_path;
 			 openFileDialog1->Filter = "xml files (*.xml)|*.xml|txt files (*.txt)|*.txt|All files (*.*)|*.*";
 			 openFileDialog1->FilterIndex = 1;
 			 openFileDialog1->RestoreDirectory = true;
@@ -1143,9 +1207,49 @@ private: System::Void toolStripButton1_Click(System::Object^  sender, System::Ev
 				 s_template->Make_Lesson_List(inp);
 				 InitInputs(inp_original,openFileDialog1->FileName);
 			 }
+			 else
+				 return;
 			 comboBox1_SelectedIndexChanged(sender,e);
 			 tableLayoutPanel1->Visible = true;
 			 FillFirstCombo();
+
+			 int newColIndex = 0;
+
+			 NumOfDays = inp_original->inputs.days.size();
+			 NumOfTimes = inp_original->inputs.times.size();
+			 days = gcnew array<String^> (400);
+
+			 newColIndex = TTable->Columns->Add("Groups","Группа");
+			 TTable->Columns[newColIndex]->Frozen = true;
+
+			 int dayCnt=0;
+			 for (list<day_struct>::iterator it_d=inp_original->inputs.days.begin();it_d!=inp_original->inputs.days.end();it_d++)
+			 {
+				 String^ curDay = gcnew String((*it_d).name);
+				 days[dayCnt++] = curDay;
+				 for (list<time_struct>::iterator it_t=inp_original->inputs.times.begin();it_t!=inp_original->inputs.times.end();it_t++)
+				 {
+					 String^ curTime((*it_t).begin_time.ToString());
+					 newColIndex = TTable->Columns->Add("Col"+(newColIndex+1).ToString(),curTime);
+				 }
+			 }
+
+			 for (int i=0;i<TTable->ColumnCount;i++)
+			 {
+				 TTable->Columns[i]->Width = 150;
+			 }
+
+			 TTable->ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode::EnableResizing;
+			 TTable->ColumnHeadersHeight = TTable->ColumnHeadersHeight*2;
+			 TTable->ColumnHeadersDefaultCellStyle->Alignment = DataGridViewContentAlignment::BottomCenter;
+
+			 // заносим шаблон группы
+			 for (list<group_struct>::iterator it=inp_original->inputs.groups.begin();it!=inp_original->inputs.groups.end();it++)
+			 {
+				 String^ curGroup = gcnew String((*it).name);
+				 TTable->Rows->Add(curGroup);
+			 }
+			 tabControl1->SelectedIndex = 0;
 		 }
 
 // заполнение предметов для выбора в шаблоне
@@ -1179,6 +1283,7 @@ private: System::Void toolStripButton2_Click(System::Object^  sender, System::Ev
 			 MessageBox::Show(String::Concat("Number of 8 am pairs: ", num_of_8_am_pairs));
 			 TableUpdate();
 			 tableLayoutPanel2->Visible = true;
+			 tabControl1->SelectedIndex = 2;
 		 }
 
 // запуск расчёта расписания с использованием генетического алгоритма
@@ -1200,6 +1305,7 @@ private: System::Void backgroundWorker1_DoWork(System::Object^  sender, System::
 private: System::Void backgroundWorker1_RunWorkerCompleted(System::Object^  sender, System::ComponentModel::RunWorkerCompletedEventArgs^  e) {
 			 TableUpdate();
 			 tableLayoutPanel2->Visible = true;
+			 tabControl1->SelectedIndex = 2;
 		 }
 
 		 // смена значения комбо занятия
@@ -1355,9 +1461,12 @@ private: System::Void button1_Click(System::Object^  sender, System::EventArgs^ 
 			}
 
 			sched_string current;
-			
+			// места в таблице
+			int row=0;
+			int col=0;
+
 			int SelectedLes = comboBox2->SelectedIndex;
-			int cnt=0;
+			int cnt=0,cntGrps=0,dayNum=0,timeNum=0,maxOfTimes=inp->inputs.times.size();
 			for (list<lesson_struct>::iterator it=(inp->inputs).lessons.begin();it!=(inp->inputs).lessons.end();it++)
 			{
 				String^ str1 = gcnew String((*it).name);
@@ -1379,8 +1488,9 @@ private: System::Void button1_Click(System::Object^  sender, System::EventArgs^ 
 					current.gr1=(*it);
 					break;
 				}
+				cntGrps++;
 			}
-
+			row = cntGrps;
 			for (list<auditory_struct>::iterator it=(inp->inputs).auditories.begin();it!=(inp->inputs).auditories.end();it++)
 			{
 				String^ str = gcnew String((*it).name);
@@ -1400,6 +1510,7 @@ private: System::Void button1_Click(System::Object^  sender, System::EventArgs^ 
 					current.day1=(*it);
 					break;
 				}
+				dayNum++;
 			}
 
 			for (list<time_struct>::iterator it=(inp->inputs).times.begin();it!=(inp->inputs).times.end();it++)
@@ -1409,8 +1520,9 @@ private: System::Void button1_Click(System::Object^  sender, System::EventArgs^ 
 					current.tim1=(*it);
 					break;
 				}
+				timeNum++;
 			}
-
+			
 			// TODO: осуществить проверку на возможность добавления!!!!
 			if (s_template->CanAdd(current)==0)
 			{
@@ -1428,11 +1540,27 @@ private: System::Void button1_Click(System::Object^  sender, System::EventArgs^ 
 			}
 			else if (s_template->CanAdd(current)==3)
 			{
-				MessageBox::Show("Невозможно добавить занятие. Данная группа уже занята в жто время в этой аудитории.","Внимание!", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				MessageBox::Show("Невозможно добавить занятие. Данная группа уже занята в данное время в данной аудитории.","Внимание!", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				return;
+			}
+			else if (s_template->CanAdd(current)==4)
+			{
+				MessageBox::Show("Невозможно добавить занятие. Данная группа уже занята другим занятием в данное время в данной аудитории.","Внимание!", MessageBoxButtons::OK, MessageBoxIcon::Error);
 				return;
 			}
 
 			s_template->slist.push_back(current);
+
+			col=1+dayNum*maxOfTimes+timeNum;
+			String^ stringToFill;
+			String^ stringToFill1 = gcnew String(current.les1.name);
+			String^ stringToFill2 = gcnew String(current.les1.type);
+			String^ stringToFill3 = gcnew String(current.aud1.name);
+			String^ stringToFill4 = gcnew String(current.les1.teacher);
+			stringToFill=stringToFill1+"\n"+stringToFill2+"\n"+stringToFill3+"\n"+stringToFill4;
+			TTable[col,row]->Value=stringToFill;
+
+
 			// добавили в шаблон - удалить из исходных данных
 			for (list<lesson_struct>::iterator it=(inp->inputs).lessons.begin();it!=(inp->inputs).lessons.end();it++)
 			{
@@ -1454,37 +1582,6 @@ private: System::Void button1_Click(System::Object^  sender, System::EventArgs^ 
 			}
 
 			// удалили - обновить данные для занятия
-			/*comboBox3->Items->Clear();
-
-			cnt=0;
-			for (list<lesson_struct>::iterator it=(inp_original->inputs).lessons.begin();it!=(inp_original->inputs).lessons.end();it++)
-			{
-				String^ str1 = gcnew String((*it).name);
-				String^ str2 = gcnew String((*it).type);
-				String^ str3 = (*it).id.ToString()+" "+str1+" "+str2;
-				if (str3==comboBox2->Text && cnt==SelectedLes)
-				{
-					current.les1=(*it);
-					break;
-				}
-				cnt++;
-			}
-			for (list<string>::iterator it2=current.les1.for_groups.begin();it2!=current.les1.for_groups.end();it2++)
-			{
-				String^ str = gcnew String((*it2).c_str());
-				comboBox3->Items->Add(str);
-			}
-			
-
-			// если список пуст -> написать в комбо, что все группы распределены
-			if (comboBox3->Items->Count == 0)
-			{
-				comboBox3->Text="Все группы распределены";
-			}
-			else
-				comboBox3->SelectedIndex = 0;*/
-
-
 			string group_name(current.gr1.name);
 			s_template->Fill_Restricted(&(s_template->lec_list),group_name,current);
 			s_template->Fill_Restricted(&(s_template->sem_list),group_name,current);
@@ -1502,6 +1599,7 @@ private: System::Void button2_Click(System::Object^  sender, System::EventArgs^ 
 			 comboBox5->SelectedIndex=0;
 			 comboBox6->SelectedIndex=1;
 		 }
+
 private: System::Void button3_Click(System::Object^  sender, System::EventArgs^  e) {
 			 if (comboBox3->SelectedIndex<0)
 			 {
@@ -1525,9 +1623,12 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 			 }
 
 			 sched_string current;
+			 // места в таблице
+			 int row=0;
+			 int col=0;
 
 			 int SelectedLes = comboBox2->SelectedIndex;
-			 int cnt=0;
+			 int cnt=0,dayNum=0,timeNum=0,maxOfTimes=inp->inputs.times.size();
 			 for (list<lesson_struct>::iterator it=(inp->inputs).lessons.begin();it!=(inp->inputs).lessons.end();it++)
 			 {
 				 String^ str1 = gcnew String((*it).name);
@@ -1538,7 +1639,6 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 					 current.les1=(*it);
 					 break;
 				 }
-				 cnt++;
 			 }
 
 			 for (list<group_struct>::iterator it=(inp->inputs).groups.begin();it!=(inp->inputs).groups.end();it++)
@@ -1549,7 +1649,9 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 					 current.gr1=(*it);
 					 break;
 				 }
+				 cnt++;
 			 }
+			 row=cnt;
 
 			 for (list<auditory_struct>::iterator it=(inp->inputs).auditories.begin();it!=(inp->inputs).auditories.end();it++)
 			 {
@@ -1570,6 +1672,7 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 					 current.day1=(*it);
 					 break;
 				 }
+				 dayNum++;
 			 }
 
 			 for (list<time_struct>::iterator it=(inp->inputs).times.begin();it!=(inp->inputs).times.end();it++)
@@ -1579,8 +1682,10 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 					 current.tim1=(*it);
 					 break;
 				 }
+				 timeNum++;
 			 }
 
+			 col=1+dayNum*maxOfTimes+timeNum;
 
 			 int res=s_template->CanDelete(current);
 			 if (res==0) // нету у данной группы занятия в данные ауд-день-время
@@ -1591,6 +1696,10 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 			 else if (res==1)
 			 {
 				 toolStripStatusLabel1->Text="Из шаблона удалена строка!";
+				 String^ stringToFill = "";
+				 
+				 //stringToFill=stringToFill1+"\n"+stringToFill2+"\n"+stringToFill3;
+				 TTable[col,row]->Value=stringToFill;
 			 }
 			 // вернуть в исходные данные
 
@@ -1604,37 +1713,79 @@ private: System::Void button3_Click(System::Object^  sender, System::EventArgs^ 
 					 break;
 				 }
 			 }
+		 }
 
-			 // удалили - обновить данные для занятия
-			 /*comboBox3->Items->Clear();
-
-			 cnt=0;
-			 for (list<lesson_struct>::iterator it=(inp->inputs).lessons.begin();it!=(inp->inputs).lessons.end();it++)
+private: System::Void TTable_CellPainting(System::Object^  sender, System::Windows::Forms::DataGridViewCellPaintingEventArgs^  e) {
+			 if (e->RowIndex == -1 && e->ColumnIndex > -1)
 			 {
-				 String^ str1 = gcnew String((*it).name);
-				 String^ str2 = gcnew String((*it).type);
-				 String^ str3 = (*it).id.ToString()+" "+str1+" "+str2;
-				 if (str3==comboBox2->Text && cnt==SelectedLes)
-				 {
-					 current.les1=(*it);
-					 break;
-				 }
-				 cnt++;
+				 e->PaintBackground(e->CellBounds, false);
+				 Rectangle r2 = e->CellBounds;
+				 r2.Y += e->CellBounds.Height / 2;
+				 r2.Height = e->CellBounds.Height / 2;
+				 e->PaintContent(r2);
+				 e->Handled = true;
 			 }
-			 for (list<string>::iterator it2=current.les1.for_groups.begin();it2!=current.les1.for_groups.end();it2++)
-			 {
-				 String^ str = gcnew String((*it2).c_str());
-				 comboBox3->Items->Add(str);
-			 }*/
+		 }
+		 private: array<String^>^days;
+				  int NumOfDays;
+				  int NumOfTimes;
 
+private: System::Void TTable_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
+			 //String^^ monthes[] = {gcnew String("January"), gcnew String("February"), gcnew String("March") };
+			 //string monthes[] = { "January", "February", "March" };
 
-			 // если список пуст -> написать в комбо, что все группы распределены
-			 /*if (comboBox3->Items->Count == 0)
+			 //array<String^>^monthes = gcnew array<String^> (3) { "January", "February", "March" };
+			 
+			 for (int j = 0; j < NumOfDays*NumOfTimes+1;)
 			 {
-				 comboBox3->Text="Все группы распределены";
+				 RectangleF r1 = TTable->GetCellDisplayRectangle(j+1, -1, true); //get the column header cell
+				 r1.X += 1;
+				 r1.Y += 1;
+				 /*r1.Width = r1.Width * 2 - 2;
+				 r1.Height = r1.Height / 2 - 2;*/
+				 r1.Width = r1.Width * NumOfTimes - NumOfTimes;
+				 r1.Height = r1.Height / 2 - 2;
+				 e->Graphics->FillRectangle(/*Brushes::Transparent*/gcnew SolidBrush(TTable->ColumnHeadersDefaultCellStyle->BackColor), r1);
+				 StringFormat^ format = gcnew StringFormat();
+				 format->Alignment = StringAlignment::Center;
+				 format->LineAlignment = StringAlignment::Center;
+				 e->Graphics->DrawString(days[j/NumOfTimes],
+					 TTable->ColumnHeadersDefaultCellStyle->Font,
+					 gcnew SolidBrush(TTable->ColumnHeadersDefaultCellStyle->ForeColor),
+					 r1,
+					 format);
+				 j += NumOfTimes;
+			 }
+		 }
+
+private: System::Void button6_Click(System::Object^  sender, System::EventArgs^  e) {
+			 if (groupBox1->Visible)
+			 {
+				 groupBox1->Visible=false;
+				 button6->Text=">>>>>>";
+				 Point^ newLoc = gcnew Point(button6->Location.X-332,button6->Location.Y);
+				 button6->Location = *newLoc;
+				 
+				 groupBox2->Size = *(gcnew System::Drawing::Size(groupBox2->Size.Width+332, groupBox2->Size.Height));
+				 newLoc = gcnew Point(groupBox2->Location.X-332,groupBox2->Location.Y);
+				 groupBox2->Location = *newLoc;
 			 }
 			 else
-				 comboBox3->SelectedIndex = 0;*/
+			 {
+				 groupBox1->Visible=true;
+				 button6->Text="<<<<<<";
+				 Point^ newLoc = gcnew Point(button6->Location.X+332,button6->Location.Y);
+				 button6->Location = *newLoc;
+
+				 groupBox2->Size = *(gcnew System::Drawing::Size(groupBox2->Size.Width-332, groupBox2->Size.Height));
+				 newLoc = gcnew Point(groupBox2->Location.X+332,groupBox2->Location.Y);
+				 groupBox2->Location = *newLoc;
+			 }
+
+			 
+		 }
+private: System::Void toolStripButton4_Click(System::Object^  sender, System::EventArgs^  e) {
+			 tabControl1->SelectedIndex = 1;
 		 }
 };
 }
