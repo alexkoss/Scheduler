@@ -57,6 +57,11 @@ namespace xmltest_dotnet {
 			 static bool NeedToWork;
 			 static bool NeedToUpdate;
 			 
+			 array<String^>^days;
+			 int NumOfDays;
+			 int NumOfTimes;
+			 
+			 list<string>* Teachers;
 			 // Текущие значения предмета для добавления
 			 /*public lesson_struct TemplLes;
 			 group_struct  TemplGr;
@@ -102,6 +107,11 @@ namespace xmltest_dotnet {
 	private: System::Windows::Forms::GroupBox^  groupBox2;
 	private: System::Windows::Forms::Button^  button6;
 
+	private: System::Windows::Forms::GroupBox^  groupBox3;
+	private: System::Windows::Forms::ComboBox^  comboBox7;
+	private: System::Windows::Forms::Label^  label7;
+	private: System::Windows::Forms::DataGridView^  RTable;
+
 
 
 
@@ -116,6 +126,7 @@ namespace xmltest_dotnet {
 		void InitializeComponent(void)
 		{
 			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(Form1::typeid));
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPage1 = (gcnew System::Windows::Forms::TabPage());
@@ -142,6 +153,10 @@ namespace xmltest_dotnet {
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->tabPage2 = (gcnew System::Windows::Forms::TabPage());
+			this->comboBox7 = (gcnew System::Windows::Forms::ComboBox());
+			this->label7 = (gcnew System::Windows::Forms::Label());
+			this->groupBox3 = (gcnew System::Windows::Forms::GroupBox());
+			this->RTable = (gcnew System::Windows::Forms::DataGridView());
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
 			this->tableLayoutPanel2 = (gcnew System::Windows::Forms::TableLayoutPanel());
 			this->toolStrip1 = (gcnew System::Windows::Forms::ToolStrip());
@@ -162,6 +177,8 @@ namespace xmltest_dotnet {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->TTable))->BeginInit();
 			this->groupBox1->SuspendLayout();
 			this->tabPage2->SuspendLayout();
+			this->groupBox3->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->RTable))->BeginInit();
 			this->panel2->SuspendLayout();
 			this->toolStrip1->SuspendLayout();
 			this->statusStrip1->SuspendLayout();
@@ -443,6 +460,9 @@ namespace xmltest_dotnet {
 			// 
 			// tabPage2
 			// 
+			this->tabPage2->Controls->Add(this->comboBox7);
+			this->tabPage2->Controls->Add(this->label7);
+			this->tabPage2->Controls->Add(this->groupBox3);
 			this->tabPage2->Controls->Add(this->panel2);
 			this->tabPage2->Location = System::Drawing::Point(4, 22);
 			this->tabPage2->Name = L"tabPage2";
@@ -452,6 +472,57 @@ namespace xmltest_dotnet {
 			this->tabPage2->Text = L"Расписание";
 			this->tabPage2->UseVisualStyleBackColor = true;
 			// 
+			// comboBox7
+			// 
+			this->comboBox7->FormattingEnabled = true;
+			this->comboBox7->Location = System::Drawing::Point(151, 6);
+			this->comboBox7->Name = L"comboBox7";
+			this->comboBox7->Size = System::Drawing::Size(121, 21);
+			this->comboBox7->TabIndex = 15;
+			this->comboBox7->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::comboBox7_SelectedIndexChanged);
+			// 
+			// label7
+			// 
+			this->label7->AutoSize = true;
+			this->label7->Location = System::Drawing::Point(9, 9);
+			this->label7->Name = L"label7";
+			this->label7->Size = System::Drawing::Size(136, 13);
+			this->label7->TabIndex = 14;
+			this->label7->Text = L"Просмотр расписания по";
+			// 
+			// groupBox3
+			// 
+			this->groupBox3->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
+				| System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->groupBox3->Controls->Add(this->RTable);
+			this->groupBox3->Location = System::Drawing::Point(6, 36);
+			this->groupBox3->Name = L"groupBox3";
+			this->groupBox3->Size = System::Drawing::Size(1010, 475);
+			this->groupBox3->TabIndex = 13;
+			this->groupBox3->TabStop = false;
+			this->groupBox3->Text = L"Расписание";
+			// 
+			// RTable
+			// 
+			this->RTable->AllowUserToAddRows = false;
+			this->RTable->AllowUserToDeleteRows = false;
+			this->RTable->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
+				| System::Windows::Forms::AnchorStyles::Left) 
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->RTable->AutoSizeRowsMode = System::Windows::Forms::DataGridViewAutoSizeRowsMode::DisplayedCells;
+			this->RTable->Location = System::Drawing::Point(6, 19);
+			this->RTable->Name = L"RTable";
+			this->RTable->ReadOnly = true;
+			dataGridViewCellStyle2->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
+			dataGridViewCellStyle2->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->RTable->RowsDefaultCellStyle = dataGridViewCellStyle2;
+			this->RTable->RowTemplate->Resizable = System::Windows::Forms::DataGridViewTriState::True;
+			this->RTable->Size = System::Drawing::Size(998, 450);
+			this->RTable->TabIndex = 2;
+			this->RTable->CellPainting += gcnew System::Windows::Forms::DataGridViewCellPaintingEventHandler(this, &Form1::RTable_CellPainting);
+			this->RTable->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &Form1::RTable_Paint);
+			// 
 			// panel2
 			// 
 			this->panel2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom) 
@@ -459,10 +530,11 @@ namespace xmltest_dotnet {
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->panel2->AutoScroll = true;
 			this->panel2->Controls->Add(this->tableLayoutPanel2);
-			this->panel2->Location = System::Drawing::Point(3, 6);
+			this->panel2->Location = System::Drawing::Point(931, 6);
 			this->panel2->Name = L"panel2";
-			this->panel2->Size = System::Drawing::Size(1013, 505);
+			this->panel2->Size = System::Drawing::Size(85, 49);
 			this->panel2->TabIndex = 12;
+			this->panel2->Visible = false;
 			// 
 			// tableLayoutPanel2
 			// 
@@ -588,6 +660,9 @@ namespace xmltest_dotnet {
 			this->groupBox1->ResumeLayout(false);
 			this->groupBox1->PerformLayout();
 			this->tabPage2->ResumeLayout(false);
+			this->tabPage2->PerformLayout();
+			this->groupBox3->ResumeLayout(false);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->RTable))->EndInit();
 			this->panel2->ResumeLayout(false);
 			this->panel2->PerformLayout();
 			this->toolStrip1->ResumeLayout(false);
@@ -1221,6 +1296,9 @@ private: System::Void toolStripButton1_Click(System::Object^  sender, System::Ev
 
 			 newColIndex = TTable->Columns->Add("Groups","Группа");
 			 TTable->Columns[newColIndex]->Frozen = true;
+			 newColIndex = RTable->Columns->Add("Groups","Группа");
+			 RTable->Columns[newColIndex]->Frozen = true;
+
 
 			 int dayCnt=0;
 			 for (list<day_struct>::iterator it_d=inp_original->inputs.days.begin();it_d!=inp_original->inputs.days.end();it_d++)
@@ -1231,6 +1309,7 @@ private: System::Void toolStripButton1_Click(System::Object^  sender, System::Ev
 				 {
 					 String^ curTime((*it_t).begin_time.ToString());
 					 newColIndex = TTable->Columns->Add("Col"+(newColIndex+1).ToString(),curTime);
+					 newColIndex = RTable->Columns->Add("Col"+(newColIndex+1).ToString(),curTime);
 				 }
 			 }
 
@@ -1238,10 +1317,18 @@ private: System::Void toolStripButton1_Click(System::Object^  sender, System::Ev
 			 {
 				 TTable->Columns[i]->Width = 150;
 			 }
+			 for (int i=0;i<RTable->ColumnCount;i++)
+			 {
+				 RTable->Columns[i]->Width = 150;
+			 }
 
 			 TTable->ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode::EnableResizing;
 			 TTable->ColumnHeadersHeight = TTable->ColumnHeadersHeight*2;
 			 TTable->ColumnHeadersDefaultCellStyle->Alignment = DataGridViewContentAlignment::BottomCenter;
+
+			 RTable->ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode::EnableResizing;
+			 RTable->ColumnHeadersHeight = TTable->ColumnHeadersHeight;
+			 RTable->ColumnHeadersDefaultCellStyle->Alignment = DataGridViewContentAlignment::BottomCenter;
 
 			 // заносим шаблон группы
 			 for (list<group_struct>::iterator it=inp_original->inputs.groups.begin();it!=inp_original->inputs.groups.end();it++)
@@ -1250,6 +1337,30 @@ private: System::Void toolStripButton1_Click(System::Object^  sender, System::Ev
 				 TTable->Rows->Add(curGroup);
 			 }
 			 tabControl1->SelectedIndex = 0;
+
+			 comboBox7->Items->Add("группам");
+			 comboBox7->Items->Add("преподавателям");
+			 comboBox7->SelectedIndex = 0;
+			 Teachers = new list<string>();
+			 for (list<lesson_struct>::iterator it=inp_original->inputs.lessons.begin();it!=inp_original->inputs.lessons.end();it++)
+			 {
+				 string str((*it).teacher); // новый учитель 
+				 bool isInTList = false;
+				 if (Teachers->size()>0)
+				 {
+					 for (list<string>::iterator it_s=Teachers->begin(); it_s!=Teachers->end(); it_s++)
+					 {
+						 if ((*it_s)==str)
+							 isInTList = true;
+					 }
+				 }
+				 if (!isInTList)
+				 {
+					 this->Teachers->push_back(str);
+				 }
+			 }
+
+			 //MessageBox::Show(String::Format("{0} разных преподавателей", Teachers->size()));
 		 }
 
 // заполнение предметов для выбора в шаблоне
@@ -1282,8 +1393,11 @@ private: System::Void toolStripButton2_Click(System::Object^  sender, System::Ev
 			 //s->Show_All_List(str);
 			 MessageBox::Show(String::Concat("Number of 8 am pairs: ", num_of_8_am_pairs));
 			 TableUpdate();
-			 tableLayoutPanel2->Visible = true;
+			 //tableLayoutPanel2->Visible = true;
+			 panel2->Visible = false;
 			 tabControl1->SelectedIndex = 2;
+			 comboBox7_SelectedIndexChanged(sender,e);
+			 //UpdateRTable();
 		 }
 
 // запуск расчёта расписания с использованием генетического алгоритма
@@ -1306,6 +1420,8 @@ private: System::Void backgroundWorker1_RunWorkerCompleted(System::Object^  send
 			 TableUpdate();
 			 tableLayoutPanel2->Visible = true;
 			 tabControl1->SelectedIndex = 2;
+			 comboBox7_SelectedIndexChanged(sender,e);
+			 //UpdateRTable();
 		 }
 
 		 // смена значения комбо занятия
@@ -1726,23 +1842,13 @@ private: System::Void TTable_CellPainting(System::Object^  sender, System::Windo
 				 e->Handled = true;
 			 }
 		 }
-		 private: array<String^>^days;
-				  int NumOfDays;
-				  int NumOfTimes;
 
 private: System::Void TTable_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
-			 //String^^ monthes[] = {gcnew String("January"), gcnew String("February"), gcnew String("March") };
-			 //string monthes[] = { "January", "February", "March" };
-
-			 //array<String^>^monthes = gcnew array<String^> (3) { "January", "February", "March" };
-			 
 			 for (int j = 0; j < NumOfDays*NumOfTimes+1;)
 			 {
 				 RectangleF r1 = TTable->GetCellDisplayRectangle(j+1, -1, true); //get the column header cell
 				 r1.X += 1;
 				 r1.Y += 1;
-				 /*r1.Width = r1.Width * 2 - 2;
-				 r1.Height = r1.Height / 2 - 2;*/
 				 r1.Width = r1.Width * NumOfTimes - NumOfTimes;
 				 r1.Height = r1.Height / 2 - 2;
 				 e->Graphics->FillRectangle(/*Brushes::Transparent*/gcnew SolidBrush(TTable->ColumnHeadersDefaultCellStyle->BackColor), r1);
@@ -1784,8 +1890,140 @@ private: System::Void button6_Click(System::Object^  sender, System::EventArgs^ 
 
 			 
 		 }
+
 private: System::Void toolStripButton4_Click(System::Object^  sender, System::EventArgs^  e) {
 			 tabControl1->SelectedIndex = 1;
+		 }
+
+private: System::Void comboBox7_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
+			 if (comboBox7->SelectedIndex==0)
+			 {
+				 //RTable->Columns->Clear();
+				 RTable->Rows->Clear();
+
+				 RTable->Columns[0]->HeaderText = "Группа";
+				 // заносим шаблон группы
+				 for (list<group_struct>::iterator it=inp_original->inputs.groups.begin();it!=inp_original->inputs.groups.end();it++)
+				 {
+					 String^ curGroup = gcnew String((*it).name);
+					 RTable->Rows->Add(curGroup);
+				 }
+			 }
+			 else if (comboBox7->SelectedIndex==1)
+			 {
+				 //RTable->Columns->Clear();
+				 RTable->Rows->Clear();
+
+				 RTable->Columns[0]->HeaderText = "Преподаватель";
+				 // заносим шаблон группы
+				 for (list<string>::iterator it=Teachers->begin();it!=Teachers->end();it++)
+				 {
+					 String^ curGroup = gcnew String((*it).c_str());
+					 RTable->Rows->Add(curGroup);
+				 }
+			 }
+			 UpdateRTable();
+		 }
+
+private: System::Void UpdateRTable()
+		 {
+			 //int col=0,row=0;
+			 int maxOfTimes = inp_original->inputs.times.size();
+			 for (list<sched_string>::iterator it=s->slist.begin();it!=s->slist.end();it++)
+			 {
+				 // создаём каждую строку
+				 if (comboBox7->SelectedIndex==0)
+				 {
+					 int col=1+((*it).day1.id-1)*maxOfTimes+((*it).tim1.id-1);
+					 int row = (*it).gr1.id-1;
+					 String^ stringToFill;
+					 String^ stringToFill1 = gcnew String((*it).les1.name);
+					 String^ stringToFill2 = gcnew String((*it).les1.type);
+					 String^ stringToFill3 = gcnew String((*it).aud1.name);
+					 String^ stringToFill4 = gcnew String((*it).les1.teacher);
+					 stringToFill=stringToFill1+"\n"+stringToFill2+"\n"+stringToFill3+"\n"+stringToFill4;
+
+					 RTable[col,row]->Value=stringToFill;
+				 }
+				 else if (comboBox7->SelectedIndex==1)
+				 {
+					 int col=1+((*it).day1.id-1)*maxOfTimes+((*it).tim1.id-1);
+					 int row=0;
+					 for (list<string>::iterator it_s=Teachers->begin();it_s!=Teachers->end();it_s++)
+					 {
+						 //String^ str = gcnew String(RTable[0,row]->Value->ToString());
+						 String^ str = gcnew String((*it).les1.teacher);
+						 //str+='\0';
+						 //str->Chars(str->Length);
+						 String^ str2 = gcnew String((*it_s).c_str());
+						 if (str==str2)
+							 break;
+						 else
+							 row++;
+					 }
+					 String^ str3 = "";
+					 //if (RTable[col,row]->Value != NULL)
+					 if(!Convert::IsDBNull(RTable[col,row]->Value))
+						 
+					 /*{
+						 str3 = gcnew String(RTable[col,row]->Value->ToString());
+					 }
+					 
+					 String^ str4 = "";
+					 if (str3==str4)*/
+					 {
+						 String^ stringToFill;
+						 String^ stringToFill1 = gcnew String((*it).les1.name);
+						 String^ stringToFill2 = gcnew String((*it).les1.type);
+						 String^ stringToFill3 = gcnew String((*it).aud1.name);
+						 //String^ stringToFill4 = gcnew String((*it).gr1.name);
+						 stringToFill=stringToFill1+"\n"+stringToFill2+"\n"+stringToFill3;//+"\n"+stringToFill4;
+
+						 RTable[col,row]->Value=stringToFill;
+					 }
+					 else
+					 {
+						 String^ stringToFill4 = gcnew String((*it).gr1.name);
+						 String^ stringToFill3 = gcnew String(RTable[col,row]->Value->ToString());
+						 String^ stringToFill = stringToFill3+","+stringToFill4;
+						 RTable[col,row]->Value=stringToFill;
+					 }
+
+				 }
+			 }
+		 }
+
+private: System::Void RTable_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
+			 for (int j = 0; j < NumOfDays*NumOfTimes+1;)
+			 {
+				 RectangleF r1 = RTable->GetCellDisplayRectangle(j+1, -1, true); //get the column header cell
+				 r1.X += 1;
+				 r1.Y += 1;
+				 r1.Width = r1.Width * NumOfTimes - NumOfTimes;
+				 r1.Height = r1.Height / 2 - 2;
+				 e->Graphics->FillRectangle(/*Brushes::Transparent*/gcnew SolidBrush(RTable->ColumnHeadersDefaultCellStyle->BackColor), r1);
+				 StringFormat^ format = gcnew StringFormat();
+				 format->Alignment = StringAlignment::Center;
+				 format->LineAlignment = StringAlignment::Center;
+				 e->Graphics->DrawString(days[j/NumOfTimes],
+					 RTable->ColumnHeadersDefaultCellStyle->Font,
+					 gcnew SolidBrush(RTable->ColumnHeadersDefaultCellStyle->ForeColor),
+					 r1,
+					 format);
+				 j += NumOfTimes;
+			 }
+		 }
+
+private: System::Void RTable_CellPainting(System::Object^  sender, System::Windows::Forms::DataGridViewCellPaintingEventArgs^  e) {
+			 if (e->RowIndex == -1 && e->ColumnIndex > -1)
+			 {
+				 e->PaintBackground(e->CellBounds, false);
+				 Rectangle r2 = e->CellBounds;
+				 r2.Y += e->CellBounds.Height / 2;
+				 r2.Height = e->CellBounds.Height / 2;
+				 e->PaintContent(r2);
+				 e->Handled = true;
+			 }
 		 }
 };
 }
