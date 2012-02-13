@@ -427,22 +427,10 @@ int SCHEDULE::stats(schedule_inputs* inputs)
 		}
 	}
 
-/*	cout << "\n Statistics: \n";
-	
-	//вывод
-	cout << "Groups		Lessons \n";
-	cout << "	1	2	3	4	5\n";
-	for (int j=0; j<4; j++)
-	{
-		cout << garr[j].name << '\t';
-		for (int i=0; i<5; i++)
-		{
-			cout << mas[j][i] << '\t';
-		}
-		cout << '\n';
-	}
-*/	return res;
-	//return 0;
+	int retVal=res+RateWindowsGroups(inputs);
+	retVal+=RateWindowsTeachers(inputs);
+	//return res;
+	return retVal;
 }
 
 void SCHEDULE::modify(schedule_inputs* inputs,int num)
@@ -762,6 +750,7 @@ int SCHEDULE::Cycle(schedule_inputs* inputs)
 	}
 	// создали начальную популяцию
 	
+	// скрестить
 	// мутация каждого
 	// выбор лучших
 	// формирование нового поколения (добавление )
@@ -838,6 +827,134 @@ int SCHEDULE::Cycle(schedule_inputs* inputs)
 	slist=ret_sch.slist;
 	slist.sort();
 	return min;
+}
+
+int SCHEDULE::RateWindowsGroups(schedule_inputs* inputs)
+{
+	int retVal=0;
+	bool groupStarts = false;
+	bool switcher = false; // изменение состояния подряд идущих пар
+	sched_string memLes;
+
+	for (list<group_struct>::iterator it_gr=inputs->inputs.groups.begin();it_gr!=inputs->inputs.groups.end();it_gr++)
+	{
+		for (list<sched_string>::iterator it=slist.begin();it!=slist.end();it++)
+		{
+			if (!groupStarts)
+			{
+				if ((*it).gr1.id==(*it_gr).id)
+				{
+					groupStarts=true;
+					memLes = (*it);
+					retVal+=1;
+				}
+			}
+			if ((*it).day1.id!=(memLes.day1.id))
+			{
+				if ((*it).gr1.id==(*it_gr).id)
+				{
+					groupStarts=true;
+					memLes = (*it);
+					retVal+=1;
+				}
+			}
+			if ((*it).day1.id==(memLes.day1.id) && (*it).tim1.id==(memLes.tim1.id)) // 
+			{
+				//ok - ничего не делаем
+			}
+			else if ((*it).day1.id==(memLes.day1.id) && (*it).tim1.id==(memLes.tim1.id+1) && (*it).gr1.id==memLes.gr1.id) 
+			{
+				switcher = false; // если у группы два занятия подряд - нет переключения
+			}
+			else if ((*it).day1.id==(memLes.day1.id) && (*it).tim1.id==(memLes.tim1.id+2) && (*it).gr1.id==memLes.gr1.id)
+			{
+				// занятия идут через одно - два переключения
+				retVal+=2;
+			}
+			else if ((*it).day1.id==(memLes.day1.id) && (*it).tim1.id==(memLes.tim1.id+3) && (*it).gr1.id==memLes.gr1.id)
+			{
+				// занятия идут через одно - два переключения
+				retVal+=2;
+			}
+			else if ((*it).day1.id==(memLes.day1.id) && (*it).tim1.id==(memLes.tim1.id+4) && (*it).gr1.id==memLes.gr1.id)
+			{
+				// занятия идут через одно - два переключения
+				retVal+=2;
+			}
+
+			if ((*it).gr1.id==(*it_gr).id)
+			{
+				memLes = (*it);
+			}
+		}
+	}
+
+	return retVal;
+}
+
+int SCHEDULE::RateWindowsTeachers(schedule_inputs* inputs)
+{
+	int retVal=0;
+	bool groupStarts = false;
+	bool switcher = false; // изменение состояния подряд идущих пар
+	sched_string memLes;
+
+	//groups -> teachers
+	//for (list<group_struct>::iterator it_gr=inputs->inputs.groups.begin();it_gr!=inputs->inputs.groups.end();it_gr++)
+	for (list<string>::iterator it_t=teachers_list.begin();it_t!=teachers_list.end();it_t++)
+	{
+		for (list<sched_string>::iterator it=slist.begin();it!=slist.end();it++)
+		{
+			if (!groupStarts)
+			{
+				if ((*it).les1.teacher==(*it_t))
+				{
+					groupStarts=true;
+					memLes = (*it);
+					retVal+=1;
+				}
+			}
+			if ((*it).day1.id!=(memLes.day1.id))
+			{
+				if ((*it).les1.teacher==(*it_t))
+				{
+					groupStarts=true;
+					memLes = (*it);
+					retVal+=1;
+				}
+			}
+			if ((*it).day1.id==(memLes.day1.id) && (*it).tim1.id==(memLes.tim1.id)) // 
+			{
+				//ok - ничего не делаем
+			}
+			else if ((*it).day1.id==(memLes.day1.id) && (*it).tim1.id==(memLes.tim1.id+1) && (*it).les1.teacher==(*it_t)) 
+			{
+				switcher = false; // если у группы два занятия подряд - нет переключения
+			}
+			else if ((*it).day1.id==(memLes.day1.id) && (*it).tim1.id==(memLes.tim1.id+2) && (*it).les1.teacher==(*it_t))
+			{
+				// занятия идут через одно - два переключения
+				retVal+=2;
+			}
+			else if ((*it).day1.id==(memLes.day1.id) && (*it).tim1.id==(memLes.tim1.id+3) && (*it).les1.teacher==(*it_t))
+			{
+				// занятия идут через одно - два переключения
+				retVal+=2;
+			}
+			else if ((*it).day1.id==(memLes.day1.id) && (*it).tim1.id==(memLes.tim1.id+4) && (*it).les1.teacher==(*it_t))
+			{
+				// занятия идут через одно - два переключения
+				retVal+=2;
+			}
+
+			if ((*it).les1.teacher==(*it_t))
+			{
+				memLes = (*it);
+			}
+		}
+	}
+
+	return retVal;
 }
 
 int SCHEDULE::Get_Stat()	// функция расчёта количества пар в 8 утра
@@ -966,6 +1083,28 @@ void SCHEDULE::Make_Lesson_List	(schedule_inputs* inputs)
 	sem_list.sort();
 	lab_list.sort();
 	
+	// создаём список преподавателей
+
+	//teachers_list = new list<string>();
+	for (list<lesson_struct>::iterator it=inputs->inputs.lessons.begin();it!=inputs->inputs.lessons.end();it++)
+	{
+		string str((*it).teacher); // новый учитель 
+		bool isInTList = false;
+		if (teachers_list.size()>0)
+		{
+			for (list<string>::iterator it_s=teachers_list.begin(); it_s!=teachers_list.end(); it_s++)
+			{
+				if ((*it_s)==str)
+					isInTList = true;
+			}
+		}
+		if (!isInTList)
+		{
+			teachers_list.push_back(str);
+		}
+	}
+
+	int a = teachers_list.size();
 	// теперь из отсортированных списков аудиторий нужно создавать строки расписания
 }
 

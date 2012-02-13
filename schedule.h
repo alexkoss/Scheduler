@@ -44,6 +44,7 @@ public:
 	list<adt_string> lec_list;
 	list<adt_string> sem_list;
 	list<adt_string> lab_list;
+	list<string> teachers_list;
 	//методы
 
 public:
@@ -57,6 +58,7 @@ public:
 		lec_list.clear();
 		sem_list.clear();
 		lab_list.clear();
+		teachers_list.clear();
 	}
 
 	void CopySched(SCHEDULE copy)
@@ -65,6 +67,7 @@ public:
 		lec_list=copy.lec_list;
 		sem_list=copy.sem_list;
 		lab_list=copy.lab_list;
+		teachers_list=copy.teachers_list;
 	}
 	void clear()
 	{
@@ -72,6 +75,7 @@ public:
 		lec_list.clear();
 		sem_list.clear();
 		lab_list.clear();
+		teachers_list.clear();
 	}
 	void Show_All_List			(char* out);
 	void Create					(schedule_inputs* inputs);
@@ -88,6 +92,8 @@ public:
 	int Cycle					(schedule_inputs* inputs);  
 	int Cycle2					(schedule_inputs* inputs);
 	int  num_free_groups		();
+	int RateWindowsGroups		(schedule_inputs* inputs);
+	int RateWindowsTeachers		(schedule_inputs* inputs);
 	void Make_Lesson_List		(schedule_inputs* inputs);
 	lesson_struct Get_Lesson_From			(schedule_inputs* inputs);
 	time_struct Get_Time_From				(schedule_inputs* inputs);

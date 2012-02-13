@@ -117,6 +117,8 @@ namespace xmltest_dotnet {
 
 
 
+
+
 			 static selected_indexes* selected_ind;
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -125,8 +127,8 @@ namespace xmltest_dotnet {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle5 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle6 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(Form1::typeid));
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPage1 = (gcnew System::Windows::Forms::TabPage());
@@ -305,9 +307,9 @@ namespace xmltest_dotnet {
 			this->TTable->Location = System::Drawing::Point(6, 17);
 			this->TTable->Name = L"TTable";
 			this->TTable->ReadOnly = true;
-			dataGridViewCellStyle1->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
-			dataGridViewCellStyle1->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
-			this->TTable->RowsDefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle5->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
+			dataGridViewCellStyle5->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->TTable->RowsDefaultCellStyle = dataGridViewCellStyle5;
 			this->TTable->RowTemplate->Resizable = System::Windows::Forms::DataGridViewTriState::True;
 			this->TTable->Size = System::Drawing::Size(629, 481);
 			this->TTable->TabIndex = 1;
@@ -514,9 +516,9 @@ namespace xmltest_dotnet {
 			this->RTable->Location = System::Drawing::Point(6, 19);
 			this->RTable->Name = L"RTable";
 			this->RTable->ReadOnly = true;
-			dataGridViewCellStyle2->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
-			dataGridViewCellStyle2->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
-			this->RTable->RowsDefaultCellStyle = dataGridViewCellStyle2;
+			dataGridViewCellStyle6->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
+			dataGridViewCellStyle6->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->RTable->RowsDefaultCellStyle = dataGridViewCellStyle6;
 			this->RTable->RowTemplate->Resizable = System::Windows::Forms::DataGridViewTriState::True;
 			this->RTable->Size = System::Drawing::Size(998, 450);
 			this->RTable->TabIndex = 2;
@@ -641,7 +643,7 @@ namespace xmltest_dotnet {
 			this->Controls->Add(this->statusStrip1);
 			this->Controls->Add(this->toolStrip1);
 			this->Controls->Add(this->tabControl1);
-			this->MinimumSize = System::Drawing::Size(800, 350);
+			this->MinimumSize = System::Drawing::Size(800, 470);
 			this->Name = L"Form1";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Составитель расписания";
@@ -1280,6 +1282,7 @@ private: System::Void toolStripButton1_Click(System::Object^  sender, System::Ev
 			 {
 				 InitInputs(inp,openFileDialog1->FileName);
 				 s_template->Make_Lesson_List(inp);
+				 s->Make_Lesson_List(inp);
 				 InitInputs(inp_original,openFileDialog1->FileName);
 			 }
 			 else
@@ -1391,7 +1394,9 @@ private: System::Void toolStripButton2_Click(System::Object^  sender, System::Ev
 			 int num_of_8_am_pairs = s->Cycle2(inp);
 			 //char str[65000]="";
 			 //s->Show_All_List(str);
-			 MessageBox::Show(String::Concat("Number of 8 am pairs: ", num_of_8_am_pairs));
+			 MessageBox::Show(String::Concat("Количество пар в 8.00: \t\t", num_of_8_am_pairs,
+				 String::Format("\nОценка 'окон' групп: \t\t{0}",s->RateWindowsGroups(inp_original)),
+				 String::Format("\nОценка 'окон' преподавателей: \t{0}",s->RateWindowsTeachers(inp_original))), "Статистика", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			 TableUpdate();
 			 //tableLayoutPanel2->Visible = true;
 			 panel2->Visible = false;
@@ -1412,7 +1417,9 @@ private: System::Void backgroundWorker1_DoWork(System::Object^  sender, System::
 			 int num_of_8_am_pairs = s->Cycle(inp);
 			 char str[65000]="";
 			 s->Show_All_List(str);
-			 MessageBox::Show(String::Concat("Number of 8 am pairs: ", num_of_8_am_pairs));
+			 MessageBox::Show(String::Concat("Количество пар в 8.00: \t\t", num_of_8_am_pairs,
+				 String::Format("\nОценка 'окон' групп: \t\t{0}",s->RateWindowsGroups(inp_original)),
+				 String::Format("\nОценка 'окон' преподавателей: \t{0}",s->RateWindowsTeachers(inp_original))), "Статистика", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			 NeedToWork=false;
 		 }
 
